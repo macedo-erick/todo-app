@@ -1,15 +1,15 @@
 @if (boards$ | async; as boards) {
   @for (board of boards; track board._id) {
-    <div>{{board.name}}</div>
+    <div>{{ board.name }}</div>
   }
 }
 
 @if (user$ | async; as user) {
   <div>
-    {{user | json }}
+    {{ user | json }}
   </div>
 }
 
 @if (board$ | async; as board) {
-  <div>{{board | json}}</div>
+  <div>{{ board | json }}</div>
 }

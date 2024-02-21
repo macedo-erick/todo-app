@@ -5,16 +5,9 @@ import { PrivateRoutingModule } from './private-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { BoardComponent } from './pages/board/board.component';
 
-
 @NgModule({
-  declarations: [
-    HomeComponent,
-    BoardComponent
-  ],
-  imports: [
-    CommonModule,
-    PrivateRoutingModule
-  ],
-  providers: []
+  declarations: [HomeComponent, BoardComponent],
+  imports: [CommonModule, PrivateRoutingModule],
+  providers: [],
 })
-export class PrivateModule { }
+export class PrivateModule {}

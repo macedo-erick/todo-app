@@ -1,19 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Socket} from 'ngx-socket-io';
-import {Config} from '../../sockets/socket';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
+import { Config } from '../../sockets/socket';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardService extends Socket {
-
   constructor() {
-    super(Config('boards'))
+    super(Config('boards'));
   }
 
   findAll() {
-    this.emit('findAll')
+    this.emit('findAll');
   }
 
   onFindAll(): Observable<any[]> {
@@ -21,10 +20,10 @@ export class BoardService extends Socket {
   }
 
   findOne(id: string) {
-    this.emit('findOne', { id })
+    this.emit('findOne', { id });
   }
 
   onFindOne() {
-    return this.fromEvent('onFindOne')
+    return this.fromEvent('onFindOne');
   }
 }

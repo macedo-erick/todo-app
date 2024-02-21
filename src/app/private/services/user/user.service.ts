@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  private readonly basepath = "http://localhost:8080/api/dev/users"
+  private readonly basepath = 'http://localhost:8080/api/dev/users';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   find() {
-    return this.http.get(this.basepath)
+    return this.http.get(this.basepath);
   }
 }

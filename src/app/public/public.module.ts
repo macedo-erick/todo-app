@@ -4,20 +4,17 @@ import { CommonModule } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  declarations: [
-    SigninComponent,
-    SignupComponent
-  ],
+  declarations: [SigninComponent, SignupComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatCardModule,
+  ],
 })
-export class PublicModule { }
+export class PublicModule {}
