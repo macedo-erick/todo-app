@@ -1,4 +1,12 @@
 .header__container {
   height: 5rem;
   top: 0;
+
+  .avatar__btn {
+    background-color: #ff991f;
+    font-size: 0.6rem;
+
+    height: 1.6rem;
+    width: 1.6rem;
+  }
 }

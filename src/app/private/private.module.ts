@@ -10,6 +10,7 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardFooter,
+  MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
@@ -52,7 +53,8 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
     MatMiniFabButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatCardSubtitle
   ],
   exports: [HeaderComponent],
   providers: []

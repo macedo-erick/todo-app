@@ -11,16 +11,14 @@ body {
   margin: 0;
   overflow-y: hidden;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-color: var(--quinary-color);
+  background-color: var(--tertiary-color);
 }
 
 :root {
   --color-white: #fafbfcff;
-  --primary-color: #1d2125;
-  --secondary-color: #101204;
-  --tertiary-color: #ffffff3d;
-  --quaternary-color: #8a9198;
-  --quinary-color: #a6c5e229;
+  --primary-color: #beadfa;
+  --secondary-color: #c3bdd2;
+  --tertiary-color: #f3f3f3;
 }
 
 .bg__primary {
@@ -31,12 +29,8 @@ body {
   background-color: var(--secondary-color) !important;
 }
 
-.bg__quaternary {
-  background-color: var(--quaternary-color) !important;
-}
-
-.bg__quinary {
-  background-color: var(--quinary-color) !important;
+.bg__tertiary {
+  background-color: var(--tertiary-color) !important;
 }
 
 .select-none {
@@ -53,12 +47,6 @@ body {
 
 .fs-8 {
   font-size: 0.8rem !important;
-}
-
-.action__btn {
-  &:hover {
-    background-color: var(--quinary-color) !important;
-  }
 }
 
 .content__editable {
