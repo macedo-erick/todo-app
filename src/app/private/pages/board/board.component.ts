@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '../../services/board/board.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Board } from '../../models/board.model';
 
 @Component({
@@ -10,7 +11,8 @@ import { Board } from '../../models/board.model';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  board!: Board;
+  board$ = this.boardService.onFindOne();
+  board = toSignal(this.board$, { initialValue: {} as Board });
 
   constructor(
     private route: ActivatedRoute,
@@ -18,23 +20,24 @@ export class BoardComponent {
   ) {
     this.route.params.subscribe(({ id }) => {
       this.boardService.findOne(id);
-      this.boardService.onFindOne().subscribe((board) => {
-        this.board = board;
-      });
     });
   }
 
   drop(event: CdkDragDrop<List>) {
-    moveItemInArray(this.board.lists, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.board().lists,
+      event.previousIndex,
+      event.currentIndex
+    );
     this.updateBoard();
   }
 
   updateBoard() {
-    this.boardService.update(this.board);
+    this.boardService.update(this.board());
   }
 
   handleTitleChange(innerText: string) {
-    this.board.name = innerText;
+    this.board().name = innerText;
     this.updateBoard();
   }
 }
