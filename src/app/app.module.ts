@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { PrivateModule } from './private/private.module';
 
 export function tokenGetter() {
   return localStorage.getItem('SESSION');
@@ -30,7 +31,8 @@ export function tokenGetter() {
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    MatMiniFabButton
+    MatMiniFabButton,
+    PrivateModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent]

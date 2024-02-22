@@ -14,11 +14,17 @@ import {
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
 import { ListComponent } from './components/list/list.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import {
+  MatButton,
+  MatIconButton,
+  MatMiniFabButton
+} from '@angular/material/button';
 import { CardComponent } from './components/card/card.component';
 import { MatIcon } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChip } from '@angular/material/chips';
+import { HeaderComponent } from './components/header/header.component';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,8 @@ import { MatChip } from '@angular/material/chips';
     BoardComponent,
     BoardCardComponent,
     ListComponent,
-    CardComponent
+    CardComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -41,8 +48,13 @@ import { MatChip } from '@angular/material/chips';
     MatButton,
     DragDropModule,
     MatCardFooter,
-    MatChip
+    MatChip,
+    MatMiniFabButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ],
+  exports: [HeaderComponent],
   providers: []
 })
 export class PrivateModule {}

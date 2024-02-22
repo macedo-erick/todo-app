@@ -1,9 +1,8 @@
-.header__container {
-  height: 5rem;
-  top: 0;
-}
-
 main {
-  margin-top: 5rem;
-  height: calc(100vh - 5rem);
+  height: calc(100vh);
+
+  &.signed__in {
+    margin-top: 5rem;
+    height: calc(100vh - 5rem);
+  }
 }
