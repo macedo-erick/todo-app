@@ -10,7 +10,7 @@
         <mat-icon>format_align_left</mat-icon>
       }
 
-      @if (checkListStatus()) {
+      @if (card.checklist) {
         <span class="d-flex align-items-center py-1 gap-1">
           <mat-icon>check_box</mat-icon>
           {{ checkListStatus() }}

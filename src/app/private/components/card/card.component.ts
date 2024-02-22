@@ -48,9 +48,12 @@ export class CardComponent {
 
   private changeCheckListStatus() {
     const card = this.card() as Card;
-    const tasks = card.checklist.tasks;
-    const finishedTasks = tasks.filter((c) => c.finished).length;
 
-    this.checkListStatus.set(`${finishedTasks}/${tasks.length}`);
+    if (card.checklist && card.checklist.tasks) {
+      const tasks = card.checklist.tasks;
+      const finishedTasks = tasks.filter((c) => c.finished).length;
+
+      this.checkListStatus.set(`${finishedTasks}/${tasks.length}`);
+    }
   }
 }
