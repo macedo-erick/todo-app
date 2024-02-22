@@ -1,1 +1,15 @@
-<p>board works!</p>
+@if (board$ | async; as board) {
+  <div class="board__wrapper d-flex flex-column bg__primary w-100 h-100">
+    <div class="board__header bg__quinary d-flex align-items-center px-4 w-100 ">
+      <h1 class="m-0 text-white fs-5 fw-bolder">{{ board.name }}</h1>
+    </div>
+
+    <ol class="list__container flex-grow-1 w-100 p-4">
+      @for (list of board.lists; track list._id) {
+        <li>
+          <todo-list [list]="list"/>
+        </li>
+      }
+    </ol>
+  </div>
+}

@@ -1,0 +1,7 @@
+@if (board(); as board) {
+  <a class="wrapper d-inline-block w-100 text-decoration-none" [routerLink]="['/s/board/', board._id]">
+    <mat-card class="bg__tertiary h-100 w-100 d-flex justify-content-center align-items-center" matRipple>
+      <h1 class="m-0 fw-bolder fs-6 text-white">{{ board.name }}</h1>
+    </mat-card>
+  </a>
+}

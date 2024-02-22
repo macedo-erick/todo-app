@@ -6,7 +6,38 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
+  overflow-y: hidden;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+:root {
+  --primary-color: #FAFBFCFF;
+  --secondary-color: #1D2125;
+  --tertiary-color: #101204;
+  --quartenary-color: #ffffff3d;
+  --quinary-color: #8a9198;
+  --senary-color: #A6C5E229;
+}
+
+.bg__primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg__secondary {
+   background-color: var(--secondary-color) !important;
+}
+
+.bg__tertiary {
+  background-color: var(--tertiary-color) !important;
+}
+
+.bg__quinary {
+  background-color: var(--quinary-color) !important;
+}
+
+.bg__senary {
+  background-color: var(--senary-color) !important;
 }

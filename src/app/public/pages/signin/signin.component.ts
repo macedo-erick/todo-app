@@ -12,9 +12,11 @@ export class SigninComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  showPassword = false;
+
   constructor(private authService: AuthService) {}
 
-  signIn() {
+  signIn(): void {
     this.authService.signIn(this.signInFormGroup.value).subscribe();
   }
 }

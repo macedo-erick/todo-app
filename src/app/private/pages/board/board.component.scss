@@ -1,0 +1,19 @@
+.board__wrapper {
+  .board__header {
+    height: 4rem;
+  }
+
+  .list__container {
+    list-style: none;
+
+    display: flex;
+    gap: 1rem;
+
+    overflow-x: scroll;
+
+    li {
+      flex-basis: 20rem;
+      flex-shrink: 0;
+    }
+  }
+}

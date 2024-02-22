@@ -1,5 +1,25 @@
-<form (ngSubmit)="signIn()" [formGroup]="signInFormGroup">
-  <input type="email" placeholder="email" formControlName="email" />
-  <input type="password" placeholder="password" formControlName="password" />
-  <button type="submit" [disabled]="signInFormGroup.invalid">Sign In</button>
-</form>
+<div class="wrapper h-100 w-100 d-grid justify-content-center align-items-center">
+  <mat-card class="form__container shadow">
+    <form (ngSubmit)="signIn()" [formGroup]="signInFormGroup"
+          class="h-100 w-100 p-5 d-flex flex-column gap-3 justify-content-center">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
+        <button matIconSuffix mat-icon-button type="button" (click)="showPassword = !showPassword">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <a routerLink="#" class="mb-3">Forgot password?</a>
+
+      <button type="submit" [disabled]="signInFormGroup.invalid" mat-raised-button color="primary">Sign In</button>
+    </form>
+  </mat-card>
+</div>
+

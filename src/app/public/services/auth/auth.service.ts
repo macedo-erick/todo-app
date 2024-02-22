@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { SigninRequest, SigninResponse } from '../../models/signin.model';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private readonly basePath = 'http://localhost:8080/api/dev/auth';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient) {}
 
   signIn(signinRequest: SigninRequest): Observable<SigninResponse> {
     return this.http
@@ -21,8 +17,17 @@ export class AuthService {
       .pipe(
         tap(res => {
           localStorage.setItem('SESSION', res.access_token);
-          void this.router.navigate(['/s/home']);
+          window.location.href = '/s/home';
         })
       );
+  }
+
+  signOut(): void {
+    localStorage.removeItem('SESSION');
+    window.location.href = '';
+  }
+
+  isSignedIn(): boolean {
+    return !!localStorage.getItem('SESSION');
   }
 }

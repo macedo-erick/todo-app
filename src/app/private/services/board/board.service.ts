@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Config } from '../../sockets/socket';
 import { Observable } from 'rxjs';
+import { Board } from '../../models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +16,15 @@ export class BoardService extends Socket {
     this.emit('findAll');
   }
 
-  onFindAll(): Observable<any[]> {
+  onFindAll(): Observable<Board[]> {
     return this.fromEvent('onFindAll');
   }
 
-  findOne(id: string) {
-    this.emit('findOne', { id });
+  findOne(_id: string) {
+    this.emit('findOne', { _id });
   }
 
-  onFindOne() {
+  onFindOne(): Observable<Board> {
     return this.fromEvent('onFindOne');
   }
 }

@@ -1,0 +1,20 @@
+.wrapper {
+  .list__title {
+    font-size: 14px;
+    font-weight: 600;
+
+    user-select: none;
+  }
+
+  .card__content {
+    min-height: 1rem;
+  }
+
+  .new__card__btn {
+    font-size: .8rem;
+
+    &:hover {
+      background-color: var(--senary-color)
+    }
+  }
+}

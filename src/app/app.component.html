@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<header class="header__container bg__secondary position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
+        *ngIf="isSignedIn">
+  <a routerLink="/p/home" class="text-decoration-none">
+    <h1 class="text-white fw-bolder m-0">Todo</h1>
+  </a>
+
+  <button mat-mini-fab [matMenuTriggerFor]="menu">
+    @if (userInitials$ | async; as res) {
+      {{ res.initials }}
+    }
+  </button>
+</header>
+
+<main class="w-100 bg__primary">
+  <router-outlet></router-outlet>
+</main>
+
+<mat-menu #menu>
+  <button mat-menu-item (click)="signOut()">Sign Out</button>
+</mat-menu>

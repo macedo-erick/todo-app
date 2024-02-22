@@ -1,15 +1,9 @@
 @if (boards$ | async; as boards) {
-  @for (board of boards; track board._id) {
-    <div>{{ board.name }}</div>
-  }
-}
-
-@if (user$ | async; as user) {
-  <div>
-    {{ user | json }}
-  </div>
-}
-
-@if (board$ | async; as board) {
-  <div>{{ board | json }}</div>
+  <ul class="boards__container p-4">
+    @for (board of boards; track board._id) {
+      <li>
+        <todo-board-card [board]="board" />
+      </li>
+    }
+  </ul>
 }

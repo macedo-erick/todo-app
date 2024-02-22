@@ -1,0 +1,12 @@
+.wrapper {
+  background-color: var(--primary-color);
+
+  .form__container {
+    height: 500px;
+    width: 450px;
+
+    .checkbox__container {
+      margin-left: -10px;
+    }
+  }
+}
