@@ -8,23 +8,23 @@ const routes: Routes = [
     path: 's',
     canActivate: [authGuard],
     loadChildren: () =>
-      import('./private/private.module').then(m => m.PrivateModule),
+      import('./private/private.module').then((m) => m.PrivateModule)
   },
   {
     path: 'p',
     canActivate: [loggedInGuard],
     loadChildren: () =>
-      import('./public/public.module').then(m => m.PublicModule),
+      import('./public/public.module').then((m) => m.PublicModule)
   },
   {
     path: '**',
     redirectTo: 'p',
-    pathMatch: 'full',
-  },
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -15,12 +15,12 @@ body {
 }
 
 :root {
-  --primary-color: #FAFBFCFF;
-  --secondary-color: #1D2125;
+  --primary-color: #fafbfcff;
+  --secondary-color: #1d2125;
   --tertiary-color: #101204;
   --quartenary-color: #ffffff3d;
   --quinary-color: #8a9198;
-  --senary-color: #A6C5E229;
+  --senary-color: #a6c5e229;
 }
 
 .bg__primary {
@@ -28,7 +28,7 @@ body {
 }
 
 .bg__secondary {
-   background-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color) !important;
 }
 
 .bg__tertiary {

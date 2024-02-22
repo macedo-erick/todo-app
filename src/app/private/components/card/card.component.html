@@ -3,7 +3,9 @@
     <mat-card-title>
       <h3 class="card__title select-none m-0 text-white">{{ card.name }}</h3>
     </mat-card-title>
-    <mat-card-footer class="card__info d-flex gap-2 align-items-center text-white">
+    <mat-card-footer
+      class="card__info d-flex gap-2 align-items-center text-white"
+    >
       @if (card.description) {
         <mat-icon>format_align_left</mat-icon>
       }
@@ -11,12 +13,15 @@
       @if (checkListStatus()) {
         <span class="d-flex align-items-center py-1 gap-1">
           <mat-icon>check_box</mat-icon>
-          {{checkListStatus()}}
+          {{ checkListStatus() }}
         </span>
       }
 
       @if (card.dueDate) {
-        <span class="due__date rounded d-flex align-items-center py-1 gap-1" [ngClass]="dueDateStatus()">
+        <span
+          class="due__date rounded d-flex align-items-center py-1 gap-1"
+          [ngClass]="dueDateStatus()"
+        >
           <mat-icon>schedule</mat-icon>
           {{ card.dueDate | date: 'MM/dd/yyyy' }}
         </span>

@@ -115,8 +115,8 @@ export const Config = (namespace: string): ExtendedSocketIoConfig => {
     options: {
       path: `/ws/dev/${namespace}`,
       extraHeaders: {
-        Authorization: tokenGetter(),
-      },
-    },
+        Authorization: tokenGetter()
+      }
+    }
   };
 };

@@ -3,14 +3,14 @@ import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
   moveItemInArray,
-  transferArrayItem,
+  transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
 
 @Component({
   selector: 'todo-list',
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
+  styleUrl: './list.component.scss'
 })
 export class ListComponent {
   list = input<List>();

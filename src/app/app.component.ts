@@ -5,7 +5,7 @@ import { UserService } from './private/services/user/user.service';
 @Component({
   selector: 'todo-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   isSignedIn = this.authService.isSignedIn();

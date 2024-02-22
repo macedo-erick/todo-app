@@ -4,7 +4,7 @@ import { Observable, shareReplay } from 'rxjs';
 import { UserInitials } from '../../models/user-initials.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
   private readonly basePath = 'http://localhost:8080/api/dev/users';

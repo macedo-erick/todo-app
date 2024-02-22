@@ -1,14 +1,21 @@
 @if (board) {
   <div class="wrapper bg__senary d-flex flex-column w-100 h-100">
-    <div class="board__header bg__secondary d-flex w-100 align-items-center px-4">
+    <div
+      class="board__header bg__secondary d-flex w-100 align-items-center px-4"
+    >
       <h1 class="m-0 fs-5 fw-bolder text-white">{{ board.name }}</h1>
     </div>
 
-    <ol class="ls-none w-100 d-flex flex-grow-1 p-4 gap-2" cdkDropListGroup cdkDropList
-        cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+    <ol
+      class="ls-none w-100 d-flex flex-grow-1 p-4 gap-2"
+      cdkDropListGroup
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+    >
       @for (list of board.lists; track list.name) {
         <li cdkDrag>
-          <todo-list [list]="list" (modifiedList)="updateBoard()"/>
+          <todo-list [list]="list" (modifiedList)="updateBoard()" />
         </li>
       }
     </ol>

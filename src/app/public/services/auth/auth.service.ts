@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { SigninRequest, SigninResponse } from '../../models/signin.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   private readonly basePath = 'http://localhost:8080/api/dev/auth';
@@ -15,7 +15,7 @@ export class AuthService {
     return this.http
       .post<SigninResponse>(`${this.basePath}/signin`, signinRequest)
       .pipe(
-        tap(res => {
+        tap((res) => {
           localStorage.setItem('SESSION', res.access_token);
           window.location.href = '/s/home';
         })

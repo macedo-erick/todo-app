@@ -10,7 +10,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatFormField,
   MatLabel,
-  MatSuffix,
+  MatSuffix
 } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -31,7 +31,7 @@ import { MatIcon } from '@angular/material/icon';
     MatCheckbox,
     MatIcon,
     MatSuffix,
-    MatIconButton,
-  ],
+    MatIconButton
+  ]
 })
 export class PublicModule {}

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Board } from '../../models/board.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BoardService extends Socket {
   constructor() {

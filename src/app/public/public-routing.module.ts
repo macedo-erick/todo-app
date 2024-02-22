@@ -6,21 +6,21 @@ import { SignupComponent } from './pages/signup/signup.component';
 const routes: Routes = [
   {
     path: 'signin',
-    component: SigninComponent,
+    component: SigninComponent
   },
   {
     path: 'signup',
-    component: SignupComponent,
+    component: SignupComponent
   },
   {
     path: '**',
     redirectTo: 'signin',
-    pathMatch: 'full',
-  },
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class PublicRoutingModule {}

@@ -5,13 +5,13 @@ import { addDays } from 'date-fns';
 enum DueDateStatus {
   OVERDUE = 'overdue',
   PENDING = 'pending',
-  FINISHED = 'finished',
+  FINISHED = 'finished'
 }
 
 @Component({
   selector: 'todo-card',
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
+  styleUrl: './card.component.scss'
 })
 export class CardComponent {
   card = input<Card>();
@@ -49,7 +49,7 @@ export class CardComponent {
   private changeCheckListStatus() {
     const card = this.card() as Card;
     const tasks = card.checklist.tasks;
-    const finishedTasks = tasks.filter(c => c.finished).length;
+    const finishedTasks = tasks.filter((c) => c.finished).length;
 
     this.checkListStatus.set(`${finishedTasks}/${tasks.length}`);
   }

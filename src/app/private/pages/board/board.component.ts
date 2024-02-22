@@ -7,7 +7,7 @@ import { Board } from '../../models/board.model';
 
 @Component({
   templateUrl: './board.component.html',
-  styleUrl: './board.component.scss',
+  styleUrl: './board.component.scss'
 })
 export class BoardComponent {
   board!: Board;
@@ -18,7 +18,7 @@ export class BoardComponent {
   ) {
     this.route.params.subscribe(({ id }) => {
       this.boardService.findOne(id);
-      this.boardService.onFindOne().subscribe(board => {
+      this.boardService.onFindOne().subscribe((board) => {
         this.board = board;
       });
     });

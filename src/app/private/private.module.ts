@@ -10,7 +10,7 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardFooter,
-  MatCardTitle,
+  MatCardTitle
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
 import { ListComponent } from './components/list/list.component';
@@ -26,7 +26,7 @@ import { MatChip } from '@angular/material/chips';
     BoardComponent,
     BoardCardComponent,
     ListComponent,
-    CardComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
@@ -41,8 +41,8 @@ import { MatChip } from '@angular/material/chips';
     MatButton,
     DragDropModule,
     MatCardFooter,
-    MatChip,
+    MatChip
   ],
-  providers: [],
+  providers: []
 })
 export class PrivateModule {}
