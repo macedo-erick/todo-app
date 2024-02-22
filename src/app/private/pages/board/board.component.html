@@ -14,7 +14,7 @@
     </div>
 
     <ol
-      class="ls-none w-100 d-flex flex-grow-1 p-4 gap-2"
+      class="ls-none w-100 d-flex flex-grow-1 px-4 pt-4 mb-0 gap-2"
       cdkDropListGroup
       cdkDropList
       cdkDropListOrientation="horizontal"
@@ -23,6 +23,19 @@
       @for (list of board.lists; track list.name) {
         <li cdkDrag>
           <todo-list [list]="list" (modifiedList)="updateBoard()" />
+        </li>
+      }
+
+      @if (loaded()) {
+        <li>
+          <button
+            mat-button
+            class="bg__tertiary btn w-100 fs-8 text-white d-flex flex-grow-1 justify-content-start"
+            (mousedown)="addList()"
+          >
+            <mat-icon>add</mat-icon>
+            <span>Add a list</span>
+          </button>
         </li>
       }
     </ol>

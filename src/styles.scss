@@ -51,6 +51,20 @@ body {
   list-style: none !important;
 }
 
+.fs-7 {
+  font-size: 14px !important;
+}
+
+.fs-8 {
+  font-size: 0.8rem !important;
+}
+
+.action__btn {
+  &:hover {
+    background-color: var(--senary-color) !important;
+  }
+}
+
 .content__editable {
   &:focus-within {
     outline: 1px solid var(--primary-color);

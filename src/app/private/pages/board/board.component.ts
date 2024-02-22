@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '../../services/board/board.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -12,7 +12,9 @@ import { Board } from '../../models/board.model';
 })
 export class BoardComponent {
   board$ = this.boardService.onFindOne();
+
   board = toSignal(this.board$, { initialValue: {} as Board });
+  loaded: Signal<boolean> = computed(() => !!this.board().name);
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +40,11 @@ export class BoardComponent {
 
   handleTitleChange(innerText: string) {
     this.board().name = innerText;
+    this.updateBoard();
+  }
+
+  addList() {
+    this.board().lists.push({ name: 'New list', cards: [] });
     this.updateBoard();
   }
 }

@@ -39,4 +39,9 @@ export class ListComponent {
     list.name = innerText.trim();
     this.modifiedList.emit();
   }
+
+  addCard() {
+    this.list().cards.push({ name: 'New Card' } as Card);
+    this.modifiedList.emit();
+  }
 }

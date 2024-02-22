@@ -2,7 +2,7 @@
   <mat-card class="wrapper bg__tertiary w-100">
     <mat-card-title class="py-2 px-3">
       <h2
-        class="list__name content__editable select-none py-2 px-2 m-0 text-white"
+        class="fs-7 fw-bolder content__editable select-none py-2 px-2 m-0 text-white"
         contenteditable
         #h1
         (blur)="handleTitleChange(list, h1.innerText)"
@@ -29,7 +29,8 @@
     <mat-card-actions class="d-flex px-3">
       <button
         mat-button
-        class="btn new__card__btn text-white d-flex flex-grow-1 justify-content-start"
+        class="btn action__btn fs-8 text-white d-flex flex-grow-1 justify-content-start"
+        (mousedown)="addCard()"
       >
         <mat-icon>add</mat-icon>
         <span>Add a card</span>

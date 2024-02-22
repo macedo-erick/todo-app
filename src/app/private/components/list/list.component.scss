@@ -1,22 +1,9 @@
 .wrapper {
-  .list__name {
-    font-size: 14px;
-    font-weight: 600;
-  }
-
   ol {
     min-height: 2rem;
 
     li:hover {
       cursor: pointer;
-    }
-  }
-
-  .new__card__btn {
-    font-size: 0.8rem;
-
-    &:hover {
-      background-color: var(--senary-color);
     }
   }
 }
