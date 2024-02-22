@@ -13,8 +13,7 @@ import { Card } from '../../models/card.model';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  list = input<List>();
-
+  list = input.required<List>();
   @Output() modifiedList = new EventEmitter();
 
   drop(event: CdkDragDrop<Card[]>) {
@@ -33,6 +32,11 @@ export class ListComponent {
       );
     }
 
+    this.modifiedList.emit();
+  }
+
+  handleTitleChange(list: List, innerText: string) {
+    list.name = innerText.trim();
     this.modifiedList.emit();
   }
 }

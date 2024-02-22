@@ -1,7 +1,14 @@
 @if (list(); as list) {
   <mat-card class="wrapper bg__tertiary w-100">
-    <mat-card-title class="py-3 px-4">
-      <h2 class="list__title select-none m-0 text-white">{{ list.name }}</h2>
+    <mat-card-title class="py-2 px-3">
+      <h2
+        class="list__name content__editable select-none py-2 px-2 m-0 text-white"
+        contenteditable
+        #h1
+        (blur)="handleTitleChange(list, h1.innerText)"
+      >
+        {{ list.name }}
+      </h2>
     </mat-card-title>
 
     <mat-card-content>

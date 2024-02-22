@@ -32,4 +32,9 @@ export class BoardComponent {
   updateBoard() {
     this.boardService.update(this.board);
   }
+
+  handleTitleChange(innerText: string) {
+    this.board.name = innerText;
+    this.updateBoard();
+  }
 }

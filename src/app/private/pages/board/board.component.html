@@ -1,9 +1,16 @@
 @if (board) {
   <div class="wrapper bg__senary d-flex flex-column w-100 h-100">
     <div
-      class="board__header bg__secondary d-flex w-100 align-items-center px-4"
+      class="board__header bg__secondary d-flex w-100 align-items-center px-3"
     >
-      <h1 class="m-0 fs-5 fw-bolder text-white">{{ board.name }}</h1>
+      <h1
+        class="content__editable m-0 fs-5 fw-bolder text-white px-2"
+        contenteditable
+        #h1
+        (blur)="handleTitleChange(h1.innerText)"
+      >
+        {{ board.name }}
+      </h1>
     </div>
 
     <ol

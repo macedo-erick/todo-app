@@ -14,7 +14,7 @@ enum DueDateStatus {
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  card = input<Card>();
+  card = input.required<Card>();
   dueDateStatus = signal('');
   checkListStatus = signal('');
 

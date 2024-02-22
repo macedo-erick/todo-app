@@ -51,6 +51,13 @@ body {
   list-style: none !important;
 }
 
+.content__editable {
+  &:focus-within {
+    outline: 1px solid var(--primary-color);
+    border-radius: 4px;
+  }
+}
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
@@ -65,6 +72,10 @@ body {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-ol.cdk-drop-list-dragging li:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+ol {
+  &.cdk-drop-list-dragging {
+    li:not(.cdk-drag-placeholder) {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 }
