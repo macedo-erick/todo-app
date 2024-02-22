@@ -16,6 +16,10 @@ export class BoardService extends Socket {
     this.emit('findAll');
   }
 
+  update(board: Board) {
+    this.emit('update', board);
+  }
+
   onFindAll(): Observable<Board[]> {
     return this.fromEvent('onFindAll');
   }

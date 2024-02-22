@@ -7,11 +7,7 @@ import { AppComponent } from './app.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {
-  MatButton,
-  MatFabButton,
-  MatMiniFabButton,
-} from '@angular/material/button';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 export function tokenGetter() {
@@ -34,7 +30,6 @@ export function tokenGetter() {
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    MatFabButton,
     MatMiniFabButton,
   ],
   providers: [provideAnimationsAsync()],

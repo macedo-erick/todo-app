@@ -1,21 +1,37 @@
-.board__wrapper {
+.wrapper {
   .board__header {
     height: 4rem;
-
-    backdrop-filter: blur(0px);
   }
 
-  .list__container {
-    list-style: none;
-
-    display: flex;
-    gap: 1rem;
-
+  ol {
     overflow-x: scroll;
 
     li {
       flex-basis: 20rem;
       flex-shrink: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
+}
+
+::-webkit-scrollbar {
+  background-color: #fff;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #dadbe2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bfc4ce;
+  border-radius: 16px;
+  border: 0px solid #fff;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }

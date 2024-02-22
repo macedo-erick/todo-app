@@ -1,20 +1,25 @@
-@if (list(); as list) {
-  <mat-card class="wrapper w-100 bg__tertiary">
-    <mat-card-title class="py-3 px-4">
-      <h2 class="list__title m-0 text-white">{{ list.name }}</h2>
-    </mat-card-title>
+  @if (list(); as list) {
+    <mat-card class="wrapper bg__tertiary w-100">
+      <mat-card-title class="py-3 px-4">
+        <h2 class="list__title select-none m-0 text-white">{{ list.name }}</h2>
+      </mat-card-title>
 
-    <mat-card-content class="card__content d-flex flex-column gap-2">
-      @for (card of list.cards; track card.name) {
-        <todo-card [card]="card"/>
-      }
-    </mat-card-content>
+      <mat-card-content>
+        <ol class="ls-none d-flex flex-column p-0 gap-2" cdkDropList [cdkDropListData]="list.cards"
+            (cdkDropListDropped)="drop($event)">
+          @for (card of list.cards; track card.name) {
+            <li cdkDrag>
+              <todo-card [card]="card" />
+            </li>
+          }
+        </ol>
+      </mat-card-content>
 
-    <mat-card-actions class="d-flex px-3">
-      <button mat-button class="btn new__card__btn text-white d-flex justify-content-start flex-grow-1">
-        <mat-icon>add</mat-icon>
-        <span>Add a card</span>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-}
+      <mat-card-actions class="d-flex px-3">
+        <button mat-button class="btn new__card__btn text-white d-flex flex-grow-1 justify-content-start">
+          <mat-icon>add</mat-icon>
+          <span>Add a card</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }

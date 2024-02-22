@@ -1,13 +1,14 @@
-@if (board$ | async; as board) {
-  <div class="board__wrapper bg__senary d-flex flex-column w-100 h-100">
-    <div class="board__header bg__secondary d-flex align-items-center px-4 w-100 ">
-      <h1 class="m-0 text-white fs-5 fw-bolder">{{ board.name }}</h1>
+@if (board) {
+  <div class="wrapper bg__senary d-flex flex-column w-100 h-100">
+    <div class="board__header bg__secondary d-flex w-100 align-items-center px-4">
+      <h1 class="m-0 fs-5 fw-bolder text-white">{{ board.name }}</h1>
     </div>
 
-    <ol class="list__container flex-grow-1 w-100 p-4">
-      @for (list of board.lists; track list._id) {
-        <li>
-          <todo-list [list]="list"/>
+    <ol class="ls-none w-100 d-flex flex-grow-1 p-4 gap-2" cdkDropListGroup cdkDropList
+        cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+      @for (list of board.lists; track list.name) {
+        <li cdkDrag>
+          <todo-list [list]="list" (modifiedList)="updateBoard()"/>
         </li>
       }
     </ol>

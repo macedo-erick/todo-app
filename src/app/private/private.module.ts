@@ -9,6 +9,7 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardFooter,
   MatCardTitle,
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
@@ -16,6 +17,8 @@ import { ListComponent } from './components/list/list.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { CardComponent } from './components/card/card.component';
 import { MatIcon } from '@angular/material/icon';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatChip } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { MatIcon } from '@angular/material/icon';
     MatIconButton,
     MatIcon,
     MatButton,
+    DragDropModule,
+    MatCardFooter,
+    MatChip,
   ],
   providers: [],
 })

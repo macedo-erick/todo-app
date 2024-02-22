@@ -2,12 +2,14 @@
   .list__title {
     font-size: 14px;
     font-weight: 600;
-
-    user-select: none;
   }
 
-  .card__content {
+  ol {
     min-height: 1rem;
+
+    li:hover {
+      cursor: pointer;
+    }
   }
 
   .new__card__btn {
