@@ -11,16 +11,16 @@ body {
   margin: 0;
   overflow-y: hidden;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-color: var(--senary-color);
+  background-color: var(--quinary-color);
 }
 
 :root {
-  --primary-color: #fafbfcff;
-  --secondary-color: #1d2125;
-  --tertiary-color: #101204;
-  --quartenary-color: #ffffff3d;
-  --quinary-color: #8a9198;
-  --senary-color: #a6c5e229;
+  --color-white: #fafbfcff;
+  --primary-color: #1d2125;
+  --secondary-color: #101204;
+  --tertiary-color: #ffffff3d;
+  --quaternary-color: #8a9198;
+  --quinary-color: #a6c5e229;
 }
 
 .bg__primary {
@@ -31,16 +31,12 @@ body {
   background-color: var(--secondary-color) !important;
 }
 
-.bg__tertiary {
-  background-color: var(--tertiary-color) !important;
+.bg__quaternary {
+  background-color: var(--quaternary-color) !important;
 }
 
 .bg__quinary {
   background-color: var(--quinary-color) !important;
-}
-
-.bg__senary {
-  background-color: var(--senary-color) !important;
 }
 
 .select-none {
@@ -61,13 +57,13 @@ body {
 
 .action__btn {
   &:hover {
-    background-color: var(--senary-color) !important;
+    background-color: var(--quinary-color) !important;
   }
 }
 
 .content__editable {
   &:focus-within {
-    outline: 1px solid var(--primary-color);
+    outline: 1px solid var(--color-white);
     border-radius: 4px;
   }
 }
