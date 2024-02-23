@@ -1,6 +1,11 @@
 .wrapper {
   .board__header {
     height: 4rem;
+
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+
+    background-color: #0000003d;
   }
 
   ol {
@@ -13,6 +18,14 @@
 
       &:hover {
         cursor: pointer;
+      }
+
+      .btn {
+        background-color: var(--transparent-color);
+
+        &:hover {
+          background-color: var(--overlay-item-hovered-color);
+        }
       }
     }
   }

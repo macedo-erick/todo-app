@@ -1,5 +1,5 @@
 @if (list(); as list) {
-  <mat-card class="wrapper bg__tertiary w-100">
+  <mat-card class="wrapper w-100">
     <mat-card-title class="d-flex justify-content-between py-2 px-2">
       <h2
         class="fs-7 fw-bolder content__editable select-none py-2 px-2 m-0 text-white"
@@ -10,14 +10,18 @@
         {{ list.name }}
       </h2>
 
-      <button mat-icon-button class="text-white" [matMenuTriggerFor]="listMenu">
+      <button
+        mat-icon-button
+        class="text-white hoverable"
+        [matMenuTriggerFor]="listMenu"
+      >
         <mat-icon>more_horiz</mat-icon>
       </button>
     </mat-card-title>
 
-    <mat-card-content class="p-2">
+    <mat-card-content class="px-2">
       <ol
-        class="ls-none d-flex flex-column p-0 px-2 gap-2"
+        class="ls-none d-flex flex-column p-1 gap-2"
         cdkDropList
         [cdkDropListData]="list.cards"
         (cdkDropListDropped)="drop($event)"
@@ -30,10 +34,10 @@
       </ol>
     </mat-card-content>
 
-    <mat-card-actions class="d-flex px-3">
+    <mat-card-actions class="d-flex px-2">
       <button
         mat-button
-        class="btn action__btn fs-8 text-white d-flex flex-grow-1 justify-content-start"
+        class="btn hoverable fs-8 text-white d-flex flex-grow-1 justify-content-start"
         (mousedown)="addCard()"
       >
         <mat-icon>add</mat-icon>
@@ -43,11 +47,11 @@
   </mat-card>
 }
 
-<mat-menu #listMenu="matMenu" class="bg__quaternary">
+<mat-menu #listMenu="matMenu" class="overlay__bg">
   <button
     (click)="removedList.emit()"
     mat-menu-item
-    class="text-white menu__btn"
+    class="text-white hoverable"
   >
     Delete list
   </button>

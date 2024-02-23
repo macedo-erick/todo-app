@@ -1,10 +1,8 @@
 @if (board(); as board) {
-  <div class="wrapper d-flex flex-column w-100 h-100">
-    <div
-      class="board__header bg__secondary d-flex w-100 align-items-center px-3"
-    >
+  <div class="wrapper board__bg d-flex flex-column w-100 h-100">
+    <div class="board__header d-flex w-100 align-items-center px-3">
       <h1
-        class="content__editable m-0 fs-5 fw-bolder text-white px-2"
+        class="content__editable hoverable rounded select-none m-0 fs-5 fw-bolder text-white px-2"
         contenteditable
         #h1
         (blur)="handleTitleChange(h1.innerText)"
@@ -34,7 +32,7 @@
         <li>
           <button
             mat-button
-            class="bg__primary btn w-100 fs-8 text-white d-flex flex-grow-1 justify-content-start"
+            class="btn w-100 fs-8 text-white d-flex flex-grow-1 justify-content-start"
             (mousedown)="addList()"
           >
             <mat-icon>add</mat-icon>

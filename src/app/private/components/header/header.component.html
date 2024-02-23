@@ -1,5 +1,5 @@
 <header
-  class="header__container bg__primary position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
+  class="header__container position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
 >
   <a routerLink="/p/home" class="text-decoration-none">
     <h1 class="text-white fw-bolder m-0">Todo</h1>
@@ -16,8 +16,8 @@
   </button>
 </header>
 
-<mat-menu #menu="matMenu" class="bg__quaternary">
-  <button mat-menu-item (click)="signOut()" class="text-white menu__btn">
+<mat-menu #menu="matMenu" class="overlay__bg">
+  <button mat-menu-item (click)="signOut()" class="text-white hoverable">
     Sign Out
   </button>
 </mat-menu>

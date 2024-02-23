@@ -57,7 +57,7 @@ export class ListComponent {
       width: '45rem',
       height: '50rem',
       autoFocus: 'dialog',
-      panelClass: 'menu__bg'
+      panelClass: 'overlay__bg'
     });
   }
 }

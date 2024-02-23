@@ -1,6 +1,10 @@
 .wrapper {
   background-color: var(--card-color);
 
+  &:hover {
+    outline: 2px solid #85b8ff;
+  }
+
   .card__title {
     font-size: 0.8rem;
   }
