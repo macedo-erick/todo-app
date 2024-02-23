@@ -19,11 +19,13 @@ body {
   --midnight-blue: #1d2125;
   --charcoal-gray: #101204;
   --slate-gray: #282e33;
+  --misty-gray: #b6c2cf;
   --soft-azure: #a6c5e229;
   --graphite-black: #22272b;
   --transparent-black: #0000003d;
   --transparent-white: #ffffff3d;
   --sky-blue: #85b8ff;
+  --soft-blue-grey: #8c9bab;
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +40,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--soft-azure);
-  border: 0 solid #fff;
+  border: 0 solid;
 }
 
 ::-webkit-scrollbar-button {
@@ -47,6 +49,14 @@ body {
 
 .bg__graphite__black {
   background-color: var(--graphite-black) !important;
+}
+
+.text__misty__gray {
+  color: var(--misty-gray) !important;
+}
+
+.text__soft__blue {
+  color: var(--soft-blue-grey) !important;
 }
 
 .select-none {
@@ -66,6 +76,18 @@ body {
     outline: 2px solid var(--sky-blue);
     border-radius: 4px;
   }
+}
+
+.overlay__bg {
+  background-color: var(--slate-gray) !important;
+
+  .mdc-dialog__surface {
+    background-color: var(--slate-gray) !important;
+  }
+}
+
+.has__hover:hover {
+  background-color: var(--soft-azure) !important;
 }
 
 .cdk-drag-preview {
@@ -90,18 +112,6 @@ ol {
   }
 }
 
-.overlay__bg {
-  background-color: var(--slate-gray) !important;
-
-  .mdc-dialog__surface {
-    background-color: var(--slate-gray) !important;
-  }
-}
-
-.has__hover:hover {
-  background-color: var(--soft-azure) !important;
-}
-
 .mat-mdc-menu-item {
   height: 1rem !important;
   min-height: 0.5rem !important;
@@ -109,5 +119,7 @@ ol {
 
   .mat-mdc-menu-item-text {
     font-size: 0.8rem !important;
+    color: var(--misty-gray) !important;
+    font-weight: 500 !important;
   }
 }

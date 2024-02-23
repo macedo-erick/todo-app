@@ -2,7 +2,7 @@
   <mat-card class="wrapper w-100">
     <mat-card-title class="d-flex py-2 px-2">
       <h2
-        class="list__title content__editable flex-grow-1 fw-bolder py-2 px-2 m-0 text-white"
+        class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
         contenteditable="true"
         #h1
         (blur)="handleTitleChange(list, h1.innerText)"
@@ -12,7 +12,7 @@
 
       <button
         mat-icon-button
-        class="has__hover text-white"
+        class="has__hover text__soft__blue"
         [matMenuTriggerFor]="listMenu"
       >
         <mat-icon>more_horiz</mat-icon>
@@ -37,7 +37,7 @@
     <mat-card-actions class="d-flex px-2">
       <button
         mat-button
-        class="has__hover d-flex flex-grow-1 justify-content-start fs-8 text-white"
+        class="has__hover text__misty__gray d-flex flex-grow-1 justify-content-start fs-8"
         (mousedown)="addCard()"
       >
         <mat-icon>add</mat-icon>
@@ -48,11 +48,7 @@
 }
 
 <mat-menu #listMenu="matMenu" class="overlay__bg">
-  <button
-    (click)="removedList.emit()"
-    mat-menu-item
-    class="has__hover text-white"
-  >
+  <button (click)="removedList.emit()" mat-menu-item class="has__hover">
     Delete list
   </button>
 </mat-menu>
