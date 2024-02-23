@@ -1,8 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Card } from '../../models/card.model';
+import { Component, model } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { EditorConfig } from '@ckeditor/ckeditor5-core';
+import { Card } from '../../models/card.model';
 
 @Component({
   selector: 'todo-card-detail',
@@ -10,6 +9,8 @@ import { EditorConfig } from '@ckeditor/ckeditor5-core';
   styleUrl: './card-detail.component.scss'
 })
 export class CardDetailComponent {
+  card = model.required<Card>();
+
   editor = ClassicEditor;
 
   config: EditorConfig = {
@@ -46,5 +47,7 @@ export class CardDetailComponent {
     }
   };
 
-  constructor(@Inject(MAT_DIALOG_DATA) public card: Card) {}
+  log(evento: any) {
+    console.log(evento);
+  }
 }

@@ -1,4 +1,10 @@
-import { Component, computed, model } from '@angular/core';
+import {
+  Component,
+  computed,
+  model,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { Card } from '../../models/card.model';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,6 +23,8 @@ enum DueDateStatus {
 })
 export class CardComponent {
   card = model.required<Card>();
+
+  @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   dueDateStatus = computed(() => {
     const dueDate = new Date(this.card().dueDate);
@@ -49,12 +57,17 @@ export class CardComponent {
   constructor(private dialogService: MatDialog) {}
 
   showCardDetails() {
-    const dialog = this.dialogService.open(CardDetailComponent, {
-      data: this.card(),
+    this.dialogService.open(this.cardDetail, {
       width: '45rem',
       height: '50rem',
       autoFocus: 'dialog',
       panelClass: 'overlay__bg'
     });
+  }
+
+  cardChange(card: Card): void {
+    console.log(card);
+
+    this.card.update(() => card);
   }
 }
