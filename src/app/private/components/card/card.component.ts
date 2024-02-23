@@ -1,6 +1,8 @@
 import { Component, effect, input, signal } from '@angular/core';
 import { Card } from '../../models/card.model';
 import { addDays } from 'date-fns';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
+import { MatDialog } from '@angular/material/dialog';
 
 enum DueDateStatus {
   OVERDUE = 'overdue',
@@ -18,7 +20,7 @@ export class CardComponent {
   dueDateStatus = signal('');
   checkListStatus = signal('');
 
-  constructor() {
+  constructor(private dialogService: MatDialog) {
     effect(
       () => {
         this.changeDueDateStatus();
@@ -53,5 +55,15 @@ export class CardComponent {
 
       this.checkListStatus.set(`${finishedTasks}/${tasks.length}`);
     }
+  }
+
+  showCardDetails() {
+    this.dialogService.open(CardDetailComponent, {
+      data: this.card(),
+      width: '45rem',
+      height: '50rem',
+      autoFocus: 'dialog',
+      panelClass: 'overlay__bg'
+    });
   }
 }

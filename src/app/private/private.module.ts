@@ -35,6 +35,7 @@ import {
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
 import { MatDialogContent } from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatLabel,
     MatPrefix,
     MatDialogContent,
-    CKEditorModule
+    CKEditorModule,
+    FormsModule
   ],
   exports: [HeaderComponent],
   providers: []

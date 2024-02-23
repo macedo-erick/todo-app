@@ -30,6 +30,7 @@ body {
 
 ::-webkit-scrollbar {
   background-color: var(--slate-gray);
+
   width: 4px;
   height: 4px;
 }
@@ -93,6 +94,7 @@ body {
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
+
   list-style: none;
 }
 
@@ -122,4 +124,15 @@ ol {
     color: var(--misty-gray) !important;
     font-weight: 500 !important;
   }
+}
+
+.mat-icon {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  height: 20px;
+  width: 20px;
+
+  font-size: 20px;
 }

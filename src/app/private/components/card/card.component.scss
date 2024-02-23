@@ -10,32 +10,31 @@
 
   .card__info {
     font-size: 12px;
-  }
 
-  .due__date {
-    &.pending {
-      background-color: #f2d600;
-      padding: 0 0.5rem;
+    .due__date {
+      &.pending {
+        background-color: #f2d600;
+        padding: 0 0.5rem;
+      }
+
+      &.overdue {
+        background-color: red;
+        padding: 0 0.5rem;
+      }
+
+      &.finished {
+        background-color: #61bd4f;
+        padding: 0 0.5rem;
+      }
     }
 
-    &.overdue {
-      background-color: red;
-      padding: 0 0.5rem;
-    }
+    .mat-icon {
+      width: 1rem;
+      height: 1rem;
 
-    &.finished {
-      background-color: #61bd4f;
-      padding: 0 0.5rem;
-    }
-  }
-
-  .mat-icon {
-    width: 1rem;
-    height: 1rem;
-
-    &.mat-icon {
-      font-size: 1rem;
-      color: #000;
+      &.mat-icon {
+        font-size: 1rem;
+      }
     }
   }
 }

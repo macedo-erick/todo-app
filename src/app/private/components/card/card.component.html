@@ -1,12 +1,15 @@
 @if (card(); as card) {
-  <mat-card class="wrapper bg__graphite__black w-100 p-2">
+  <mat-card
+    class="wrapper bg__graphite__black rounded-4 w-100 py-2 px-3"
+    (click)="showCardDetails()"
+  >
     <mat-card-title>
       <h3 class="card__title text__misty__gray select-none m-0">
         {{ card.name }}
       </h3>
     </mat-card-title>
     <mat-card-footer
-      class="card__info d-flex gap-2 align-items-center text-white"
+      class="card__info text__misty__gray d-flex gap-2 align-items-center"
     >
       @if (card.description) {
         <mat-icon>format_align_left</mat-icon>
