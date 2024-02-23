@@ -3,7 +3,7 @@
     <mat-card-title class="d-flex py-2 px-2">
       <h2
         class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
-        contenteditable="true"
+        contenteditable
         #h1
         (blur)="handleTitleChange(list, h1.innerText)"
       >
@@ -26,7 +26,7 @@
         [cdkDropListData]="list.cards"
         (cdkDropListDropped)="drop($event)"
       >
-        @for (card of list.cards; track card.name) {
+        @for (card of list.cards; let index = $index; track index) {
           <li cdkDrag>
             <todo-card [card]="card" />
           </li>

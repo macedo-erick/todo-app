@@ -58,12 +58,16 @@ export class CardComponent {
   }
 
   showCardDetails() {
-    this.dialogService.open(CardDetailComponent, {
+    const dialog = this.dialogService.open(CardDetailComponent, {
       data: this.card(),
       width: '45rem',
       height: '50rem',
       autoFocus: 'dialog',
       panelClass: 'overlay__bg'
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      console.log(this.card());
     });
   }
 }
