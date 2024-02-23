@@ -1,8 +1,6 @@
 .wrapper {
-  background-color: var(--card-color);
-
   &:hover {
-    outline: 2px solid #85b8ff;
+    outline: 2px solid var(--sky-blue);
   }
 
   .card__title {

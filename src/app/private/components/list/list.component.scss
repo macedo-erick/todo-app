@@ -1,5 +1,9 @@
 .wrapper {
-  background-color: var(--list-color);
+  background-color: var(--charcoal-gray);
+
+  .list__title {
+    font-size: 14px;
+  }
 
   ol {
     min-height: 1.5rem;
@@ -10,5 +14,9 @@
     li:hover {
       cursor: pointer;
     }
+  }
+
+  .has__hover {
+    font-size: 0.8rem;
   }
 }

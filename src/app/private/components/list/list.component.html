@@ -1,9 +1,9 @@
 @if (list(); as list) {
   <mat-card class="wrapper w-100">
-    <mat-card-title class="d-flex justify-content-between py-2 px-2">
+    <mat-card-title class="d-flex py-2 px-2">
       <h2
-        class="fs-7 fw-bolder content__editable select-none py-2 px-2 m-0 text-white"
-        contenteditable
+        class="list__title content__editable flex-grow-1 fw-bolder py-2 px-2 m-0 text-white"
+        contenteditable="true"
         #h1
         (blur)="handleTitleChange(list, h1.innerText)"
       >
@@ -12,7 +12,7 @@
 
       <button
         mat-icon-button
-        class="text-white hoverable"
+        class="has__hover text-white"
         [matMenuTriggerFor]="listMenu"
       >
         <mat-icon>more_horiz</mat-icon>
@@ -37,7 +37,7 @@
     <mat-card-actions class="d-flex px-2">
       <button
         mat-button
-        class="btn hoverable fs-8 text-white d-flex flex-grow-1 justify-content-start"
+        class="has__hover d-flex flex-grow-1 justify-content-start fs-8 text-white"
         (mousedown)="addCard()"
       >
         <mat-icon>add</mat-icon>
@@ -51,7 +51,7 @@
   <button
     (click)="removedList.emit()"
     mat-menu-item
-    class="text-white hoverable"
+    class="has__hover text-white"
   >
     Delete list
   </button>

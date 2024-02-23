@@ -15,28 +15,29 @@ body {
 }
 
 :root {
-  --color-white: #fafbfcff;
-  --header-color: #1d2125;
-  --list-color: #101204;
-  --overlay-color: #282e33;
-  --overlay-item-hovered-color: #a6c5e229;
-  --card-color: #22272b;
-  --board-header-color: #0000003d;
-  --transparent-color: #ffffff3d;
+  --white: #fafbfcff;
+  --midnight-blue: #1d2125;
+  --charcoal-gray: #101204;
+  --slate-gray: #282e33;
+  --soft-azure: #a6c5e229;
+  --graphite-black: #22272b;
+  --transparent-black: #0000003d;
+  --transparent-white: #ffffff3d;
+  --sky-blue: #85b8ff;
 }
 
 ::-webkit-scrollbar {
-  background-color: var(--overlay-color);
+  background-color: var(--slate-gray);
   width: 4px;
   height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--overlay-color);
+  background-color: var(--slate-gray);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--overlay-item-hovered-color);
+  background-color: var(--soft-azure);
   border: 0 solid #fff;
 }
 
@@ -44,17 +45,8 @@ body {
   display: none;
 }
 
-.card__bg {
-  background-color: var(--card-color) !important;
-}
-
-.board__bg {
-  background: rgb(11, 77, 156);
-  background: linear-gradient(
-    158deg,
-    rgba(11, 77, 156, 1) 0%,
-    rgba(36, 121, 138, 1) 54%
-  );
+.bg__graphite__black {
+  background-color: var(--graphite-black) !important;
 }
 
 .select-none {
@@ -65,21 +57,13 @@ body {
   list-style: none !important;
 }
 
-.fs-7 {
-  font-size: 14px !important;
-}
-
-.fs-8 {
-  font-size: 0.8rem !important;
-}
-
 .content__editable {
   &:hover {
     cursor: pointer;
   }
 
   &:focus-within {
-    outline: 1px solid var(--color-white);
+    outline: 2px solid var(--sky-blue);
     border-radius: 4px;
   }
 }
@@ -107,15 +91,15 @@ ol {
 }
 
 .overlay__bg {
-  background-color: var(--overlay-color) !important;
+  background-color: var(--slate-gray) !important;
 
   .mdc-dialog__surface {
-    background-color: var(--overlay-color) !important;
+    background-color: var(--slate-gray) !important;
   }
 }
 
-.hoverable:hover {
-  background-color: var(--overlay-item-hovered-color) !important;
+.has__hover:hover {
+  background-color: var(--soft-azure) !important;
 }
 
 .mat-mdc-menu-item {
