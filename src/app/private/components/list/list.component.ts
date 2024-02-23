@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, EventEmitter, model, Output } from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
@@ -13,9 +13,8 @@ import { Card } from '../../models/card.model';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  list = input.required<List>();
+  list = model.required<List>();
 
-  @Output() modifiedList = new EventEmitter();
   @Output() removedList = new EventEmitter();
 
   drop(event: CdkDragDrop<Card[]>) {
@@ -33,22 +32,22 @@ export class ListComponent {
         event.currentIndex
       );
     }
-
-    this.modifiedList.emit();
   }
 
   handleTitleChange(list: List, innerText: string) {
     list.name = innerText.trim();
-    this.modifiedList.emit();
   }
 
   addCard() {
-    this.list().cards.push({
+    const card = {
       name: 'New Card',
       description: '',
       finished: false
-    } as Card);
+    } as Card;
 
-    this.modifiedList.emit();
+    this.list.update(({ cards, ...list }) => ({
+      ...list,
+      cards: [...cards, card]
+    }));
   }
 }

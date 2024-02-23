@@ -22,7 +22,7 @@
         <li cdkDrag>
           <todo-list
             [list]="list"
-            (modifiedList)="updateBoard()"
+            (listChange)="log()"
             (removedList)="removedList(index)"
           />
         </li>

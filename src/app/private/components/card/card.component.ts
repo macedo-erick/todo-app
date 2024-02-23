@@ -1,8 +1,8 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, computed, model } from '@angular/core';
 import { Card } from '../../models/card.model';
-import { addDays } from 'date-fns';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { MatDialog } from '@angular/material/dialog';
+import { addDays } from 'date-fns';
 
 enum DueDateStatus {
   OVERDUE = 'overdue',
@@ -16,46 +16,37 @@ enum DueDateStatus {
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  card = input.required<Card>();
-  dueDateStatus = signal('');
-  checkListStatus = signal('');
+  card = model.required<Card>();
 
-  constructor(private dialogService: MatDialog) {
-    effect(
-      () => {
-        this.changeDueDateStatus();
-        this.changeCheckListStatus();
-      },
-      { allowSignalWrites: true }
-    );
-  }
-
-  private changeDueDateStatus() {
-    const card = this.card() as Card;
-    const dueDate = new Date(card.dueDate);
+  dueDateStatus = computed(() => {
+    const dueDate = new Date(this.card().dueDate);
     const currentDate = new Date();
     const overdue = dueDate < currentDate;
     const withinNextDay = dueDate <= addDays(currentDate, 1);
 
     if (overdue) {
-      this.dueDateStatus.set(DueDateStatus.OVERDUE);
-    } else if (!card.finished && withinNextDay) {
-      this.dueDateStatus.set(DueDateStatus.PENDING);
-    } else if (card.finished) {
-      this.dueDateStatus.set(DueDateStatus.FINISHED);
-    } else {
-      this.dueDateStatus.set('');
+      return DueDateStatus.OVERDUE;
+    } else if (!this.card().finished && withinNextDay) {
+      return DueDateStatus.PENDING;
+    } else if (this.card().finished) {
+      return DueDateStatus.FINISHED;
     }
-  }
 
-  private changeCheckListStatus() {
+    return;
+  });
+
+  checkListStatus = computed(() => {
     if (this.card().checklist && this.card().checklist.tasks) {
       const tasks = this.card().checklist.tasks;
       const finishedTasks = tasks.filter((c) => c.finished).length;
 
-      this.checkListStatus.set(`${finishedTasks}/${tasks.length}`);
+      return `${finishedTasks}/${tasks.length}`;
     }
-  }
+
+    return;
+  });
+
+  constructor(private dialogService: MatDialog) {}
 
   showCardDetails() {
     const dialog = this.dialogService.open(CardDetailComponent, {

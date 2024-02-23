@@ -52,4 +52,8 @@ export class BoardComponent {
     this.board().lists.push({ name: 'New list', cards: [] });
     this.updateBoard();
   }
+
+  log() {
+    console.log(this.board());
+  }
 }
