@@ -28,7 +28,7 @@
       >
         @for (card of list.cards; track card.name) {
           <li cdkDrag>
-            <todo-card [card]="card" />
+            <todo-card [card]="card" (click)="showCardDetails(card)" />
           </li>
         }
       </ol>

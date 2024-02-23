@@ -6,6 +6,8 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
 
 @Component({
   selector: 'todo-list',
@@ -17,6 +19,8 @@ export class ListComponent {
 
   @Output() modifiedList = new EventEmitter();
   @Output() removedList = new EventEmitter();
+
+  constructor(private dialogService: MatDialog) {}
 
   drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {
@@ -45,5 +49,14 @@ export class ListComponent {
   addCard() {
     this.list().cards.push({ name: 'New Card' } as Card);
     this.modifiedList.emit();
+  }
+
+  showCardDetails(card: Card) {
+    this.dialogService.open(CardDetailComponent, {
+      data: card,
+      width: '45rem',
+      height: '50rem',
+      autoFocus: 'dialog'
+    });
   }
 }

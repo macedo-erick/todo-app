@@ -32,6 +32,9 @@ import {
   MatLabel,
   MatPrefix
 } from '@angular/material/input';
+import { CardDetailComponent } from './components/card-detail/card-detail.component';
+import { MatDialogContent } from '@angular/material/dialog';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import {
     BoardCardComponent,
     ListComponent,
     CardComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardDetailComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +68,9 @@ import {
     MatInput,
     MatFormField,
     MatLabel,
-    MatPrefix
+    MatPrefix,
+    MatDialogContent,
+    CKEditorModule
   ],
   exports: [HeaderComponent],
   providers: []

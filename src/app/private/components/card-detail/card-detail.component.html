@@ -1,0 +1,15 @@
+<mat-dialog-content class="d-flex flex-column gap-5">
+  <section class="d-flex align-items-center gap-2">
+    <mat-icon>credit_card</mat-icon>
+    <h2 class="m-0">{{ card.name }}</h2>
+  </section>
+
+  <section class="d-grid gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <mat-icon> format_align_left </mat-icon>
+      <h2 class="m-0">Description</h2>
+    </div>
+
+    <ckeditor [editor]="editor" [config]="config"></ckeditor>
+  </section>
+</mat-dialog-content>
