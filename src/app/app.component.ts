@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from './public/services/auth/auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthService } from './public/services/auth/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isSignedIn = signal(this.authService.isSignedIn());
+  isAuthenticated = this.authService.isAuthenticated;
 
   constructor(private authService: AuthService) {}
 }

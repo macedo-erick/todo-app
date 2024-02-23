@@ -1,7 +1,7 @@
-@if (isSignedIn()) {
+@if (isAuthenticated()) {
   <todo-header></todo-header>
 }
 
-<main class="w-100" [class.signed__in]="isSignedIn()">
+<main class="w-100" [class.signed__in]="isAuthenticated()">
   <router-outlet></router-outlet>
 </main>
