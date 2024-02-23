@@ -56,9 +56,5 @@ export class CardComponent {
       autoFocus: 'dialog',
       panelClass: 'overlay__bg'
     });
-
-    dialog.afterClosed().subscribe(() => {
-      console.log(this.card());
-    });
   }
 }

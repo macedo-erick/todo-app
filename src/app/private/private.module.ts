@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { PrivateRoutingModule } from './private-routing.module';
 import { HomeComponent } from './pages/home/home.component';
-import { BoardComponent } from './pages/board/board.component';
 import { BoardCardComponent } from './components/board-card/board-card.component';
 import {
   MatCard,
@@ -36,11 +35,14 @@ import { CardDetailComponent } from './components/card-detail/card-detail.compon
 import { MatDialogContent } from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
+import { BoardComponent as BoardPage } from './pages/board/board.component';
+import { BoardComponent as BoardComponent } from './components/board/board.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     BoardComponent,
+    BoardPage,
     BoardCardComponent,
     ListComponent,
     CardComponent,

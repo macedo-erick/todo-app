@@ -1,0 +1,40 @@
+.wrapper {
+  background: rgb(11, 77, 156);
+  background: linear-gradient(
+    158deg,
+    rgba(11, 77, 156, 1) 0%,
+    rgba(36, 121, 138, 1) 54%
+  );
+
+  .board__header {
+    height: 4rem;
+
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+
+    background-color: #0000003d;
+  }
+
+  ol {
+    overflow-x: auto;
+
+    li {
+      flex-basis: 20rem;
+      flex-shrink: 0;
+      height: fit-content;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .btn {
+        background-color: var(--transparent-white);
+        font-size: 0.8rem;
+
+        &:hover {
+          background-color: var(--soft-azure);
+        }
+      }
+    }
+  }
+}

@@ -20,18 +20,20 @@ export class ListComponent {
   drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
-        event.container.data,
+        this.list().cards,
         event.previousIndex,
         event.currentIndex
       );
     } else {
       transferArrayItem(
-        event.previousContainer.data,
+        this.list().cards,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
     }
+
+    this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
   handleTitleChange(list: List, innerText: string) {
@@ -47,7 +49,7 @@ export class ListComponent {
 
     this.list.update(({ cards, ...list }) => ({
       ...list,
-      cards: [...cards, card]
+      cards: cards.concat(card)
     }));
   }
 }

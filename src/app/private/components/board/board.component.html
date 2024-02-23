@@ -1,0 +1,45 @@
+@if (board(); as board) {
+  <div class="wrapper d-flex flex-column w-100 h-100">
+    <div class="board__header d-flex w-100 align-items-center px-3">
+      <h1
+        class="content__editable has__hover rounded select-none m-0 fs-5 fw-bolder text-white px-2"
+        contenteditable
+        #h1
+        (blur)="handleTitleChange(h1.innerText)"
+      >
+        {{ board.name }}
+      </h1>
+    </div>
+
+    <ol
+      class="ls-none w-100 d-flex flex-grow-1 px-4 pt-4 mb-0 gap-2"
+      cdkDropListGroup
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (list of board.lists; let index = $index; track index) {
+        <li cdkDrag>
+          <todo-list
+            [list]="list"
+            (listChange)="listChange(index, $event)"
+            (removedList)="removedList(index)"
+          />
+        </li>
+      }
+
+      @if (loaded()) {
+        <li>
+          <button
+            mat-button
+            class="btn fw-medium rounded-4 py-4 d-flex flex-grow-1 justify-content-start w-100 text-white"
+            (mousedown)="addList()"
+          >
+            <mat-icon>add</mat-icon>
+            <span>Add another list</span>
+          </button>
+        </li>
+      }
+    </ol>
+  </div>
+}

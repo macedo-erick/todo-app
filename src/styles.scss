@@ -110,6 +110,10 @@ ol {
   &.cdk-drop-list-dragging {
     li:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+
+      .card__wrapper {
+        outline: none;
+      }
     }
   }
 }
