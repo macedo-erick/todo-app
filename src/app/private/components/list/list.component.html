@@ -1,5 +1,5 @@
 @if (list(); as list) {
-  <mat-card class="wrapper bg__secondary w-100">
+  <mat-card class="wrapper bg__tertiary w-100">
     <mat-card-title class="d-flex justify-content-between py-2 px-2">
       <h2
         class="fs-7 fw-bolder content__editable select-none py-2 px-2 m-0 text-white"
@@ -10,12 +10,8 @@
         {{ list.name }}
       </h2>
 
-      <button
-        mat-icon-button
-        class="text-white"
-        (mousedown)="removedList.emit()"
-      >
-        <mat-icon>delete</mat-icon>
+      <button mat-icon-button class="text-white" [matMenuTriggerFor]="listMenu">
+        <mat-icon>more_horiz</mat-icon>
       </button>
     </mat-card-title>
 
@@ -46,3 +42,13 @@
     </mat-card-actions>
   </mat-card>
 }
+
+<mat-menu #listMenu="matMenu" class="bg__quaternary">
+  <button
+    (click)="removedList.emit()"
+    mat-menu-item
+    class="text-white menu__btn"
+  >
+    Delete list
+  </button>
+</mat-menu>

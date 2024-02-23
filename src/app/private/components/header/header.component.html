@@ -16,6 +16,8 @@
   </button>
 </header>
 
-<mat-menu #menu>
-  <button mat-menu-item (click)="signOut()">Sign Out</button>
+<mat-menu #menu="matMenu" class="bg__quaternary">
+  <button mat-menu-item (click)="signOut()" class="text-white menu__btn">
+    Sign Out
+  </button>
 </mat-menu>

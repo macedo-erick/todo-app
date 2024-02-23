@@ -56,7 +56,8 @@ export class ListComponent {
       data: card,
       width: '45rem',
       height: '50rem',
-      autoFocus: 'dialog'
+      autoFocus: 'dialog',
+      panelClass: 'menu__bg'
     });
   }
 }

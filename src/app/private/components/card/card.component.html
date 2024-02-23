@@ -1,7 +1,9 @@
 @if (card(); as card) {
-  <mat-card class="wrapper bg__tertiary w-100 p-2">
+  <mat-card class="wrapper w-100 p-2">
     <mat-card-title>
-      <h3 class="card__title select-none m-0">{{ card.name }}</h3>
+      <h3 class="card__title select-none m-0 text-white">
+        {{ card.name }}
+      </h3>
     </mat-card-title>
     <mat-card-footer
       class="card__info d-flex gap-2 align-items-center text-white"
