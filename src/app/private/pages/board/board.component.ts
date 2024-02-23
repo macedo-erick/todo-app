@@ -34,6 +34,11 @@ export class BoardComponent {
     this.updateBoard();
   }
 
+  removedList(index: number) {
+    this.board().lists = this.board().lists.filter((_, i) => i !== index);
+    this.updateBoard();
+  }
+
   updateBoard() {
     this.boardService.update(this.board());
   }

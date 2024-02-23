@@ -20,9 +20,13 @@
       cdkDropListOrientation="horizontal"
       (cdkDropListDropped)="drop($event)"
     >
-      @for (list of board.lists; track list.name) {
+      @for (list of board.lists; track list.name; let index = $index) {
         <li cdkDrag>
-          <todo-list [list]="list" (modifiedList)="updateBoard()" />
+          <todo-list
+            [list]="list"
+            (modifiedList)="updateBoard()"
+            (removedList)="removedList(index)"
+          />
         </li>
       }
 

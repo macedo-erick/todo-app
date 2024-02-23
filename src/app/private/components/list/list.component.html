@@ -1,6 +1,6 @@
 @if (list(); as list) {
   <mat-card class="wrapper bg__secondary w-100">
-    <mat-card-title class="py-2 px-2">
+    <mat-card-title class="d-flex justify-content-between py-2 px-2">
       <h2
         class="fs-7 fw-bolder content__editable select-none py-2 px-2 m-0 text-white"
         contenteditable
@@ -9,11 +9,19 @@
       >
         {{ list.name }}
       </h2>
+
+      <button
+        mat-icon-button
+        class="text-white"
+        (mousedown)="removedList.emit()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-card-title>
 
-    <mat-card-content>
+    <mat-card-content class="p-2">
       <ol
-        class="ls-none d-flex flex-column p-0 gap-2"
+        class="ls-none d-flex flex-column p-0 px-2 gap-2"
         cdkDropList
         [cdkDropListData]="list.cards"
         (cdkDropListDropped)="drop($event)"

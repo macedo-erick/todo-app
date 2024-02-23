@@ -14,7 +14,9 @@ import { Card } from '../../models/card.model';
 })
 export class ListComponent {
   list = input.required<List>();
+
   @Output() modifiedList = new EventEmitter();
+  @Output() removedList = new EventEmitter();
 
   drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {
