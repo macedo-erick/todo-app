@@ -12,6 +12,10 @@ export class BoardService extends Socket {
     super(Config('boards'));
   }
 
+  create(board: Board) {
+    this.emit('create', board);
+  }
+
   findAll() {
     this.emit('findAll');
   }

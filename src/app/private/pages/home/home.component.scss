@@ -1,6 +1,9 @@
 .boards__container {
   display: grid;
+
   grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-auto-rows: 5rem;
+  gap: 1rem;
 
   list-style: none;
 }

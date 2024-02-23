@@ -26,6 +26,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChip } from '@angular/material/chips';
 import { HeaderComponent } from './components/header/header.component';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import {
+  MatFormField,
+  MatInput,
+  MatLabel,
+  MatPrefix
+} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -54,7 +60,11 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    MatCardSubtitle
+    MatCardSubtitle,
+    MatInput,
+    MatFormField,
+    MatLabel,
+    MatPrefix
   ],
   exports: [HeaderComponent],
   providers: []

@@ -1,7 +1,7 @@
 import { List } from './list.model';
 
 export interface Board {
-  _id: string;
+  _id?: string;
   name: string;
   lists: List[];
 }
