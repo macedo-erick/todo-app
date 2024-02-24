@@ -23,7 +23,7 @@ export class BoardComponent {
     });
   }
 
-  drop(event: CdkDragDrop<List>) {
+  drop(event: CdkDragDrop<List>): void {
     moveItemInArray(
       this.board().lists,
       event.previousIndex,
@@ -36,25 +36,25 @@ export class BoardComponent {
     }));
   }
 
-  removedList(index: number) {
+  removedList(index: number): void {
     this.board.update(({ lists, ...board }) => ({
       ...board,
       lists: lists.filter((_, i) => i !== index)
     }));
   }
 
-  handleTitleChange(innerText: string) {
+  handleTitleChange(innerText: string): void {
     this.board.update((board) => ({ ...board, name: innerText }));
   }
 
-  addList() {
+  addList(): void {
     this.board.update(({ lists, ...board }) => ({
       ...board,
       lists: lists.concat({ name: 'New list', cards: [] })
     }));
   }
 
-  listChange(index: number, list: List) {
+  listChange(index: number, list: List): void {
     this.board.update(({ lists, ...board }) => {
       lists[index] = list;
       return { ...board, lists };

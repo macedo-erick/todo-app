@@ -20,7 +20,7 @@ export class BoardComponent {
     });
   }
 
-  updateBoard(board: Board) {
+  updateBoard(board: Board): void {
     this.boardService.update(board);
   }
 }
