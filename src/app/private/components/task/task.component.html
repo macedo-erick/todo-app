@@ -16,7 +16,7 @@
         class="border-0 font__sm text__misty__gray flex-grow-1 fw-medium"
         name="name"
         [(ngModel)]="task.name"
-        (focus)="inputContainer.classList.add('focused')"
+        (click)="inputContainer.classList.add('focused')"
         (blur)="inputContainer.classList.remove('focused')"
       />
       <button

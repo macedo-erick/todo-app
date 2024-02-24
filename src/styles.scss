@@ -29,24 +29,20 @@ body {
   --soft-blue-grey: #8c9bab;
 }
 
-::-webkit-scrollbar {
-  background-color: var(--slate-gray);
-
-  width: 4px;
-  height: 4px;
+.material-symbols-outlined {
+  font-size: 14px;
 }
 
-::-webkit-scrollbar-track {
-  background-color: var(--slate-gray);
-}
+.mat-mdc-menu-item {
+  height: 1rem !important;
+  min-height: 0.5rem !important;
+  padding: 1.5rem !important;
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--soft-azure);
-  border: 0 solid;
-}
-
-::-webkit-scrollbar-button {
-  display: none;
+  .mat-mdc-menu-item-text {
+    font-size: 0.8rem !important;
+    color: var(--misty-gray) !important;
+    font-weight: 500 !important;
+  }
 }
 
 .bg__graphite__black {
@@ -55,6 +51,14 @@ body {
 
 .bg__soft___azure {
   background-color: var(--soft-azure) !important;
+}
+
+.bg__slate__gray {
+  background-color: var(--slate-gray) !important;
+
+  .mdc-dialog__surface {
+    background-color: var(--slate-gray) !important;
+  }
 }
 
 .text__misty__gray {
@@ -74,7 +78,7 @@ body {
 }
 
 .select__none {
-  user-select: none;
+  user-select: none !important;
 }
 
 .ls-none {
@@ -92,14 +96,6 @@ body {
   }
 }
 
-.overlay__bg {
-  background-color: var(--slate-gray) !important;
-
-  .mdc-dialog__surface {
-    background-color: var(--slate-gray) !important;
-  }
-}
-
 .has__hover:hover:not(:focus-visible) {
   background-color: var(--soft-azure) !important;
   cursor: pointer;
@@ -110,6 +106,10 @@ body {
   border-radius: 4px;
 
   list-style: none;
+
+  .input__container {
+    background-color: var(--soft-azure);
+  }
 }
 
 .cdk-drag-placeholder {
@@ -131,23 +131,31 @@ ol {
 
       .input__container {
         background-color: var(--slate-gray) !important;
+
+        button {
+          display: none !important;
+        }
       }
     }
   }
 }
 
-.mat-mdc-menu-item {
-  height: 1rem !important;
-  min-height: 0.5rem !important;
-  padding: 1.5rem !important;
+::-webkit-scrollbar {
+  background-color: var(--slate-gray);
 
-  .mat-mdc-menu-item-text {
-    font-size: 0.8rem !important;
-    color: var(--misty-gray) !important;
-    font-weight: 500 !important;
-  }
+  width: 4px;
+  height: 4px;
 }
 
-.material-symbols-outlined {
-  font-size: 14px;
+::-webkit-scrollbar-track {
+  background-color: var(--slate-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--soft-azure);
+  border: 0 solid;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }

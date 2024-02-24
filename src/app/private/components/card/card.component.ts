@@ -61,7 +61,7 @@ export class CardComponent {
       width: '45rem',
       height: '50rem',
       autoFocus: 'dialog',
-      panelClass: 'overlay__bg'
+      panelClass: 'bg__slate__gray'
     });
   }
 
