@@ -5,7 +5,7 @@
         class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
         contenteditable
         #h1
-        (blur)="handleTitleChange(list, h1.innerText)"
+        (blur)="handleTitleChange(h1.innerText)"
       >
         {{ list.name }}
       </h2>
