@@ -1,16 +1,10 @@
-.card__wrapper {
-  &:hover {
-    outline: 2px solid var(--sky-blue);
-  }
-
+.card__container {
   .card__title {
     font-size: 0.8rem;
     font-weight: 400;
   }
 
-  .card__info {
-    font-size: 12px;
-
+  .card__footer {
     .due__date {
       &.pending {
         background-color: #f2d600;
@@ -28,14 +22,9 @@
         padding: 0 0.5rem;
       }
     }
+  }
 
-    .mat-icon {
-      width: 1rem;
-      height: 1rem;
-
-      &.mat-icon {
-        font-size: 1rem;
-      }
-    }
+  &:hover {
+    outline: 2px solid var(--sky-blue);
   }
 }

@@ -1,6 +1,6 @@
 @if (card(); as card) {
   <mat-dialog-content class="text__misty__gray d-flex flex-column gap-4">
-    <section class="d-flex align-items-center">
+    <div class="d-flex align-items-center">
       <span class="material-symbols-outlined fs-5">credit_card</span>
       <h2
         class="content__editable m-0 fw-semibold flex-grow-1 px-2 py-1"
@@ -10,9 +10,9 @@
       >
         {{ card.name }}
       </h2>
-    </section>
+    </div>
 
-    <section class="d-grid gap-3">
+    <div class="d-grid gap-3">
       <div class="d-flex align-items-center gap-2">
         <span class="material-symbols-outlined fs-5"> format_align_left</span>
         <h3 class="m-0 fw-semibold">Description</h3>
@@ -23,15 +23,20 @@
         [ngModel]="card.description"
         (blur)="handleDescriptionChange($event)"
       ></ckeditor>
-    </section>
+    </div>
 
     @if (card.checklist) {
-      <section class="d-grid gap-3">
+      <div class="d-grid gap-3">
         <div class="d-flex align-items-center gap-2">
           <span class="material-symbols-outlined fs-5">check_box</span>
           <h3 class="m-0 fw-semibold">Checklist</h3>
         </div>
-      </section>
+
+        <todo-checklist
+          [checklist]="card.checklist"
+          (checklistChange)="checkListChange($event)"
+        />
+      </div>
     }
   </mat-dialog-content>
 }

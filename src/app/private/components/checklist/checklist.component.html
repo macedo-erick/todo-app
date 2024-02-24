@@ -1,0 +1,17 @@
+@if (checklist(); as checklist) {
+  <div class="d-grid gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <span class="font__sm">{{ progress() }}%</span>
+
+      <mat-progress-bar
+        mode="determinate"
+        class="progress__bar rounded-4"
+        [value]="progress()"
+      ></mat-progress-bar>
+    </div>
+
+    @for (task of checklist.tasks; let index = $index; track index) {
+      <todo-task [task]="task" (taskChange)="taskChange(index, $event)" />
+    }
+  </div>
+}

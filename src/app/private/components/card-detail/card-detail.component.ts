@@ -55,4 +55,6 @@ export class CardDetailComponent {
   handleDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
     this.card.update((card) => ({ ...card, description: editor.getData() }));
   }
+
+  checkListChange($event: any) {}
 }

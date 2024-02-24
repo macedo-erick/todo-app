@@ -1,0 +1,7 @@
+@if (task(); as task) {
+  <div class="task__container d-flex align-items-center gap-3">
+    <input type="checkbox" [ngModel]="task.finished" />
+
+    <span class="font__sm flex-grow-1">{{ task.name }}</span>
+  </div>
+}

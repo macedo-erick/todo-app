@@ -37,6 +37,10 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { BoardComponent as BoardPage } from './pages/board/board.component';
 import { BoardComponent as BoardComponent } from './components/board/board.component';
+import { ChecklistComponent } from './components/checklist/checklist.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { TaskComponent } from './components/task/task.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,9 @@ import { BoardComponent as BoardComponent } from './components/board/board.compo
     ListComponent,
     CardComponent,
     HeaderComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    ChecklistComponent,
+    TaskComponent
   ],
   imports: [
     CommonModule,
@@ -74,7 +80,9 @@ import { BoardComponent as BoardComponent } from './components/board/board.compo
     MatPrefix,
     MatDialogContent,
     CKEditorModule,
-    FormsModule
+    FormsModule,
+    MatProgressBar,
+    MatCheckbox
   ],
   exports: [HeaderComponent],
   providers: []

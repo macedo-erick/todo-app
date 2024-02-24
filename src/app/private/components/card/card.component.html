@@ -1,6 +1,6 @@
 @if (card(); as card) {
   <mat-card
-    class="card__wrapper bg__graphite__black text__misty__gray rounded-4 w-100 py-2 px-3"
+    class="card__container bg__graphite__black text__misty__gray rounded-4 w-100 py-2 px-3"
     (click)="showCardDetails()"
   >
     <mat-card-title>
@@ -9,7 +9,7 @@
       </h3>
     </mat-card-title>
     <mat-card-footer
-      class="card__info text__misty__gray d-flex gap-2 align-items-center fw-medium"
+      class="card__footer text__misty__gray font__sm d-flex gap-2 align-items-center fw-medium"
     >
       @if (card.description) {
         <span class="material-symbols-outlined">format_align_left</span>

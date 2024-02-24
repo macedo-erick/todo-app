@@ -1,0 +1,10 @@
+.board__container {
+  input {
+    height: 1rem;
+    width: 1rem;
+
+    &:checked {
+      accent-color: var(--electric-blue);
+    }
+  }
+}

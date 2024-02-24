@@ -25,6 +25,7 @@ body {
   --transparent-black: #0000003d;
   --transparent-white: #ffffff3d;
   --sky-blue: #85b8ff;
+  --electric-blue: #0055cc;
   --soft-blue-grey: #8c9bab;
 }
 
@@ -58,6 +59,10 @@ body {
 
 .text__soft__blue {
   color: var(--soft-blue-grey) !important;
+}
+
+.font__sm {
+  font-size: 12px;
 }
 
 .select-none {
@@ -111,7 +116,7 @@ ol {
     li:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 
-      .card__wrapper {
+      .card__container {
         outline: none;
       }
     }
