@@ -25,4 +25,18 @@ export class ChecklistComponent {
       };
     });
   }
+
+  taskDeleted(index: number): void {
+    this.checklist.update(({ tasks, ...checklist }) => ({
+      ...checklist,
+      tasks: tasks.filter((_, i) => index !== i)
+    }));
+  }
+
+  addTask(): void {
+    this.checklist.update(({ tasks, ...checklist }) => ({
+      ...checklist,
+      tasks: tasks.concat({ name: 'New Task', finished: false })
+    }));
+  }
 }

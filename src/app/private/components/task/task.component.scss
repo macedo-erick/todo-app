@@ -7,4 +7,29 @@
       accent-color: var(--electric-blue);
     }
   }
+
+  .input__container {
+    height: 3rem;
+
+    button {
+      display: none;
+    }
+
+    input {
+      outline: none;
+    }
+
+    &:hover:not(:focus-within) {
+      cursor: pointer;
+
+      button {
+        display: block;
+      }
+    }
+
+    &.focused {
+      outline: 2px solid var(--sky-blue);
+      border-radius: 4px;
+    }
+  }
 }

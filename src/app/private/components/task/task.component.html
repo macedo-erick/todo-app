@@ -4,10 +4,22 @@
     #taskForm="ngForm"
   >
     <input type="checkbox" name="finished" [(ngModel)]="task.finished" />
-    <input
-      class="has__hover border-0 overlay__bg content__editable font__sm select__none text__misty__gray flex-grow-1 p-2 border__rounded"
-      name="name"
-      [(ngModel)]="task.name"
-    />
+
+    <div class="input__container d-flex flex-grow-1" #inputContainer>
+      <input
+        class="border-0 overlay__bg font__sm text__misty__gray flex-grow-1"
+        name="name"
+        [(ngModel)]="task.name"
+        (focus)="inputContainer.classList.add('focused')"
+        (blur)="inputContainer.classList.remove('focused')"
+      />
+      <button
+        mat-icon-button
+        class="text__misty__gray"
+        (mousedown)="taskDeleted.emit()"
+      >
+        <span class="material-symbols-outlined">delete</span>
+      </button>
+    </div>
   </form>
 }

@@ -12,8 +12,20 @@
 
     <ul class="d-grid gap-1 p-0">
       @for (task of checklist.tasks; let index = $index; track index) {
-        <todo-task [task]="task" (taskChange)="taskChange(index, $event)" />
+        <todo-task
+          [task]="task"
+          (taskChange)="taskChange(index, $event)"
+          (taskDeleted)="taskDeleted(index)"
+        />
       }
+
+      <button
+        mat-button
+        class="new__task__btn bg__soft___azure has__hover text__misty__gray font__sm fw-medium"
+        (mousedown)="addTask()"
+      >
+        Add a item
+      </button>
     </ul>
   </div>
 }
