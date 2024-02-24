@@ -36,8 +36,8 @@ export class ListComponent {
     this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
-  handleTitleChange(list: List, innerText: string): void {
-    list.name = innerText.trim();
+  handleTitleChange(list: List, name: string): void {
+    this.list.update((list) => ({ ...list, name }));
   }
 
   addCard() {

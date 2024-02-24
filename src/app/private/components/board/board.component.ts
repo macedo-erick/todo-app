@@ -43,8 +43,8 @@ export class BoardComponent {
     }));
   }
 
-  handleTitleChange(innerText: string): void {
-    this.board.update((board) => ({ ...board, name: innerText }));
+  handleTitleChange(name: string): void {
+    this.board.update((board) => ({ ...board, name }));
   }
 
   addList(): void {

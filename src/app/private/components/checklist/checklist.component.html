@@ -10,8 +10,10 @@
       ></mat-progress-bar>
     </div>
 
-    @for (task of checklist.tasks; let index = $index; track index) {
-      <todo-task [task]="task" (taskChange)="taskChange(index, $event)" />
-    }
+    <ul class="d-grid gap-1 p-0">
+      @for (task of checklist.tasks; let index = $index; track index) {
+        <todo-task [task]="task" (taskChange)="taskChange(index, $event)" />
+      }
+    </ul>
   </div>
 }

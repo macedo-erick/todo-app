@@ -65,7 +65,7 @@ body {
   font-size: 12px;
 }
 
-.select-none {
+.select__none {
   user-select: none;
 }
 
@@ -94,6 +94,7 @@ body {
 
 .has__hover:hover {
   background-color: var(--soft-azure) !important;
+  cursor: pointer;
 }
 
 .cdk-drag-preview {

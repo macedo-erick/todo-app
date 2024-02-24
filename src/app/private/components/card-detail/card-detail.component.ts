@@ -3,6 +3,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { EditorConfig } from '@ckeditor/ckeditor5-core';
 import { Card } from '../../models/card.model';
 import { BlurEvent } from '@ckeditor/ckeditor5-angular';
+import { Checklist } from '../../models/checklist.model';
 
 @Component({
   selector: 'todo-card-detail',
@@ -48,13 +49,15 @@ export class CardDetailComponent {
     }
   };
 
-  handleTitleChange(innerText: string): void {
-    this.card.update((card) => ({ ...card, name: innerText }));
+  handleTitleChange(name: string): void {
+    this.card.update((card) => ({ ...card, name }));
   }
 
   handleDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
     this.card.update((card) => ({ ...card, description: editor.getData() }));
   }
 
-  checkListChange($event: any) {}
+  checklistChange(checklist: Checklist) {
+    this.card.update((card) => ({ ...card, checklist }));
+  }
 }

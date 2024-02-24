@@ -17,5 +17,14 @@ export class ChecklistComponent {
 
   taskChange(index: number, task: Task) {
     console.log(task);
+
+    this.checklist.update(({ tasks, ...checklist }) => {
+      tasks[index] = task;
+
+      return {
+        ...checklist,
+        tasks
+      };
+    });
   }
 }
