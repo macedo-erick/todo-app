@@ -82,7 +82,7 @@ body {
 }
 
 .content__editable {
-  &:hover {
+  &:hover:not(:focus-visible) {
     cursor: pointer;
   }
 
@@ -101,6 +101,7 @@ body {
 }
 
 .has__hover:hover:not(:focus-visible) {
+  background-color: var(--soft-azure) !important;
   cursor: pointer;
 }
 

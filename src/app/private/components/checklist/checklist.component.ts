@@ -12,7 +12,7 @@ export class ChecklistComponent {
   progress = computed(() => {
     const tasks = this.checklist().tasks;
     const finishedTasks = tasks.filter((c) => c.finished).length;
-    return Math.floor((finishedTasks / tasks.length) * 100);
+    return Math.floor((finishedTasks / tasks.length) * 100) || 0;
   });
 
   taskChange(index: number, task: Task) {
