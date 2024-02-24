@@ -3,9 +3,9 @@
     <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
       <h2
         class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
-        contenteditable
-        #h1
-        (blur)="handleTitleChange(h1.innerText)"
+        #listHeader
+        (blur)="handleTitleChange()"
+        (click)="toggleEditHeader()"
       >
         {{ list.name }}
       </h2>
@@ -38,7 +38,7 @@
       <button
         mat-button
         class="has__hover text__misty__gray border__rounded flex-grow-1 justify-content-start font__sm fw-medium"
-        (mousedown)="addCard()"
+        (click)="addCard()"
       >
         <span class="d-flex gap-2 align-items-center">
           <span class="material-symbols-outlined fs-5">add</span>

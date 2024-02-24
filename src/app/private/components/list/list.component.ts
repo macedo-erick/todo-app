@@ -1,4 +1,11 @@
-import { Component, EventEmitter, model, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  model,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
@@ -16,6 +23,8 @@ export class ListComponent {
   list = model.required<List>();
 
   @Output() removedList = new EventEmitter();
+
+  @ViewChild('listHeader') listHeader!: ElementRef<HTMLHeadingElement>;
 
   drop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
@@ -36,8 +45,10 @@ export class ListComponent {
     this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
-  handleTitleChange(name: string): void {
+  handleTitleChange(): void {
+    const { innerText: name } = this.listHeader.nativeElement;
     this.list.update((list) => ({ ...list, name }));
+    this.listHeader.nativeElement.contentEditable = 'false';
   }
 
   addCard(): void {
@@ -58,5 +69,10 @@ export class ListComponent {
       cards[index] = card;
       return { ...list, cards };
     });
+  }
+
+  toggleEditHeader() {
+    this.listHeader.nativeElement.contentEditable = 'true';
+    this.listHeader.nativeElement.focus();
   }
 }
