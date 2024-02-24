@@ -1,33 +1,33 @@
 @if (card(); as card) {
-  <div class="text__misty__gray d-flex flex-column gap-4 px-4 py-3">
-    <div class="d-flex align-items-center">
+  <form
+    class="text__misty__gray d-flex flex-column gap-4 px-4 py-3"
+    #cardForm="ngForm"
+  >
+    <div class="d-flex align-items-center gap-1">
       <span class="material-symbols-outlined fs-5">credit_card</span>
-      <h2
-        class="content__editable m-0 fw-semibold flex-grow-1 px-2 py-1"
-        contenteditable
-        #h2
-        (blur)="handleTitleChange(h2.innerText)"
-      >
-        {{ card.name }}
-      </h2>
+      <input
+        class="has__hover border__rounded border-0 overlay__bg content__editable font__sm select__none text__misty__gray flex-grow-1 p-2 fs-5 fw-semibold"
+        name="name"
+        [(ngModel)]="card.name"
+      />
     </div>
 
     <div class="d-grid gap-3">
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center default__gap">
         <span class="material-symbols-outlined fs-5"> format_align_left</span>
         <h3 class="m-0 fw-semibold">Description</h3>
       </div>
       <ckeditor
         [editor]="editor"
         [config]="config"
-        [ngModel]="card.description"
-        (blur)="handleDescriptionChange($event)"
+        name="description"
+        [(ngModel)]="card.description"
       ></ckeditor>
     </div>
 
     @if (card.checklist) {
       <div class="d-grid gap-3">
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center default__gap">
           <span class="material-symbols-outlined fs-5">check_box</span>
           <h3 class="m-0 fw-semibold">Checklist</h3>
         </div>
@@ -38,5 +38,5 @@
         />
       </div>
     }
-  </div>
+  </form>
 }
