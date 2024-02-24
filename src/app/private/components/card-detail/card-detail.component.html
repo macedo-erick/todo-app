@@ -1,15 +1,15 @@
 @if (card(); as card) {
-  <form
-    class="text__misty__gray d-flex flex-column gap-4 px-4 py-3"
-    #cardForm="ngForm"
-  >
+  <div class="text__misty__gray d-flex flex-column gap-4 px-4 py-3">
     <div class="d-flex align-items-center gap-1">
       <span class="material-symbols-outlined fs-5">credit_card</span>
-      <input
-        class="has__hover border__rounded border-0 overlay__bg content__editable font__sm select__none text__misty__gray flex-grow-1 p-2 fs-5 fw-semibold"
-        name="name"
-        [(ngModel)]="card.name"
-      />
+      <h2
+        class="content__editable m-0 fw-semibold flex-grow-1 p-2"
+        contenteditable
+        #h2
+        (blur)="handleTitleChange(h2.innerText)"
+      >
+        {{ card.name }}
+      </h2>
     </div>
 
     <div class="d-grid gap-3">
@@ -20,8 +20,8 @@
       <ckeditor
         [editor]="editor"
         [config]="config"
-        name="description"
-        [(ngModel)]="card.description"
+        [ngModel]="card.description"
+        (blur)="handleDescriptionChange($event)"
       ></ckeditor>
     </div>
 
@@ -38,5 +38,5 @@
         />
       </div>
     }
-  </form>
+  </div>
 }
