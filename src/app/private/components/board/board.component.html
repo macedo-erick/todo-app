@@ -19,7 +19,7 @@
       (cdkDropListDropped)="drop($event)"
     >
       @for (list of board.lists; let index = $index; track index) {
-        <li cdkDrag>
+        <li>
           <todo-list
             [list]="list"
             (listChange)="listChange(index, $event)"

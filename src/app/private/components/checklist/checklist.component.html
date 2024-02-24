@@ -18,7 +18,7 @@
       (cdkDropListDropped)="drop($event)"
     >
       @for (task of checklist.tasks; let index = $index; track index) {
-        <li cdkDrag cdkDragLockAxis="y">
+        <li>
           <todo-task
             [task]="task"
             (taskChange)="taskChange(index, $event)"

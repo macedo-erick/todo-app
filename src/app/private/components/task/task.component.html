@@ -2,12 +2,15 @@
   <form
     class="task__container d-flex align-items-center gap-2"
     #taskForm="ngForm"
+    cdkDrag
+    cdkDragLockAxis="y"
   >
     <input type="checkbox" name="finished" [(ngModel)]="task.finished" />
 
     <div
       class="input__container border__rounded d-flex flex-grow-1 px-1"
       #inputContainer
+      cdkDragHandle
     >
       <input
         class="border-0 font__sm text__misty__gray flex-grow-1 fw-medium"

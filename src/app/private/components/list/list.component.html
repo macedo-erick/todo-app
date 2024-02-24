@@ -1,6 +1,6 @@
 @if (list(); as list) {
-  <mat-card class="list__container border__rounded w-100">
-    <mat-card-title class="d-flex py-2 px-2">
+  <mat-card class="list__container border__rounded" cdkDrag>
+    <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
       <h2
         class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
         contenteditable
