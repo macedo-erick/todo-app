@@ -1,6 +1,8 @@
 import { Component, computed, model } from '@angular/core';
 import { Checklist } from '../../models/checklist.model';
 import { Task } from '../../models/task.model';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { List } from '../../models/list.model';
 
 @Component({
   selector: 'todo-checklist',
@@ -14,6 +16,19 @@ export class ChecklistComponent {
     const finishedTasks = tasks.filter((c) => c.finished).length;
     return Math.floor((finishedTasks / tasks.length) * 100) || 0;
   });
+
+  drop(event: CdkDragDrop<List>): void {
+    moveItemInArray(
+      this.checklist().tasks,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.checklist.update(({ ...checklist }) => ({
+      ...checklist,
+      tasks: this.checklist().tasks
+    }));
+  }
 
   taskChange(index: number, task: Task) {
     this.checklist.update(({ tasks, ...checklist }) => {

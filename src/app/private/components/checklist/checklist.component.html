@@ -10,13 +10,21 @@
       ></mat-progress-bar>
     </div>
 
-    <ul class="d-grid gap-1 p-0 m-0">
+    <ol
+      class="ls-none d-grid gap-1 p-0 m-0"
+      cdkDropList
+      cdkDropListGroup
+      cdkDropListOrientation="vertical"
+      (cdkDropListDropped)="drop($event)"
+    >
       @for (task of checklist.tasks; let index = $index; track index) {
-        <todo-task
-          [task]="task"
-          (taskChange)="taskChange(index, $event)"
-          (taskDeleted)="taskDeleted(index)"
-        />
+        <li cdkDrag cdkDragLockAxis="y">
+          <todo-task
+            [task]="task"
+            (taskChange)="taskChange(index, $event)"
+            (taskDeleted)="taskDeleted(index)"
+          />
+        </li>
       }
 
       <button
@@ -26,6 +34,6 @@
       >
         Add a item
       </button>
-    </ul>
+    </ol>
   </div>
 }

@@ -22,10 +22,14 @@
 
     &:hover:not(:focus-within) {
       cursor: pointer;
-      background-color: var(--soft-azure) !important;
+      background-color: var(--soft-azure);
 
       button {
         display: block;
+      }
+
+      input {
+        cursor: pointer;
       }
     }
 
