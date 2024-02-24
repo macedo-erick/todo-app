@@ -20,13 +20,13 @@ export class ListComponent {
   drop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
-        this.list().cards,
+        event.container.data,
         event.previousIndex,
         event.currentIndex
       );
     } else {
       transferArrayItem(
-        this.list().cards,
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
@@ -36,11 +36,11 @@ export class ListComponent {
     this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
-  handleTitleChange(list: List, name: string): void {
+  handleTitleChange(name: string): void {
     this.list.update((list) => ({ ...list, name }));
   }
 
-  addCard() {
+  addCard(): void {
     const card = {
       name: 'New Card',
       description: '',
