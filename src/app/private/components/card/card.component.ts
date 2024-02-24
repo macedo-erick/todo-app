@@ -56,7 +56,7 @@ export class CardComponent {
 
   constructor(private dialogService: MatDialog) {}
 
-  showCardDetails() {
+  showCardDetails(): void {
     this.dialogService.open(this.cardDetail, {
       width: '45rem',
       height: '50rem',
@@ -66,8 +66,6 @@ export class CardComponent {
   }
 
   cardChange(card: Card): void {
-    console.log(card);
-
     this.card.update(() => card);
   }
 }

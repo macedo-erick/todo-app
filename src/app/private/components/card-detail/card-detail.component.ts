@@ -2,6 +2,7 @@ import { Component, model } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { EditorConfig } from '@ckeditor/ckeditor5-core';
 import { Card } from '../../models/card.model';
+import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 
 @Component({
   selector: 'todo-card-detail',
@@ -47,7 +48,11 @@ export class CardDetailComponent {
     }
   };
 
-  log(evento: any) {
-    console.log(evento);
+  handleTitleChange(innerText: string): void {
+    this.card.update((card) => ({ ...card, name: innerText }));
+  }
+
+  handleDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
+    this.card.update((card) => ({ ...card, description: editor.getData() }));
   }
 }

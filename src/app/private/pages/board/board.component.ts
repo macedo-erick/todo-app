@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '../../services/board/board.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Board } from '../../models/board.model';
 
 @Component({
@@ -8,7 +9,7 @@ import { Board } from '../../models/board.model';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  board$ = this.boardService.onFindOne();
+  board = toSignal(this.boardService.onFindOne());
 
   constructor(
     private route: ActivatedRoute,
@@ -19,7 +20,7 @@ export class BoardComponent {
     });
   }
 
-  teste(board: Board) {
-    console.log(board);
+  updateBoard(board: Board) {
+    this.boardService.update(board);
   }
 }

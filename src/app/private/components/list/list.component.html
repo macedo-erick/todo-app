@@ -28,7 +28,7 @@
       >
         @for (card of list.cards; let index = $index; track index) {
           <li cdkDrag>
-            <todo-card [card]="card" />
+            <todo-card [card]="card" (cardChange)="cardChange(index, $event)" />
           </li>
         }
       </ol>

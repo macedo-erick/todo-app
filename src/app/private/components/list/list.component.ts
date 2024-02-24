@@ -17,7 +17,7 @@ export class ListComponent {
 
   @Output() removedList = new EventEmitter();
 
-  drop(event: CdkDragDrop<Card[]>) {
+  drop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         this.list().cards,
@@ -36,7 +36,7 @@ export class ListComponent {
     this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
-  handleTitleChange(list: List, innerText: string) {
+  handleTitleChange(list: List, innerText: string): void {
     list.name = innerText.trim();
   }
 
@@ -51,5 +51,12 @@ export class ListComponent {
       ...list,
       cards: cards.concat(card)
     }));
+  }
+
+  cardChange(index: number, card: Card): void {
+    this.list.update(({ cards, ...list }) => {
+      cards[index] = card;
+      return { ...list, cards };
+    });
   }
 }
