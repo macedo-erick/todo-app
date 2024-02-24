@@ -29,16 +29,16 @@
       }
 
       @if (loaded()) {
-        <li>
-          <button
-            mat-button
-            class="btn fw-medium rounded-4 py-4 d-flex flex-grow-1 justify-content-start w-100 text-white"
-            (mousedown)="addList()"
-          >
-            <mat-icon>add</mat-icon>
-            <span>Add another list</span>
-          </button>
-        </li>
+        <button
+          mat-button
+          class="new__list__btn d-flex justify-content-start py-4 rounded-4 fw-medium text-white"
+          (mousedown)="addList()"
+        >
+          <span class="d-flex gap-2 align-items-center">
+            <span class="material-symbols-outlined fs-5">add</span>
+            Add another list
+          </span>
+        </button>
       }
     </ol>
   </div>

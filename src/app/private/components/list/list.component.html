@@ -15,7 +15,7 @@
         class="has__hover text__soft__blue"
         [matMenuTriggerFor]="listMenu"
       >
-        <mat-icon>more_horiz</mat-icon>
+        <span class="material-symbols-outlined">more_horiz</span>
       </button>
     </mat-card-title>
 
@@ -34,14 +34,16 @@
       </ol>
     </mat-card-content>
 
-    <mat-card-actions class="d-flex px-2">
+    <mat-card-actions class="list__actions d-flex">
       <button
         mat-button
-        class="has__hover text__misty__gray d-flex flex-grow-1 justify-content-start fs-8"
+        class="has__hover text__misty__gray rounded-4 flex-grow-1 justify-content-start fw-medium"
         (mousedown)="addCard()"
       >
-        <mat-icon>add</mat-icon>
-        <span>Add a card</span>
+        <span class="d-flex gap-2 align-items-center">
+          <span class="material-symbols-outlined fs-5">add</span>
+          Add a card
+        </span>
       </button>
     </mat-card-actions>
   </mat-card>

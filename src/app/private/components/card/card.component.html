@@ -12,12 +12,12 @@
       class="card__info text__misty__gray d-flex gap-2 align-items-center fw-medium"
     >
       @if (card.description) {
-        <mat-icon>format_align_left</mat-icon>
+        <span class="material-symbols-outlined">format_align_left</span>
       }
 
       @if (card.checklist) {
         <span class="d-flex align-items-center py-1 gap-1">
-          <mat-icon>check_box</mat-icon>
+          <span class="material-symbols-outlined">check_box</span>
           {{ checkListStatus() }}
         </span>
       }
@@ -27,7 +27,7 @@
           class="due__date rounded d-flex align-items-center py-1 gap-1"
           [ngClass]="dueDateStatus()"
         >
-          <mat-icon>schedule</mat-icon>
+          <span class="material-symbols-outlined">schedule</span>
           {{ card.dueDate | date: 'MM/dd/yyyy' }}
         </span>
       }
