@@ -65,6 +65,10 @@ body {
   font-size: 12px;
 }
 
+.border__rounded {
+  border-radius: 12px !important;
+}
+
 .select__none {
   user-select: none;
 }
