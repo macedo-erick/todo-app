@@ -17,10 +17,12 @@
 
     input {
       outline: none;
+      background-color: transparent;
     }
 
     &:hover:not(:focus-within) {
       cursor: pointer;
+      background-color: var(--soft-azure) !important;
 
       button {
         display: block;

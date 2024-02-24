@@ -5,9 +5,12 @@
   >
     <input type="checkbox" name="finished" [(ngModel)]="task.finished" />
 
-    <div class="input__container d-flex flex-grow-1" #inputContainer>
+    <div
+      class="input__container border__rounded d-flex flex-grow-1 px-1"
+      #inputContainer
+    >
       <input
-        class="border-0 overlay__bg font__sm text__misty__gray flex-grow-1"
+        class="border-0 font__sm text__misty__gray flex-grow-1"
         name="name"
         [(ngModel)]="task.name"
         (focus)="inputContainer.classList.add('focused')"
