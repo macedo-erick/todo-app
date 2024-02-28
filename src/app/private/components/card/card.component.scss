@@ -13,6 +13,22 @@
   }
 
   .card__footer {
+    gap: 0.75rem;
+
+    .priority {
+      &.low {
+        color: #0065ff;
+      }
+
+      &.medium {
+        color: #ffab00;
+      }
+
+      &.high {
+        color: #ff5630;
+      }
+    }
+
     .due__date {
       &.pending {
         background-color: #f2d600;

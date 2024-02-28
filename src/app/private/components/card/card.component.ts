@@ -9,6 +9,7 @@ import { Card } from '../../models/card.model';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { MatDialog } from '@angular/material/dialog';
 import { addDays } from 'date-fns';
+import { Priority } from '../../models/priority.model';
 
 enum DueDateStatus {
   OVERDUE = 'overdue',
@@ -52,6 +53,17 @@ export class CardComponent {
     }
 
     return;
+  });
+
+  priorityIcon = computed(() => {
+    switch (this.card().priority) {
+      case Priority.LOW:
+        return 'fa-circle-chevron-down';
+      case Priority.MEDIUM:
+        return 'fa-circle-pause fa-rotate-90';
+      case Priority.HIGH:
+        return 'fa-circle-chevron-up';
+    }
   });
 
   constructor(private dialogService: MatDialog) {}
