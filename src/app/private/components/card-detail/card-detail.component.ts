@@ -4,6 +4,10 @@ import { Card } from '../../models/card.model';
 import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 import { Checklist } from '../../models/checklist.model';
 import { editorConfig } from '../../../util/util';
+import { addDays } from 'date-fns';
+import { Priority } from '../../models/priority.model';
+import { MatSelectChange } from '@angular/material/select';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'todo-card-detail',
@@ -28,7 +32,34 @@ export class CardDetailComponent {
     this.card.update((card) => ({ ...card, description: editor.getData() }));
   }
 
-  onChecklistChange(checklist: Checklist) {
+  onChecklistChange(checklist: Checklist): void {
     this.card.update((card) => ({ ...card, checklist }));
+  }
+
+  addDueDate(): void {
+    this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
+  }
+
+  addChecklist(): void {
+    this.card.update((card) => ({
+      ...card,
+      checklist: { name: 'Checklist', tasks: [] }
+    }));
+  }
+
+  addPriority(): void {
+    this.card.update((card) => ({ ...card, priority: Priority.MEDIUM }));
+  }
+
+  onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
+    const { value: dueDate } = event;
+
+    this.card.update((card) => ({ ...card, dueDate: dueDate as Date }));
+  }
+
+  onPriorityChange(event: MatSelectChange) {
+    const { value: priority } = event;
+
+    this.card.update((card) => ({ ...card, priority }));
   }
 }

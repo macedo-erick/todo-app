@@ -76,7 +76,7 @@ export class CardComponent {
 
   showCardDetails(): void {
     this.dialogService.open(this.cardDetail, {
-      width: '45rem',
+      width: '55rem',
       height: '50rem',
       autoFocus: 'dialog',
       panelClass: 'bg__slate__gray'

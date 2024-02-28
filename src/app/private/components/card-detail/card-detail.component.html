@@ -1,39 +1,118 @@
 @if (card(); as card) {
-  <div class="text__misty__gray d-flex flex-column px-4 py-3 gap-4">
-    <div class="d-flex align-items-center gap-1">
-      <i class="fa-regular fa-credit-card-blank fs-5"></i>
-      <h2
-        class="content__editable has__hover border__rounded flex-grow-1 m-0 fw-semibold p-2"
-        contenteditable
-        #cardName
-        (blur)="onNameChange()"
-      >
-        {{ card.name }}
-      </h2>
-    </div>
-    <div class="d-flex flex-column gap-3">
-      <div class="d-flex align-items-center default__gap">
-        <i class="fa-regular fa-align-left fs-5"></i>
-        <h3 class="m-0 fw-semibold">Description</h3>
+  <div class="text__misty__gray d-flex px-4 py-3 gap-4">
+    <div class="d-flex flex-column gap-4 flex-grow-1">
+      <div class="d-flex align-items-center gap-1">
+        <i class="fa-regular fa-credit-card-blank fs-5"></i>
+        <h2
+          class="content__editable has__hover border__rounded flex-grow-1 m-0 fw-semibold p-2"
+          contenteditable
+          #cardName
+          (blur)="onNameChange()"
+        >
+          {{ card.name }}
+        </h2>
       </div>
-      <ckeditor
-        [editor]="editor"
-        [config]="config"
-        [ngModel]="card.description"
-        (blur)="onDescriptionChange($event)"
-      ></ckeditor>
-    </div>
-    @if (card.checklist) {
-      <div class="d-grid gap-3">
-        <div class="d-flex align-items-center default__gap">
-          <i class="fa-regular fa-square-check fs-5"></i>
-          <h3 class="m-0 fw-semibold">Checklist</h3>
+
+      @if (card.dueDate || card.priority) {
+        <div class="d-flex gap-2">
+          @if (card.dueDate) {
+            <mat-form-field
+              appearance="outline"
+              class="due__date"
+              floatLabel="always"
+            >
+              <mat-label class="text__misty__gray">Due Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="datePicker"
+                [value]="card.dueDate"
+                (dateChange)="onDueDateChange($event)"
+              />
+              <mat-datepicker-toggle matIconSuffix [for]="datePicker">
+                <i
+                  class="fa-regular fa-calendar text__misty__gray fa-2xs"
+                  matDatepickerToggleIcon
+                ></i>
+              </mat-datepicker-toggle>
+              <mat-datepicker #datePicker></mat-datepicker>
+            </mat-form-field>
+          }
+
+          @if (card.priority) {
+            <mat-form-field appearance="outline" class="priority">
+              <mat-label class="text__misty__gray">Priority</mat-label>
+              <mat-select
+                [ngModel]="card.priority"
+                panelClass="bg__slate__gray"
+                (selectionChange)="onPriorityChange($event)"
+              >
+                <mat-option [value]="'low'">Low</mat-option>
+                <mat-option [value]="'medium'">Medium</mat-option>
+                <mat-option [value]="'high'">High</mat-option>
+              </mat-select>
+            </mat-form-field>
+          }
         </div>
-        <todo-checklist
-          [checklist]="card.checklist"
-          (checklistChange)="onChecklistChange($event)"
-        />
+      }
+
+      <div class="d-flex flex-column gap-3">
+        <div class="d-flex align-items-center default__gap">
+          <i class="fa-regular fa-align-left fs-5"></i>
+          <h3 class="m-0 fw-semibold">Description</h3>
+        </div>
+        <ckeditor
+          [editor]="editor"
+          [config]="config"
+          [ngModel]="card.description"
+          (blur)="onDescriptionChange($event)"
+        ></ckeditor>
       </div>
-    }
+      @if (card.checklist) {
+        <div class="d-grid gap-3">
+          <div class="d-flex align-items-center default__gap">
+            <i class="fa-regular fa-square-check fs-5"></i>
+            <h3 class="m-0 fw-semibold">Checklist</h3>
+          </div>
+          <todo-checklist
+            [checklist]="card.checklist"
+            (checklistChange)="onChecklistChange($event)"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="actions__container d-flex flex-column gap-2">
+      <p class="font__sm m-0 fw-medium">Add to card</p>
+      <button
+        mat-button
+        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+        (click)="addDueDate()"
+      >
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-regular fa-calendar text__misty__gray fa-lg"></i>
+          Due Date
+        </span>
+      </button>
+      <button
+        mat-button
+        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+        (click)="addChecklist()"
+      >
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-regular fa-square-check fa-lg"></i>
+          Checklist
+        </span>
+      </button>
+      <button
+        mat-button
+        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+        (click)="addPriority()"
+      >
+        <span class="d-flex align-items-center gap-2">
+          <i class="fa-regular fa-circle-exclamation fa-lg"></i>
+          Priority
+        </span>
+      </button>
+    </div>
   </div>
 }

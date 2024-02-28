@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+  MatNativeDateModule,
+  MatOption,
+  MatRipple
+} from '@angular/material/core';
+
 import { PrivateRoutingModule } from './private-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { BoardCardComponent } from './components/board-card/board-card.component';
@@ -12,7 +18,6 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
-import { MatRipple } from '@angular/material/core';
 import { ListComponent } from './components/list/list.component';
 import {
   MatButton,
@@ -29,7 +34,8 @@ import {
   MatFormField,
   MatInput,
   MatLabel,
-  MatPrefix
+  MatPrefix,
+  MatSuffix
 } from '@angular/material/input';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
 import { MatDialogContent } from '@angular/material/dialog';
@@ -41,6 +47,14 @@ import { ChecklistComponent } from './components/checklist/checklist.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { TaskComponent } from './components/task/task.component';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatSelect } from '@angular/material/select';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle,
+  MatDatepickerToggleIcon
+} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -82,9 +96,18 @@ import { MatCheckbox } from '@angular/material/checkbox';
     CKEditorModule,
     FormsModule,
     MatProgressBar,
-    MatCheckbox
+    MatCheckbox,
+    MatSelect,
+    MatOption,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepickerToggleIcon,
+    MatDatepicker,
+    MatDatepickerInput
   ],
   exports: [HeaderComponent],
-  providers: []
+  providers: [MatDatepickerModule]
 })
 export class PrivateModule {}

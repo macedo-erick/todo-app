@@ -240,3 +240,21 @@ body {
 ::-webkit-scrollbar-button {
   display: none;
 }
+
+.mat-mdc-option {
+  &:hover {
+    background-color: var(--soft-azure) !important;
+  }
+
+  &.mdc-list-item--selected {
+    background-color: var(--soft-azure) !important;
+  }
+
+  .mdc-list-item__primary-text {
+    color: var(--misty-gray) !important;
+  }
+
+  mat-pseudo-checkbox {
+    display: none;
+  }
+}
