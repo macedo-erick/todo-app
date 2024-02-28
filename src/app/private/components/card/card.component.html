@@ -24,7 +24,7 @@
           @if (card.description) {
             <i class="fa-regular fa-align-left fa-lg"></i>
           }
-          @if (card.checklist) {
+          @if (card.checklist && card.checklist.tasks.length) {
             <span class="d-flex align-items-center gap-1">
               <i class="fa-regular fa-square-check fa-lg"></i>
               {{ checkListStatus() }}

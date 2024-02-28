@@ -30,7 +30,9 @@ export class CardComponent {
   hasFooter = computed(() => {
     const { priority, dueDate, description, checklist } = this.card();
 
-    return [priority, dueDate, description, checklist].filter((k) => k).length;
+    return [priority, dueDate, description, checklist?.tasks.length].filter(
+      (k) => k
+    ).length;
   });
 
   dueDateStatus = computed(() => {
