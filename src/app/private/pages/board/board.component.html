@@ -1,3 +1,6 @@
 @if (board(); as board) {
-  <todo-board [board]="board" (boardChange)="updateBoard($event)"></todo-board>
+  <todo-board
+    [board]="board"
+    (boardChange)="onBoardChange($event)"
+  ></todo-board>
 }

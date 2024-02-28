@@ -1,26 +1,10 @@
-.list__container {
-  background-color: var(--charcoal-gray);
+.draggable__container {
+  min-height: 1.5rem;
+  max-height: 30rem;
 
-  .list__title {
-    font-size: 14px;
-  }
+  overflow-y: auto;
+}
 
-  ol {
-    min-height: 1.5rem;
-    max-height: 30rem;
-
-    overflow-y: auto;
-
-    li:hover {
-      cursor: pointer;
-    }
-  }
-
-  .has__hover {
-    font-size: 0.8rem;
-  }
-
-  .list__actions {
-    padding-inline: 0.75rem;
-  }
+.list__actions {
+  padding-inline: 0.75rem;
 }

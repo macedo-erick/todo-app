@@ -20,7 +20,7 @@ export class BoardComponent {
     });
   }
 
-  updateBoard(board: Board): void {
+  onBoardChange(board: Board): void {
     this.boardService.update(board);
   }
 }

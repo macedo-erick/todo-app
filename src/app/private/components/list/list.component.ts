@@ -23,10 +23,9 @@ export class ListComponent {
   list = model.required<List>();
 
   @Output() removedList = new EventEmitter();
+  @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
 
-  @ViewChild('listHeader') listHeader!: ElementRef<HTMLHeadingElement>;
-
-  drop(event: CdkDragDrop<Card[]>): void {
+  onDrop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -45,10 +44,10 @@ export class ListComponent {
     this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
   }
 
-  handleTitleChange(): void {
-    const { innerText: name } = this.listHeader.nativeElement;
-    this.list.update((list) => ({ ...list, name }));
-    this.listHeader.nativeElement.contentEditable = 'false';
+  onNameChange(): void {
+    const { innerText } = this.listName.nativeElement;
+    this.list.update((list) => ({ ...list, name: innerText.trim() }));
+    this.listName.nativeElement.contentEditable = 'false';
   }
 
   addCard(): void {
@@ -64,7 +63,7 @@ export class ListComponent {
     }));
   }
 
-  cardChange(index: number, card: Card): void {
+  onCardChange(index: number, card: Card): void {
     this.list.update(({ cards, ...list }) => {
       cards[index] = card;
       return { ...list, cards };
@@ -72,7 +71,7 @@ export class ListComponent {
   }
 
   toggleEditHeader() {
-    this.listHeader.nativeElement.contentEditable = 'true';
-    this.listHeader.nativeElement.focus();
+    this.listName.nativeElement.contentEditable = 'true';
+    this.listName.nativeElement.focus();
   }
 }

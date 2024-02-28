@@ -1,17 +1,16 @@
 @if (card(); as card) {
-  <div class="text__misty__gray d-flex flex-column gap-4 px-4 py-3">
+  <div class="text__misty__gray d-flex flex-column px-4 py-3 gap-4">
     <div class="d-flex align-items-center gap-1">
       <span class="material-symbols-outlined fs-5">credit_card</span>
       <h2
-        class="content__editable has__hover border__rounded m-0 fw-semibold flex-grow-1 p-2"
+        class="content__editable has__hover border__rounded flex-grow-1 m-0 fw-semibold p-2"
         contenteditable
-        #h2
-        (blur)="handleTitleChange(h2.innerText)"
+        #cardName
+        (blur)="onNameChange()"
       >
         {{ card.name }}
       </h2>
     </div>
-
     <div class="d-grid gap-3">
       <div class="d-flex align-items-center default__gap">
         <span class="material-symbols-outlined fs-5"> format_align_left</span>
@@ -21,20 +20,18 @@
         [editor]="editor"
         [config]="config"
         [ngModel]="card.description"
-        (blur)="handleDescriptionChange($event)"
+        (blur)="onDescriptionChange($event)"
       ></ckeditor>
     </div>
-
     @if (card.checklist) {
       <div class="d-grid gap-3">
         <div class="d-flex align-items-center default__gap">
           <span class="material-symbols-outlined fs-5">check_box</span>
           <h3 class="m-0 fw-semibold">Checklist</h3>
         </div>
-
         <todo-checklist
           [checklist]="card.checklist"
-          (checklistChange)="checklistChange($event)"
+          (checklistChange)="onChecklistChange($event)"
         />
       </div>
     }

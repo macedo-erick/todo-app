@@ -1,43 +1,42 @@
 @if (card(); as card) {
-  <mat-card
-    class="card__container bg__graphite__black text__misty__gray border__rounded w-100 py-2 px-3"
-    (click)="showCardDetails()"
-  >
-    <mat-card-title>
-      <h3 class="card__title select__none m-0 fw-medium">
-        {{ card.name }}
-      </h3>
-    </mat-card-title>
-    <mat-card-footer
-      class="card__footer text__misty__gray font__sm d-flex gap-2 align-items-center fw-medium"
+  <li class="draggable__item" cdkDrag>
+    <mat-card
+      class="card__container bg__graphite__black text__misty__gray border__rounded w-100 py-2 px-3"
+      (click)="showCardDetails()"
     >
-      @if (card.description) {
-        <span class="material-symbols-outlined">format_align_left</span>
-      }
-
-      @if (card.checklist) {
-        <span class="d-flex align-items-center py-1 gap-1">
-          <span class="material-symbols-outlined">check_box</span>
-          {{ checkListStatus() }}
-        </span>
-      }
-
-      @if (card.dueDate) {
-        <span
-          class="due__date rounded d-flex align-items-center py-1 gap-1"
-          [ngClass]="dueDateStatus()"
-        >
-          <span class="material-symbols-outlined">schedule</span>
-          {{ card.dueDate | date: 'MM/dd/yyyy' }}
-        </span>
-      }
-    </mat-card-footer>
-  </mat-card>
-
-  <ng-template #cardDetail>
-    <todo-card-detail
-      [card]="card"
-      (cardChange)="cardChange($event)"
-    ></todo-card-detail>
-  </ng-template>
+      <mat-card-title>
+        <h3 class="card__title select__none m-0 fw-medium">
+          {{ card.name }}
+        </h3>
+      </mat-card-title>
+      <mat-card-footer
+        class="card__footer text__misty__gray font__sm d-flex gap-2 align-items-center fw-medium"
+      >
+        @if (card.description) {
+          <span class="material-symbols-outlined">format_align_left</span>
+        }
+        @if (card.checklist) {
+          <span class="d-flex align-items-center py-1 gap-1">
+            <span class="material-symbols-outlined">check_box</span>
+            {{ checkListStatus() }}
+          </span>
+        }
+        @if (card.dueDate) {
+          <span
+            class="due__date border__rounded d-flex align-items-center py-1 gap-1"
+            [ngClass]="dueDateStatus()"
+          >
+            <span class="material-symbols-outlined">schedule</span>
+            {{ card.dueDate | date: 'MM/dd/yyyy' }}
+          </span>
+        }
+      </mat-card-footer>
+    </mat-card>
+    <ng-template #cardDetail>
+      <todo-card-detail
+        [card]="card"
+        (cardChange)="cardChange($event)"
+      ></todo-card-detail>
+    </ng-template>
+  </li>
 }

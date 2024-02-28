@@ -1,4 +1,12 @@
+.draggable__item:hover {
+  cursor: pointer;
+}
+
 .card__container {
+  &:hover {
+    outline: 2px solid var(--sky-blue);
+  }
+
   .card__title {
     font-size: 0.8rem;
     font-weight: 400;
@@ -22,9 +30,5 @@
         padding: 0 0.5rem;
       }
     }
-  }
-
-  &:hover {
-    outline: 2px solid var(--sky-blue);
   }
 }

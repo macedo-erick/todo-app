@@ -1,35 +1,34 @@
 import {
-  AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   model,
   Output,
   ViewChild
 } from '@angular/core';
 import { Task } from '../../models/task.model';
-import { NgForm } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'todo-task',
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
-export class TaskComponent implements AfterViewInit {
+export class TaskComponent {
   task = model.required<Task>();
-
-  @ViewChild('taskForm', { static: false }) taskForm!: NgForm;
   @Output() taskDeleted = new EventEmitter();
 
-  ngAfterViewInit(): void {
-    this.handleFormChange();
+  @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
+
+  onFinishedChange(finished: boolean): void {
+    this.task.update((task) => ({ ...task, finished }));
   }
 
-  private handleFormChange(): void {
-    this.taskForm.valueChanges
-      ?.pipe(debounceTime(250), distinctUntilChanged())
-      .subscribe((task: Task) => {
-        this.task.update(() => task);
-      });
+  onNameChange(event: FocusEvent): void {
+    const { value } = event.target as HTMLInputElement;
+
+    this.inputContainer.nativeElement.classList.remove('focused');
+
+    this.task.update((task) => ({ ...task, name: value.trim() }));
   }
 }

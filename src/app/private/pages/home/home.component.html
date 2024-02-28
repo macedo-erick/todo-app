@@ -13,7 +13,7 @@
   </div>
 
   @if (boards(); as boards) {
-    <ul class="boards__container p-0 ls-none">
+    <ul class="boards__container p-0 ls__none">
       @for (board of boards; track board._id) {
         <li>
           <todo-board-card [board]="board" />

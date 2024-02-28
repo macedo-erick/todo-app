@@ -45,6 +45,18 @@ body {
   }
 }
 
+.bg__transparent__white {
+  background-color: var(--transparent-white) !important;
+}
+
+.bg__transparent__black {
+  background-color: var(--transparent-black) !important;
+}
+
+.bg__charcoal-gray {
+  background-color: var(--charcoal-gray) !important;
+}
+
 .bg__graphite__black {
   background-color: var(--graphite-black) !important;
 }
@@ -73,6 +85,10 @@ body {
   font-size: 12px !important;
 }
 
+.font__md {
+  font-size: 14px !important;
+}
+
 .border__rounded {
   border-radius: 12px !important;
 }
@@ -81,7 +97,7 @@ body {
   user-select: none !important;
 }
 
-.ls-none {
+.ls__none {
   list-style: none !important;
 }
 
@@ -120,9 +136,9 @@ body {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-ol {
+.draggable__container {
   &.cdk-drop-list-dragging {
-    *:not(.cdk-drag-placeholder) {
+    .draggable__item:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 
       .card__container {
@@ -135,6 +151,71 @@ ol {
         button {
           display: none !important;
         }
+      }
+    }
+  }
+}
+
+.ck-editor__editable_inline {
+  min-height: 15rem !important;
+  padding: 0 1.5rem !important;
+
+  background-color: var(--graphite-black) !important;
+
+  color: var(--misty-gray);
+  font-size: 0.8rem !important;
+}
+
+.ck.ck-toolbar {
+  background-color: var(--graphite-black) !important;
+
+  border: none !important;
+
+  color: var(--misty-gray);
+}
+
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  border: none !important;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ck-toolbar__items {
+  .ck-toolbar__separator {
+    background-color: var(--misty-gray) !important;
+  }
+
+  .ck-button {
+    color: var(--misty-gray) !important;
+
+    &:hover,
+    &:active {
+      background-color: var(--soft-azure) !important;
+    }
+
+    &.ck-on {
+      color: var(--misty-gray) !important;
+
+      background-color: var(--soft-azure) !important;
+
+      &:hover,
+      &:active {
+        background-color: var(--soft-azure) !important;
+      }
+    }
+  }
+
+  .ck-list {
+    background-color: var(--graphite-black) !important;
+
+    color: var(--misty-gray) !important;
+
+    .ck-list__item {
+      &:hover {
+        background-color: var(--soft-azure) !important;
       }
     }
   }

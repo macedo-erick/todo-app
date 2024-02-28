@@ -30,7 +30,7 @@ export class ChecklistComponent {
     }));
   }
 
-  taskChange(index: number, task: Task) {
+  onTaskChange(index: number, task: Task) {
     this.checklist.update(({ tasks, ...checklist }) => {
       tasks[index] = task;
 
@@ -41,7 +41,7 @@ export class ChecklistComponent {
     });
   }
 
-  taskDeleted(index: number): void {
+  onTaskDeleted(index: number): void {
     this.checklist.update(({ tasks, ...checklist }) => ({
       ...checklist,
       tasks: tasks.filter((_, i) => index !== i)

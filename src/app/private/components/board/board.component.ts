@@ -1,4 +1,11 @@
-import { Component, computed, model, Signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  model,
+  Signal,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardService } from '../../services/board/board.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -14,6 +21,8 @@ export class BoardComponent {
   board = model.required<Board>();
   loaded: Signal<boolean> = computed(() => !!this.board());
 
+  @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
+
   constructor(
     private route: ActivatedRoute,
     private boardService: BoardService
@@ -23,7 +32,7 @@ export class BoardComponent {
     });
   }
 
-  drop(event: CdkDragDrop<List>): void {
+  onDrop(event: CdkDragDrop<List>): void {
     moveItemInArray(
       this.board().lists,
       event.previousIndex,
@@ -36,15 +45,16 @@ export class BoardComponent {
     }));
   }
 
-  removedList(index: number): void {
+  onRemovedList(index: number): void {
     this.board.update(({ lists, ...board }) => ({
       ...board,
       lists: lists.filter((_, i) => i !== index)
     }));
   }
 
-  handleTitleChange(name: string): void {
-    this.board.update((board) => ({ ...board, name }));
+  onNameChange(): void {
+    const { innerText } = this.boardName.nativeElement;
+    this.board.update((board) => ({ ...board, name: innerText.trim() }));
   }
 
   addList(): void {
@@ -54,7 +64,7 @@ export class BoardComponent {
     }));
   }
 
-  listChange(index: number, list: List): void {
+  onListChange(index: number, list: List): void {
     this.board.update(({ lists, ...board }) => {
       lists[index] = list;
       return { ...board, lists };

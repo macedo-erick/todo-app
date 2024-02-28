@@ -1,37 +1,34 @@
 @if (board(); as board) {
   <div class="board__container d-flex flex-column w-100 h-100">
-    <div class="board__header d-flex w-100 align-items-center px-3">
+    <div class="board__header bg__transparent__black d-flex align-items-center">
       <h1
-        class="content__editable has__hover rounded select__none m-0 fs-5 fw-bolder text-white px-2"
+        class="has__hover border__rounded content__editable select__none m-0 px-2 fs-5 fw-bolder text-white"
         contenteditable
-        #h1
-        (blur)="handleTitleChange(h1.innerText)"
+        #boardName
+        (blur)="onNameChange()"
       >
         {{ board.name }}
       </h1>
     </div>
-
     <ol
-      class="ls-none w-100 d-flex flex-grow-1 px-4 pt-4 mb-0 gap-2"
+      class="draggable__container ls__none d-flex flex-grow-1 mb-0 p-4 gap-3"
       cdkDropListGroup
       cdkDropList
       cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="drop($event)"
+      (cdkDropListDropped)="onDrop($event)"
     >
       @for (list of board.lists; let index = $index; track index) {
-        <li>
-          <todo-list
-            [list]="list"
-            (listChange)="listChange(index, $event)"
-            (removedList)="removedList(index)"
-          />
-        </li>
+        <todo-list
+          class="list__item"
+          [list]="list"
+          (listChange)="onListChange(index, $event)"
+          (removedList)="onRemovedList(index)"
+        />
       }
-
       @if (loaded()) {
         <button
           mat-button
-          class="new__list__btn d-flex justify-content-start py-4 border__rounded font__sm fw-medium text-white"
+          class="list__item bg__transparent__white border__rounded font__sm d-flex justify-content-start py-4 fw-medium text-white"
           (click)="addList()"
         >
           <span class="d-flex gap-2 align-items-center">

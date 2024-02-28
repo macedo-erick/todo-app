@@ -7,30 +7,20 @@
   );
 
   .board__header {
+    padding-inline: 1.25rem;
+
     height: 4rem;
 
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
-
-    background-color: #0000003d;
   }
 
   ol {
     overflow-x: auto;
 
-    li {
+    .list__item {
       flex-basis: 20rem;
       flex-shrink: 0;
-      height: fit-content;
-    }
-
-    .new__list__btn {
-      background-color: var(--transparent-white);
-      flex-basis: 20rem;
-
-      &:hover {
-        background-color: var(--soft-azure);
-      }
     }
   }
 }

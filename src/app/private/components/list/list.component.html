@@ -1,52 +1,53 @@
 @if (list(); as list) {
-  <mat-card class="list__container border__rounded" cdkDrag>
-    <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
-      <h2
-        class="list__title content__editable text__misty__gray flex-grow-1 fw-bolder py-2 px-2 m-0"
-        #listHeader
-        (blur)="handleTitleChange()"
-        (click)="toggleEditHeader()"
-      >
-        {{ list.name }}
-      </h2>
+  <li class="draggable__item" cdkDrag>
+    <mat-card class="bg__charcoal-gray border__rounded">
+      <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
+        <h2
+          class="content__editable text__misty__gray font__md flex-grow-1 fw-bolder py-2 px-2 m-0"
+          #listName
+          (blur)="onNameChange()"
+          (click)="toggleEditHeader()"
+        >
+          {{ list.name }}
+        </h2>
 
-      <button
-        mat-icon-button
-        class="has__hover text__soft__blue"
-        [matMenuTriggerFor]="listMenu"
-      >
-        <span class="material-symbols-outlined">more_horiz</span>
-      </button>
-    </mat-card-title>
-
-    <mat-card-content class="px-2">
-      <ol
-        class="ls-none d-flex flex-column p-1 gap-2"
-        cdkDropList
-        [cdkDropListData]="list.cards"
-        (cdkDropListDropped)="drop($event)"
-      >
-        @for (card of list.cards; let index = $index; track index) {
-          <li cdkDrag>
-            <todo-card [card]="card" (cardChange)="cardChange(index, $event)" />
-          </li>
-        }
-      </ol>
-    </mat-card-content>
-
-    <mat-card-actions class="list__actions d-flex">
-      <button
-        mat-button
-        class="has__hover text__misty__gray border__rounded flex-grow-1 justify-content-start font__sm fw-medium"
-        (click)="addCard()"
-      >
-        <span class="d-flex gap-2 align-items-center">
-          <span class="material-symbols-outlined fs-5">add</span>
-          Add a card
-        </span>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+        <button
+          mat-icon-button
+          class="has__hover text__soft__blue"
+          [matMenuTriggerFor]="listMenu"
+        >
+          <span class="material-symbols-outlined">more_horiz</span>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="px-2">
+        <ol
+          class="draggable__container ls__none d-flex flex-column p-1 gap-2"
+          cdkDropList
+          [cdkDropListData]="list.cards"
+          (cdkDropListDropped)="onDrop($event)"
+        >
+          @for (card of list.cards; let index = $index; track index) {
+            <todo-card
+              [card]="card"
+              (cardChange)="onCardChange(index, $event)"
+            />
+          }
+        </ol>
+      </mat-card-content>
+      <mat-card-actions class="list__actions d-flex">
+        <button
+          mat-button
+          class="border__rounded has__hover text__misty__gray font__sm flex-grow-1 justify-content-start fw-medium"
+          (click)="addCard()"
+        >
+          <span class="d-flex gap-2 align-items-center">
+            <span class="material-symbols-outlined fs-5">add</span>
+            Add a card
+          </span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </li>
 }
 
 <mat-menu #listMenu="matMenu" class="bg__slate__gray">

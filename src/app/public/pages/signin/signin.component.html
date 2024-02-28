@@ -9,20 +9,26 @@
     >
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" />
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input
           matInput
-          [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
+          autocomplete="password"
+          [type]="showPassword ? 'text' : 'password'"
         />
         <button
+          type="button"
           matIconSuffix
           mat-icon-button
-          type="button"
           (click)="showPassword = !showPassword"
         >
           <span class="material-symbols-outlined">visibility</span>
@@ -33,9 +39,9 @@
 
       <button
         type="submit"
-        [disabled]="signInFormGroup.invalid"
         mat-raised-button
         color="primary"
+        [disabled]="signInFormGroup.invalid"
       >
         Sign In
       </button>

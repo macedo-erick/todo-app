@@ -1,9 +1,9 @@
-import { Component, model } from '@angular/core';
+import { Component, ElementRef, model, ViewChild } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { EditorConfig } from '@ckeditor/ckeditor5-core';
 import { Card } from '../../models/card.model';
 import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 import { Checklist } from '../../models/checklist.model';
+import { editorConfig } from '../../../util/util';
 
 @Component({
   selector: 'todo-card-detail',
@@ -14,50 +14,21 @@ export class CardDetailComponent {
   card = model.required<Card>();
 
   editor = ClassicEditor;
+  config = editorConfig;
 
-  config: EditorConfig = {
-    toolbar: {
-      items: [
-        'undo',
-        'redo',
-        '|',
-        'heading',
-        '|',
-        'fontfamily',
-        'fontsize',
-        'fontColor',
-        'fontBackgroundColor',
-        '|',
-        'bold',
-        'italic',
-        'strikethrough',
-        'subscript',
-        'superscript',
-        'code',
-        '|',
-        'link',
-        'blockQuote',
-        'codeBlock',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'todoList',
-        'outdent',
-        'indent'
-      ],
-      shouldNotGroupWhenFull: false
-    }
-  };
+  @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
-  handleTitleChange(name: string): void {
-    this.card.update((card) => ({ ...card, name }));
+  onNameChange(): void {
+    const { innerText } = this.cardName.nativeElement;
+
+    this.card.update((card) => ({ ...card, name: innerText.trim() }));
   }
 
-  handleDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
+  onDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
     this.card.update((card) => ({ ...card, description: editor.getData() }));
   }
 
-  checklistChange(checklist: Checklist) {
+  onChecklistChange(checklist: Checklist) {
     this.card.update((card) => ({ ...card, checklist }));
   }
 }

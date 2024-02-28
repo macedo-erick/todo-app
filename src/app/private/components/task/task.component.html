@@ -1,23 +1,27 @@
 @if (task(); as task) {
-  <form
-    class="task__container d-flex align-items-center gap-2"
-    #taskForm="ngForm"
+  <li
+    class="draggable__item task__container d-flex align-items-center gap-2"
     cdkDrag
     cdkDragLockAxis="y"
   >
-    <input type="checkbox" name="finished" [(ngModel)]="task.finished" />
-
+    <input
+      type="checkbox"
+      name="finished"
+      [ngModel]="task.finished"
+      (ngModelChange)="onFinishedChange($event)"
+    />
     <div
       class="input__container border__rounded d-flex flex-grow-1 px-1"
       #inputContainer
       cdkDragHandle
     >
       <input
-        class="border-0 font__sm text__misty__gray flex-grow-1 fw-medium"
+        class="font__sm text__misty__gray border-0 flex-grow-1 fw-medium"
         name="name"
-        [(ngModel)]="task.name"
+        #nameInput
+        [ngModel]="task.name"
         (click)="inputContainer.classList.add('focused')"
-        (blur)="inputContainer.classList.remove('focused')"
+        (blur)="onNameChange($event)"
       />
       <button
         mat-icon-button
@@ -27,5 +31,5 @@
         <span class="material-symbols-outlined">delete</span>
       </button>
     </div>
-  </form>
+  </li>
 }
