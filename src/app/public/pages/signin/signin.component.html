@@ -31,7 +31,11 @@
           mat-icon-button
           (click)="showPassword = !showPassword"
         >
-          <span class="material-symbols-outlined">visibility</span>
+          <i
+            class="fa-regular {{
+              !showPassword ? 'fa-eye' : 'fa-eye-slash'
+            }} fa-2xs"
+          ></i>
         </button>
       </mat-form-field>
 

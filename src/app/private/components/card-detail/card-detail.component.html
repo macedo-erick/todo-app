@@ -1,7 +1,7 @@
 @if (card(); as card) {
   <div class="text__misty__gray d-flex flex-column px-4 py-3 gap-4">
     <div class="d-flex align-items-center gap-1">
-      <span class="material-symbols-outlined fs-5">credit_card</span>
+      <i class="fa-regular fa-credit-card-blank fs-5"></i>
       <h2
         class="content__editable has__hover border__rounded flex-grow-1 m-0 fw-semibold p-2"
         contenteditable
@@ -13,7 +13,7 @@
     </div>
     <div class="d-flex flex-column gap-3">
       <div class="d-flex align-items-center default__gap">
-        <span class="material-symbols-outlined fs-5"> format_align_left</span>
+        <i class="fa-regular fa-align-left fs-5"></i>
         <h3 class="m-0 fw-semibold">Description</h3>
       </div>
       <ckeditor
@@ -26,7 +26,7 @@
     @if (card.checklist) {
       <div class="d-grid gap-3">
         <div class="d-flex align-items-center default__gap">
-          <span class="material-symbols-outlined fs-5">check_box</span>
+          <i class="fa-regular fa-square-check fs-5"></i>
           <h3 class="m-0 fw-semibold">Checklist</h3>
         </div>
         <todo-checklist

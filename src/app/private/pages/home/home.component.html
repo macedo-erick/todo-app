@@ -3,12 +3,9 @@
     <h2>Boards</h2>
 
     <mat-form-field appearance="outline">
-      <span matIconPrefix class="material-symbols-outlined fs-4 p-2">
-        search</span
-      >
-
+      <i matIconPrefix class="fa-regular fa-magnifying-glass ps-3 pe-2"></i>
       <mat-label>Search Boards</mat-label>
-      <input matInput />
+      <input matInput type="text" />
     </mat-form-field>
   </div>
 
@@ -27,7 +24,7 @@
             class="bg__graphite__black w-100 h-100 fw-bolder fs-6 text-white"
             (click)="newBoard()"
           >
-            <span class="material-symbols-outlined">add</span>
+            <i class="fa-regular fa-plus fa-sm"></i>
             New board
           </button>
         </li>
