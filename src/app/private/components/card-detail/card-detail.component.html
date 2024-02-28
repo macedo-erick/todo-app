@@ -81,38 +81,50 @@
       }
     </div>
 
-    <div class="actions__container d-flex flex-column gap-2">
-      <p class="font__sm m-0 fw-medium">Add to card</p>
-      <button
-        mat-button
-        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
-        (click)="addDueDate()"
-      >
-        <span class="d-flex align-items-center gap-2">
-          <i class="fa-regular fa-calendar text__misty__gray fa-lg"></i>
-          Due Date
-        </span>
-      </button>
-      <button
-        mat-button
-        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
-        (click)="addChecklist()"
-      >
-        <span class="d-flex align-items-center gap-2">
-          <i class="fa-regular fa-square-check fa-lg"></i>
-          Checklist
-        </span>
-      </button>
-      <button
-        mat-button
-        class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
-        (click)="addPriority()"
-      >
-        <span class="d-flex align-items-center gap-2">
-          <i class="fa-regular fa-circle-exclamation fa-lg"></i>
-          Priority
-        </span>
-      </button>
+    <div class="actions__container d-flex flex-column gap-3">
+      <div class="d-flex flex-column gap-2">
+        <p class="font__sm m-0 fw-medium">Actions</p>
+        <mat-slide-toggle
+          color="primary"
+          [checked]="card.finished"
+          (change)="onFinishedChange($event)"
+          >{{ card.finished ? 'Resume' : 'Finish' }}</mat-slide-toggle
+        >
+      </div>
+
+      <div class="d-flex flex-column gap-2">
+        <p class="font__sm m-0 fw-medium">Add to card</p>
+        <button
+          mat-button
+          class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+          (click)="addDueDate()"
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-calendar text__misty__gray fa-lg"></i>
+            Due Date
+          </span>
+        </button>
+        <button
+          mat-button
+          class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+          (click)="addChecklist()"
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-square-check fa-lg"></i>
+            Checklist
+          </span>
+        </button>
+        <button
+          mat-button
+          class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+          (click)="addPriority()"
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-circle-exclamation fa-lg"></i>
+            Priority
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 }

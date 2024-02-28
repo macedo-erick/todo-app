@@ -8,6 +8,7 @@ import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'todo-card-detail',
@@ -33,7 +34,11 @@ export class CardDetailComponent {
   }
 
   onChecklistChange(checklist: Checklist): void {
-    this.card.update((card) => ({ ...card, checklist }));
+    const finished =
+      checklist.tasks.length ==
+      checklist.tasks.filter((task) => task.finished).length;
+
+    this.card.update((card) => ({ ...card, checklist, finished }));
   }
 
   addDueDate(): void {
@@ -61,5 +66,11 @@ export class CardDetailComponent {
     const { value: priority } = event;
 
     this.card.update((card) => ({ ...card, priority }));
+  }
+
+  onFinishedChange(event: MatSlideToggleChange): void {
+    const { checked: finished } = event;
+
+    this.card.update((card) => ({ ...card, finished }));
   }
 }

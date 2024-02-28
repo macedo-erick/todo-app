@@ -55,6 +55,7 @@ import {
   MatDatepickerToggle,
   MatDatepickerToggleIcon
 } from '@angular/material/datepicker';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import {
     MatSuffix,
     MatDatepickerToggleIcon,
     MatDatepicker,
-    MatDatepickerInput
+    MatDatepickerInput,
+    MatSlideToggle
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]

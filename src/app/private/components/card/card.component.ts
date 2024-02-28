@@ -41,12 +41,12 @@ export class CardComponent {
     const overdue = dueDate < currentDate;
     const withinNextDay = dueDate <= addDays(currentDate, 1);
 
-    if (overdue) {
-      return DueDateStatus.OVERDUE;
+    if (this.card().finished) {
+      return DueDateStatus.FINISHED;
     } else if (!this.card().finished && withinNextDay) {
       return DueDateStatus.PENDING;
-    } else if (this.card().finished) {
-      return DueDateStatus.FINISHED;
+    } else if (overdue) {
+      return DueDateStatus.OVERDUE;
     }
 
     return;
