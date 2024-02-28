@@ -7,13 +7,9 @@
     outline: 2px solid var(--sky-blue);
   }
 
-  .card__title {
-    font-size: 0.8rem;
-    font-weight: 400;
-  }
-
   .card__footer {
     gap: 0.75rem;
+    height: 1.5rem;
 
     .priority {
       &.low {

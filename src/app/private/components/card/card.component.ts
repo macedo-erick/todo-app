@@ -27,6 +27,12 @@ export class CardComponent {
 
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
+  hasFooter = computed(() => {
+    const { priority, dueDate, description, checklist } = this.card();
+
+    return [priority, dueDate, description, checklist].filter((k) => k).length;
+  });
+
   dueDateStatus = computed(() => {
     const dueDate = new Date(this.card().dueDate);
     const currentDate = new Date();
