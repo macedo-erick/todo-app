@@ -70,8 +70,15 @@ export class ListComponent {
     });
   }
 
-  toggleEditHeader() {
+  toggleEditHeader(): void {
     this.listName.nativeElement.contentEditable = 'true';
     this.listName.nativeElement.focus();
+  }
+
+  onDeletedCard(index: number): void {
+    this.list.update(({ cards, ...list }) => ({
+      ...list,
+      cards: cards.filter((_, i) => index !== i)
+    }));
   }
 }

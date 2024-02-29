@@ -1,4 +1,11 @@
-import { Component, ElementRef, model, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  model,
+  Output,
+  ViewChild
+} from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Card } from '../../models/card.model';
 import { BlurEvent } from '@ckeditor/ckeditor5-angular';
@@ -22,6 +29,7 @@ export class CardDetailComponent {
   config = editorConfig;
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
+  @Output() deletedCard = new EventEmitter();
 
   addDueDate(): void {
     this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));

@@ -38,7 +38,7 @@ import {
   MatSuffix
 } from '@angular/material/input';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
-import { MatDialogContent } from '@angular/material/dialog';
+import { MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { BoardComponent as BoardPage } from './pages/board/board.component';
@@ -56,6 +56,7 @@ import {
   MatDatepickerToggleIcon
 } from '@angular/material/datepicker';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatDivider } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,9 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
     MatDatepickerToggleIcon,
     MatDatepicker,
     MatDatepickerInput,
-    MatSlideToggle
+    MatSlideToggle,
+    MatDivider,
+    MatDialogClose
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]

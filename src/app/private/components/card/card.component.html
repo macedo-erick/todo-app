@@ -46,6 +46,7 @@
       <todo-card-detail
         [card]="card"
         (cardChange)="onCardChange($event)"
+        (deletedCard)="deletedCard.emit()"
       ></todo-card-detail>
     </ng-template>
   </li>

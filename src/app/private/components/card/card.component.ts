@@ -1,7 +1,9 @@
 import {
   Component,
   computed,
+  EventEmitter,
   model,
+  Output,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -26,6 +28,7 @@ export class CardComponent {
   card = model.required<Card>();
 
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
+  @Output() deletedCard = new EventEmitter();
 
   evaluateFooterVisibility = computed(() => {
     const { priority, dueDate, description, checklist } = this.card();

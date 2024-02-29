@@ -30,6 +30,7 @@
             <todo-card
               [card]="card"
               (cardChange)="onCardChange(index, $event)"
+              (deletedCard)="onDeletedCard(index)"
             />
           }
         </ol>

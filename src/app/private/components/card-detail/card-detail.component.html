@@ -84,6 +84,18 @@
     <div class="actions__container d-flex flex-column gap-3">
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Actions</p>
+        <button
+          mat-button
+          class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+          (click)="deletedCard.emit()"
+          mat-dialog-close
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-trash text__misty__gray fa-lg"></i>
+            Delete
+          </span>
+        </button>
+        <mat-divider class="my-2"></mat-divider>
         <mat-slide-toggle
           color="primary"
           [checked]="card.finished"

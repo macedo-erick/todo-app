@@ -1,14 +1,12 @@
 <div class="card__wrapper p-4 d-grid gap-3">
   <div class="boards__header d-flex justify-content-between align-items-center">
     <h2>Boards</h2>
-
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" floatLabel="always">
       <i matIconPrefix class="fa-regular fa-magnifying-glass ps-3 pe-2"></i>
       <mat-label>Search Boards</mat-label>
       <input matInput type="text" />
     </mat-form-field>
   </div>
-
   @if (boards(); as boards) {
     <ul class="boards__container p-0 ls__none">
       @for (board of boards; track board._id) {
