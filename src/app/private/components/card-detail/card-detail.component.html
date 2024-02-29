@@ -15,6 +15,12 @@
       @if (card.dueDate || card.priority) {
         <div class="d-flex gap-2">
           @if (card.dueDate) {
+            <input
+              type="checkbox"
+              name="finished"
+              [ngModel]="card.finished"
+              (ngModelChange)="onFinishedChange($event)"
+            />
             <mat-form-field
               appearance="outline"
               class="due__date"
@@ -48,9 +54,11 @@
                 panelClass="bg__slate__gray"
                 (selectionChange)="onPriorityChange($event)"
               >
-                <mat-option [value]="'low'">Low</mat-option>
-                <mat-option [value]="'medium'">Medium</mat-option>
-                <mat-option [value]="'high'">High</mat-option>
+                @for (priority of priorities; let index = $index; track index) {
+                  <mat-option [value]="priority" class="font__sm">{{
+                    priority | titlecase
+                  }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
           }
@@ -95,13 +103,6 @@
             Delete
           </span>
         </button>
-        <mat-divider class="my-2"></mat-divider>
-        <mat-slide-toggle
-          color="primary"
-          [checked]="card.finished"
-          (change)="onFinishedChange($event)"
-          >{{ card.finished ? 'Resume' : 'Finish' }}</mat-slide-toggle
-        >
       </div>
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Add to card</p>

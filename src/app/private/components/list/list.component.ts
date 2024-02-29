@@ -13,6 +13,7 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'todo-list',
@@ -23,19 +24,27 @@ export class ListComponent {
   list = model.required<List>();
 
   @Output() removedList = new EventEmitter();
+
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
+  @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
   addCard(): void {
     const card = {
       name: 'New Card',
       description: '',
-      finished: false
+      finished: false,
+      createdDate: new Date()
     } as Card;
 
     this.list.update(({ cards, ...list }) => ({
       ...list,
       cards: cards.concat(card)
     }));
+
+    timer(50).subscribe(() => {
+      const list = this.cardsList.nativeElement;
+      list.scrollTop = list.scrollHeight;
+    });
   }
 
   onDrop(event: CdkDragDrop<Card[]>): void {

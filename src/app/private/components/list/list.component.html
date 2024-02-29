@@ -25,6 +25,7 @@
           cdkDropList
           [cdkDropListData]="list.cards"
           (cdkDropListDropped)="onDrop($event)"
+          #cardsList
         >
           @for (card of list.cards; let index = $index; track index) {
             <todo-card

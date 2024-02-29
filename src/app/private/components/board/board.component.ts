@@ -11,6 +11,7 @@ import { BoardService } from '../../services/board/board.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
 import { Board } from '../../models/board.model';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'todo-board',
@@ -22,6 +23,7 @@ export class BoardComponent {
   loaded: Signal<boolean> = computed(() => !!this.board());
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
+  @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +39,11 @@ export class BoardComponent {
       ...board,
       lists: lists.concat({ name: 'New list', cards: [] })
     }));
+
+    timer(100).subscribe(() => {
+      const list = this.boardLists.nativeElement;
+      list.scrollLeft = list.scrollWidth;
+    });
   }
 
   onDrop(event: CdkDragDrop<List>): void {

@@ -15,7 +15,6 @@ import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'todo-card-detail',
@@ -30,6 +29,8 @@ export class CardDetailComponent {
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
   @Output() deletedCard = new EventEmitter();
+
+  priorities = ['low', 'medium', 'high'];
 
   addDueDate(): void {
     this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
@@ -76,9 +77,7 @@ export class CardDetailComponent {
     this.card.update((card) => ({ ...card, priority }));
   }
 
-  onFinishedChange(event: MatSlideToggleChange): void {
-    const { checked: finished } = event;
-
+  onFinishedChange(finished: boolean): void {
     this.card.update((card) => ({ ...card, finished }));
   }
 }

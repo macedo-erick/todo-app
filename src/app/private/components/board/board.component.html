@@ -16,6 +16,7 @@
       cdkDropList
       cdkDropListOrientation="horizontal"
       (cdkDropListDropped)="onDrop($event)"
+      #boardLists
     >
       @for (list of board.lists; let index = $index; track index) {
         <todo-list
