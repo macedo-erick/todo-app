@@ -23,6 +23,21 @@ export class CardDetailComponent {
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
+  addDueDate(): void {
+    this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
+  }
+
+  addChecklist(): void {
+    this.card.update((card) => ({
+      ...card,
+      checklist: { name: 'Checklist', tasks: [] }
+    }));
+  }
+
+  addPriority(): void {
+    this.card.update((card) => ({ ...card, priority: Priority.MEDIUM }));
+  }
+
   onNameChange(): void {
     const { innerText } = this.cardName.nativeElement;
 
@@ -39,21 +54,6 @@ export class CardDetailComponent {
       checklist.tasks.filter((task) => task.finished).length;
 
     this.card.update((card) => ({ ...card, checklist, finished }));
-  }
-
-  addDueDate(): void {
-    this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
-  }
-
-  addChecklist(): void {
-    this.card.update((card) => ({
-      ...card,
-      checklist: { name: 'Checklist', tasks: [] }
-    }));
-  }
-
-  addPriority(): void {
-    this.card.update((card) => ({ ...card, priority: Priority.MEDIUM }));
   }
 
   onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {

@@ -25,6 +25,19 @@ export class ListComponent {
   @Output() removedList = new EventEmitter();
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
 
+  addCard(): void {
+    const card = {
+      name: 'New Card',
+      description: '',
+      finished: false
+    } as Card;
+
+    this.list.update(({ cards, ...list }) => ({
+      ...list,
+      cards: cards.concat(card)
+    }));
+  }
+
   onDrop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -48,19 +61,6 @@ export class ListComponent {
     const { innerText } = this.listName.nativeElement;
     this.list.update((list) => ({ ...list, name: innerText.trim() }));
     this.listName.nativeElement.contentEditable = 'false';
-  }
-
-  addCard(): void {
-    const card = {
-      name: 'New Card',
-      description: '',
-      finished: false
-    } as Card;
-
-    this.list.update(({ cards, ...list }) => ({
-      ...list,
-      cards: cards.concat(card)
-    }));
   }
 
   onCardChange(index: number, card: Card): void {

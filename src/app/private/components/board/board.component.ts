@@ -32,6 +32,13 @@ export class BoardComponent {
     });
   }
 
+  addList(): void {
+    this.board.update(({ lists, ...board }) => ({
+      ...board,
+      lists: lists.concat({ name: 'New list', cards: [] })
+    }));
+  }
+
   onDrop(event: CdkDragDrop<List>): void {
     moveItemInArray(
       this.board().lists,
@@ -55,13 +62,6 @@ export class BoardComponent {
   onNameChange(): void {
     const { innerText } = this.boardName.nativeElement;
     this.board.update((board) => ({ ...board, name: innerText.trim() }));
-  }
-
-  addList(): void {
-    this.board.update(({ lists, ...board }) => ({
-      ...board,
-      lists: lists.concat({ name: 'New list', cards: [] })
-    }));
   }
 
   onListChange(index: number, list: List): void {

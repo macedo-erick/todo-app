@@ -12,7 +12,6 @@
           {{ card.name }}
         </h2>
       </div>
-
       @if (card.dueDate || card.priority) {
         <div class="d-flex gap-2">
           @if (card.dueDate) {
@@ -37,9 +36,12 @@
               <mat-datepicker #datePicker></mat-datepicker>
             </mat-form-field>
           }
-
           @if (card.priority) {
-            <mat-form-field appearance="outline" class="priority">
+            <mat-form-field
+              appearance="outline"
+              class="priority"
+              floatLabel="always"
+            >
               <mat-label class="text__misty__gray">Priority</mat-label>
               <mat-select
                 [ngModel]="card.priority"
@@ -54,7 +56,6 @@
           }
         </div>
       }
-
       <div class="d-flex flex-column gap-3">
         <div class="d-flex align-items-center default__gap">
           <i class="fa-regular fa-align-left fs-5"></i>
@@ -80,7 +81,6 @@
         </div>
       }
     </div>
-
     <div class="actions__container d-flex flex-column gap-3">
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Actions</p>
@@ -91,7 +91,6 @@
           >{{ card.finished ? 'Resume' : 'Finish' }}</mat-slide-toggle
         >
       </div>
-
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Add to card</p>
         <button

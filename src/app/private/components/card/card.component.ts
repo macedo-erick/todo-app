@@ -27,7 +27,7 @@ export class CardComponent {
 
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
-  hasFooter = computed(() => {
+  evaluateFooterVisibility = computed(() => {
     const { priority, dueDate, description, checklist } = this.card();
 
     return [priority, dueDate, description, checklist?.tasks.length].filter(
@@ -35,7 +35,7 @@ export class CardComponent {
     ).length;
   });
 
-  dueDateStatus = computed(() => {
+  evaluateDueDateStatus = computed(() => {
     const dueDate = new Date(this.card().dueDate);
     const currentDate = new Date();
     const overdue = dueDate < currentDate;
@@ -43,7 +43,7 @@ export class CardComponent {
 
     if (this.card().finished) {
       return DueDateStatus.FINISHED;
-    } else if (!this.card().finished && withinNextDay) {
+    } else if (withinNextDay) {
       return DueDateStatus.PENDING;
     } else if (overdue) {
       return DueDateStatus.OVERDUE;
@@ -52,7 +52,7 @@ export class CardComponent {
     return;
   });
 
-  checkListStatus = computed(() => {
+  evaluateCheckListStatus = computed(() => {
     if (this.card().checklist && this.card().checklist.tasks) {
       const tasks = this.card().checklist.tasks;
       const finishedTasks = tasks.filter((c) => c.finished).length;
@@ -63,7 +63,7 @@ export class CardComponent {
     return;
   });
 
-  priorityIcon = computed(() => {
+  evaluatePriorityIcon = computed(() => {
     switch (this.card().priority) {
       case Priority.LOW:
         return 'fa-circle-chevron-down';
@@ -85,7 +85,7 @@ export class CardComponent {
     });
   }
 
-  cardChange(card: Card): void {
+  onCardChange(card: Card): void {
     this.card.update(() => card);
   }
 }
