@@ -119,8 +119,6 @@ export class ListComponent {
 
   sortByDueDate(sortDirection: SortDirection = 'asc'): void {
     const predicate = (card: Card) => card.dueDate;
-    const sortByNameComparable = (a: Card, b: Card) =>
-      a.name.localeCompare(b.name);
 
     if (sortDirection == 'asc') {
       this.list.update(({ cards, ...list }) => ({
@@ -131,9 +129,7 @@ export class ListComponent {
             (a, b) =>
               new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
           )
-          .concat(
-            cards.filter((card) => !predicate(card)).sort(sortByNameComparable)
-          )
+          .concat(cards.filter((card) => !predicate(card)))
       }));
     }
 
@@ -146,9 +142,7 @@ export class ListComponent {
             (a, b) =>
               new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
           )
-          .concat(
-            cards.filter((card) => !predicate(card)).sort(sortByNameComparable)
-          )
+          .concat(cards.filter((card) => !predicate(card)))
       }));
     }
   }
