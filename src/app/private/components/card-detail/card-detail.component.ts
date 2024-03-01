@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   ElementRef,
   EventEmitter,
   model,
@@ -23,6 +24,10 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class CardDetailComponent {
   card = model.required<Card>();
+
+  evaluateTimeSpentVisibility = computed(() =>
+    Object.hasOwn(this.card(), 'timeSpent')
+  );
 
   editor = ClassicEditor;
   config = editorConfig;
@@ -50,6 +55,10 @@ export class CardDetailComponent {
 
   addPriority(): void {
     this.card.update((card) => ({ ...card, priority: Priority.MEDIUM }));
+  }
+
+  addTimeSpent(): void {
+    this.card.update((card) => ({ ...card, timeSpent: 0 }));
   }
 
   onNameChange(): void {
@@ -80,5 +89,11 @@ export class CardDetailComponent {
 
   onFinishedChange(finished: boolean): void {
     this.card.update((card) => ({ ...card, finished }));
+  }
+
+  onTimeSpentChange(event: Event): void {
+    const { value: timeSpent } = event.target as HTMLInputElement;
+
+    this.card.update((card) => ({ ...card, timeSpent: Number(timeSpent) }));
   }
 }

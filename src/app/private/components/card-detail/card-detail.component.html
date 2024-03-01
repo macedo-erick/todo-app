@@ -12,7 +12,7 @@
           {{ card.name }}
         </h2>
       </div>
-      @if (card.dueDate || card.priority) {
+      @if (card.dueDate || card.priority || card.timeSpent) {
         <div class="d-flex gap-2">
           @if (card.dueDate) {
             <input
@@ -23,10 +23,10 @@
             />
             <mat-form-field
               appearance="outline"
-              class="due__date"
+              class="form__field"
               floatLabel="always"
             >
-              <mat-label class="text__misty__gray">Due Date</mat-label>
+              <mat-label class="text__misty__gray">Due date</mat-label>
               <input
                 matInput
                 [matDatepicker]="datePicker"
@@ -45,7 +45,7 @@
           @if (card.priority) {
             <mat-form-field
               appearance="outline"
-              class="priority"
+              class="form__field"
               floatLabel="always"
             >
               <mat-label class="text__misty__gray">Priority</mat-label>
@@ -55,11 +55,26 @@
                 (selectionChange)="onPriorityChange($event)"
               >
                 @for (priority of priorities; let index = $index; track index) {
-                  <mat-option [value]="priority.value" class="font__sm">{{
-                    priority.label
-                  }}</mat-option>
+                  <mat-option [value]="priority.value" class="font__sm"
+                    >{{ priority.label }}
+                  </mat-option>
                 }
               </mat-select>
+            </mat-form-field>
+          }
+          @if (evaluateTimeSpentVisibility()) {
+            <mat-form-field
+              appearance="outline"
+              floatLabel="always"
+              class="form__field"
+            >
+              <mat-label class="text__misty__gray">Time spent (h)</mat-label>
+              <input
+                matInput
+                type="number"
+                [ngModel]="card.timeSpent"
+                (change)="onTimeSpentChange($event)"
+              />
             </mat-form-field>
           }
         </div>
@@ -113,7 +128,17 @@
         >
           <span class="d-flex align-items-center gap-2">
             <i class="fa-regular fa-calendar text__misty__gray fa-lg"></i>
-            Due Date
+            Due date
+          </span>
+        </button>
+        <button
+          mat-button
+          class="bg__soft___azure has__hover text__misty__gray font__sm justify-content-start"
+          (click)="addTimeSpent()"
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-clock-two text__misty__gray fa-lg"></i>
+            Time spent
           </span>
         </button>
         <button

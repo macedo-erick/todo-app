@@ -27,6 +27,8 @@ body {
   --sky-blue: #85b8ff;
   --electric-blue: #0055cc;
   --soft-blue-grey: #8c9bab;
+  --sunbeam-yellow: #f2d600;
+  --amber: #ffab00;
 }
 
 .material-symbols-outlined {
@@ -57,8 +59,16 @@ body {
   background-color: var(--transparent-black) !important;
 }
 
-.bg__charcoal-gray {
+.bg__charcoal__gray {
   background-color: var(--charcoal-gray) !important;
+}
+
+.bg__sunbeam__yellow {
+  background-color: var(--sunbeam-yellow) !important;
+}
+
+.bg__amber {
+  background-color: var(--amber) !important;
 }
 
 .bg__graphite__black {

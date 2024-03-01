@@ -27,7 +27,7 @@
 
     .due__date {
       &.pending {
-        background-color: #f2d600;
+        background-color: var(--sunbeam-yellow);
         padding: 0 0.5rem;
         color: #000;
       }

@@ -25,14 +25,19 @@
             <i class="fa-regular fa-align-left fa-lg"></i>
           }
           @if (card.checklist && card.checklist.tasks.length) {
-            <span class="d-flex align-items-center gap-1">
+            <span class="d-flex align-items-center gap-1 fw-medium">
               <i class="fa-regular fa-square-check fa-lg"></i>
               {{ evaluateCheckListStatus() }}
             </span>
           }
+          @if (card.timeSpent) {
+            <span class="bg__amber rounded-5 px-1 fw-medium text-black"
+              >{{ card.timeSpent }}h</span
+            >
+          }
           @if (card.dueDate) {
             <span
-              class="due__date border__rounded d-flex align-items-center gap-1"
+              class="due__date border__rounded d-flex align-items-center gap-1 fw-medium"
               [ngClass]="evaluateDueDateStatus()"
             >
               <i class="fa-regular fa-calendar fa-lg"></i>
