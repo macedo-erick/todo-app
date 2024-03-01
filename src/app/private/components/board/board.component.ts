@@ -6,8 +6,6 @@ import {
   Signal,
   ViewChild
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BoardService } from '../../services/board/board.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
 import { Board } from '../../models/board.model';
@@ -24,15 +22,6 @@ export class BoardComponent {
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
-
-  constructor(
-    private route: ActivatedRoute,
-    private boardService: BoardService
-  ) {
-    this.route.params.subscribe(({ id }) => {
-      this.boardService.findOne(id);
-    });
-  }
 
   addList(): void {
     this.board.update(({ lists, ...board }) => ({

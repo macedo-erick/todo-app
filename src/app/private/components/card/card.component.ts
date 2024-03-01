@@ -27,8 +27,9 @@ enum DueDateStatus {
 export class CardComponent {
   card = model.required<Card>();
 
-  @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
   @Output() deletedCard = new EventEmitter();
+
+  @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
     const { priority, dueDate, description, checklist } = this.card();

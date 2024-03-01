@@ -26,11 +26,11 @@ export class CardDetailComponent {
 
   editor = ClassicEditor;
   config = editorConfig;
+  priorities = ['low', 'medium', 'high'];
 
-  @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
   @Output() deletedCard = new EventEmitter();
 
-  priorities = ['low', 'medium', 'high'];
+  @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
   addDueDate(): void {
     this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
@@ -58,11 +58,7 @@ export class CardDetailComponent {
   }
 
   onChecklistChange(checklist: Checklist): void {
-    const finished =
-      checklist.tasks.length ==
-      checklist.tasks.filter((task) => task.finished).length;
-
-    this.card.update((card) => ({ ...card, checklist, finished }));
+    this.card.update((card) => ({ ...card, checklist }));
   }
 
   onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
