@@ -117,6 +117,42 @@ export class ListComponent {
     }
   }
 
+  sortByDueDate(sortDirection: SortDirection = 'asc'): void {
+    const predicate = (card: Card) => card.dueDate;
+    const sortByNameComparable = (a: Card, b: Card) =>
+      a.name.localeCompare(b.name);
+
+    if (sortDirection == 'asc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards
+          .filter(predicate)
+          .sort(
+            (a, b) =>
+              new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+          )
+          .concat(
+            cards.filter((card) => !predicate(card)).sort(sortByNameComparable)
+          )
+      }));
+    }
+
+    if (sortDirection == 'desc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards
+          .filter(predicate)
+          .sort(
+            (a, b) =>
+              new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
+          )
+          .concat(
+            cards.filter((card) => !predicate(card)).sort(sortByNameComparable)
+          )
+      }));
+    }
+  }
+
   sortByName(sortDirection: SortDirection = 'asc'): void {
     if (sortDirection == 'asc') {
       this.list.update(({ cards, ...list }) => ({

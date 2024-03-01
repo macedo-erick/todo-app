@@ -10,7 +10,7 @@ import {
 import { Card } from '../../models/card.model';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { MatDialog } from '@angular/material/dialog';
-import { addDays } from 'date-fns';
+import { differenceInHours, endOfDay } from 'date-fns';
 import { Priority } from '../../models/priority.model';
 
 enum DueDateStatus {
@@ -40,17 +40,17 @@ export class CardComponent {
   });
 
   evaluateDueDateStatus = computed(() => {
-    const dueDate = new Date(this.card().dueDate);
+    const dueDate = endOfDay(new Date(this.card().dueDate));
     const currentDate = new Date();
-    const overdue = dueDate < currentDate;
-    const withinNextDay = dueDate <= addDays(currentDate, 1);
+    const overdue = currentDate > dueDate;
+    const withinNextDay = differenceInHours(dueDate, currentDate) <= 24;
 
     if (this.card().finished) {
       return DueDateStatus.FINISHED;
-    } else if (withinNextDay) {
-      return DueDateStatus.PENDING;
     } else if (overdue) {
       return DueDateStatus.OVERDUE;
+    } else if (withinNextDay) {
+      return DueDateStatus.PENDING;
     }
 
     return;

@@ -71,6 +71,12 @@
   <button (click)="sortByCreationDate()" mat-menu-item class="has__hover">
     Creation date (oldest first)
   </button>
+  <button (click)="sortByDueDate('desc')" mat-menu-item class="has__hover">
+    Due date (highest to lowest)
+  </button>
+  <button (click)="sortByDueDate()" mat-menu-item class="has__hover">
+    Due date (lowest to highest)
+  </button>
   <button (click)="sortByName()" mat-menu-item class="has__hover">
     Name A-Z
   </button>
