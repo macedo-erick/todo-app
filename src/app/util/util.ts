@@ -1,6 +1,19 @@
 import { EditorConfig } from '@ckeditor/ckeditor5-core';
 
 const editorConfig: EditorConfig = {
+  typing: {
+    transformations: {
+      include: [
+        'oneHalf',
+        'oneForth',
+        'notEqual',
+        'arrowLeft',
+        'arrowRight',
+        'lessThanOrEqual',
+        'greaterThanOrEqual'
+      ]
+    }
+  },
   toolbar: {
     items: [
       'undo',
@@ -8,29 +21,18 @@ const editorConfig: EditorConfig = {
       '|',
       'heading',
       '|',
-      'fontfamily',
-      'fontsize',
-      'fontColor',
-      'fontBackgroundColor',
       '|',
       'bold',
       'italic',
-      'strikethrough',
-      'subscript',
-      'superscript',
-      'code',
       '|',
       'link',
-      'blockQuote',
-      'codeBlock',
       '|',
       'bulletedList',
       'numberedList',
-      'todoList',
       'outdent',
-      'indent'
-    ],
-    shouldNotGroupWhenFull: false
+      'indent',
+      'insertTable'
+    ]
   }
 };
 
