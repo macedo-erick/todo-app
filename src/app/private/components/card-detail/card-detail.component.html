@@ -55,8 +55,8 @@
                 (selectionChange)="onPriorityChange($event)"
               >
                 @for (priority of priorities; let index = $index; track index) {
-                  <mat-option [value]="priority" class="font__sm">{{
-                    priority | titlecase
+                  <mat-option [value]="priority.value" class="font__sm">{{
+                    priority.label
                   }}</mat-option>
                 }
               </mat-select>

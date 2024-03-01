@@ -42,46 +42,6 @@
   padding-left: 0.5rem;
 }
 
-:host ::ng-deep .mdc-switch {
-  &:enabled {
-    .mdc-switch__track::after {
-      background-color: var(--electric-blue);
-    }
-
-    &:hover:not(:focus):not(:active) {
-      .mdc-switch__track::after {
-        background-color: var(--electric-blue);
-      }
-    }
-
-    &:focus:not(:active) {
-      .mdc-switch__track::after {
-        background-color: var(--electric-blue);
-      }
-    }
-  }
-
-  &.mdc-switch--selected {
-    &:enabled {
-      .mdc-switch__handle::after {
-        background-color: var(--electric-blue);
-      }
-
-      &:hover:not(:focus):not(:active) {
-        .mdc-switch__handle::after {
-          background-color: var(--electric-blue);
-        }
-      }
-
-      &:focus:not(:active) {
-        .mdc-switch__handle::after {
-          background-color: var(--electric-blue);
-        }
-      }
-    }
-  }
-}
-
 .actions__container {
   width: 10rem;
   padding: 0.75rem 0;

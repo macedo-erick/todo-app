@@ -15,6 +15,8 @@ import {
 import { Card } from '../../models/card.model';
 import { timer } from 'rxjs';
 
+type SortDirection = 'asc' | 'desc';
+
 @Component({
   selector: 'todo-list',
   templateUrl: './list.component.html',
@@ -89,5 +91,61 @@ export class ListComponent {
       ...list,
       cards: cards.filter((_, i) => index !== i)
     }));
+  }
+
+  sortByCreationDate(sortDirection: SortDirection = 'asc'): void {
+    if (sortDirection == 'asc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort(
+          (a, b) =>
+            new Date(a.createdDate).getTime() -
+            new Date(b.createdDate).getTime()
+        )
+      }));
+    }
+
+    if (sortDirection == 'desc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort(
+          (a, b) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        )
+      }));
+    }
+  }
+
+  sortByName(sortDirection: SortDirection = 'asc'): void {
+    if (sortDirection == 'asc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort((a, b) => a.name.localeCompare(b.name))
+      }));
+    }
+
+    if (sortDirection == 'desc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort((a, b) => b.name.localeCompare(a.name))
+      }));
+    }
+  }
+
+  sortByPriority(sortDirection: SortDirection = 'asc'): void {
+    if (sortDirection == 'asc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort((a, b) => a.priority - b.priority)
+      }));
+    }
+
+    if (sortDirection == 'desc') {
+      this.list.update(({ cards, ...list }) => ({
+        ...list,
+        cards: cards.sort((a, b) => b.priority - a.priority)
+      }));
+    }
   }
 }

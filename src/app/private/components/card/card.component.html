@@ -16,7 +16,7 @@
         >
           @if (card.priority) {
             <i
-              class="fa-solid fa-lg priority {{ card.priority }} {{
+              class="fa-solid fa-lg priority {{ evaluatePriority() }} {{
                 evaluatePriorityIcon()
               }}"
             ></i>

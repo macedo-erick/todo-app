@@ -43,6 +43,10 @@ body {
     color: var(--misty-gray) !important;
     font-weight: 500 !important;
   }
+
+  .mat-mdc-menu-submenu-icon {
+    display: none;
+  }
 }
 
 .bg__transparent__white {

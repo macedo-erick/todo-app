@@ -67,6 +67,17 @@ export class CardComponent {
     return;
   });
 
+  evaluatePriority = computed(() => {
+    switch (this.card().priority) {
+      case Priority.LOW:
+        return 'low';
+      case Priority.MEDIUM:
+        return 'medium';
+      case Priority.HIGH:
+        return 'high';
+    }
+  });
+
   evaluatePriorityIcon = computed(() => {
     switch (this.card().priority) {
       case Priority.LOW:

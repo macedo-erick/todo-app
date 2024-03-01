@@ -26,7 +26,12 @@ export class CardDetailComponent {
 
   editor = ClassicEditor;
   config = editorConfig;
-  priorities = ['low', 'medium', 'high'];
+
+  priorities = [
+    { value: 1, label: 'Low' },
+    { value: 2, label: 'Medium' },
+    { value: 3, label: 'High' }
+  ];
 
   @Output() deletedCard = new EventEmitter();
 
