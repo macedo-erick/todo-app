@@ -31,13 +31,13 @@
             </span>
           }
           @if (card.timeSpent) {
-            <span class="bg__amber rounded-5 px-1 fw-medium text-black"
+            <span class="bg__sky__blue rounded-5 px-2 fw-medium text-black"
               >{{ card.timeSpent }}h</span
             >
           }
           @if (card.dueDate) {
             <span
-              class="due__date border__rounded d-flex align-items-center gap-1 fw-medium"
+              class="due__date border__rounded d-flex align-items-center px-2 gap-1 fw-medium"
               [ngClass]="evaluateDueDateStatus()"
             >
               <i class="fa-regular fa-calendar fa-lg"></i>
