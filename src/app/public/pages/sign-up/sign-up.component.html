@@ -1,0 +1,129 @@
+<div
+  class="wrapper h-100 w-100 d-grid justify-content-center align-items-center"
+>
+  <mat-card class="form__container shadow">
+    <form
+      (ngSubmit)="signUp()"
+      [formGroup]="formGroup"
+      class="h-100 w-100 p-5 d-flex flex-column gap-4 justify-content-center"
+    >
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>First name</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="firstname"
+          placeholder="Type your first name"
+          class="font__sm"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Last name</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="lastname"
+          placeholder="Type your last name"
+          class="font__sm"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Phone</mat-label>
+        <ngx-mat-input-tel
+          [preferredCountries]="['us', 'br']"
+          [enablePlaceholder]="true"
+          name="phone"
+          formControlName="phone"
+          inputPlaceholder="Type your phone"
+          format="international"
+          class="font__sm panel"
+        ></ngx-mat-input-tel>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Type your email"
+          class="font__sm"
+        />
+      </mat-form-field>
+
+      <div class="d-flex flex-column gap-2">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Type your password"
+            class="font__sm"
+          />
+          <button
+            type="button"
+            matIconSuffix
+            mat-icon-button
+            (click)="showPassword = !showPassword"
+          >
+            <i
+              class="fa-regular {{
+                !showPassword ? 'fa-eye' : 'fa-eye-slash'
+              }} fa-2xs"
+            ></i>
+          </button>
+        </mat-form-field>
+
+        <ul class="m-0 px-3">
+          <li class="m-0 text-black-50 font__sm">Has minimum 8 characters</li>
+          <li class="m-0 text-black-50 font__sm">
+            At least one uppercase english letter
+          </li>
+          <li class="m-0 text-black-50 font__sm">
+            At least one lowercase english letter
+          </li>
+          <li class="m-0 text-black-50 font__sm">At least one digit</li>
+          <li class="m-0 text-black-50 font__sm">
+            At least one special character
+          </li>
+        </ul>
+      </div>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Confirm password</mat-label>
+        <input
+          matInput
+          formControlName="confirmPassword"
+          autocomplete="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Type your password"
+          class="font__sm"
+          [errorStateMatcher]="passwordMatcher"
+        />
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="formGroup.invalid"
+      >
+        Sign up
+      </button>
+
+      <mat-divider class="my-2"></mat-divider>
+
+      <p class="font__sm text-black m-0 text-center">
+        Already have an account?
+        <a
+          routerLink="/p/sign-in"
+          class="text-black fw-semibold text-decoration-none"
+          >Sign in</a
+        >
+      </p>
+    </form>
+  </mat-card>
+</div>

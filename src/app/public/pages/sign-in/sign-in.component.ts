@@ -6,16 +6,13 @@ import { tap } from 'rxjs';
 import { SnackBarComponent } from '../../../private/components/snack-bar/snack-bar.component';
 
 @Component({
-  templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss'
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss'
 })
-export class SigninComponent {
+export class SignInComponent {
   signInFormGroup: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    rememberMe: new FormControl({ value: false, disabled: true }, [
-      Validators.required
-    ])
+    password: new FormControl('', [Validators.required])
   });
 
   showPassword = false;

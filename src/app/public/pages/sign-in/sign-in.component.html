@@ -57,14 +57,16 @@
         color="primary"
         [disabled]="signInFormGroup.invalid"
       >
-        Sign In
+        Sign in
       </button>
 
       <mat-divider class="my-2"></mat-divider>
 
       <p class="font__sm text-black m-0 text-center">
         Don't have an account?
-        <a routerLink="#" class="text-black fw-semibold text-decoration-none"
+        <a
+          routerLink="/p/sign-up"
+          class="text-black fw-semibold text-decoration-none"
           >Register Now</a
         >
       </p>
