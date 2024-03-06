@@ -50,6 +50,28 @@ body {
   }
 }
 
+.mat-mdc-form-field:not(.mat-form-field-invalid) {
+  .mat-mdc-text-field-wrapper {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--misty-gray) !important;
+    }
+
+    &.mdc-text-field--focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: var(--sky-blue) !important;
+      }
+
+      .mdc-floating-label {
+        color: var(--sky-blue) !important;
+      }
+    }
+  }
+}
+
 .bg__transparent__white {
   background-color: var(--transparent-white) !important;
 }
