@@ -21,7 +21,7 @@ export class AuthService {
 
   signIn(signinRequest: SigninRequest): Observable<SigninResponse> {
     return this.http
-      .post<SigninResponse>(`${this.basePath}/signin`, signinRequest)
+      .post<SigninResponse>(`${this.basePath}/sign-in`, signinRequest)
       .pipe(
         tap((res) => {
           localStorage.setItem('SESSION', res.access_token);
@@ -34,6 +34,6 @@ export class AuthService {
   signOut(): void {
     localStorage.removeItem('SESSION');
     this.isAuthenticated.set(false);
-    void this.router.navigate(['/p/signin']);
+    void this.router.navigate(['/p/sign-in']);
   }
 }
