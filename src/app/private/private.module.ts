@@ -57,6 +57,8 @@ import {
 } from '@angular/material/datepicker';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatDivider } from '@angular/material/divider';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { MatDivider } from '@angular/material/divider';
     HeaderComponent,
     CardDetailComponent,
     ChecklistComponent,
-    TaskComponent
+    TaskComponent,
+    SnackBarComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +113,8 @@ import { MatDivider } from '@angular/material/divider';
     MatDatepickerInput,
     MatSlideToggle,
     MatDivider,
-    MatDialogClose
+    MatDialogClose,
+    MatSnackBarModule
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]

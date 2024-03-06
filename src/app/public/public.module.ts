@@ -15,6 +15,7 @@ import {
 import { MatInput } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
 
 @NgModule({
   declarations: [SigninComponent, SignupComponent],
@@ -31,7 +32,8 @@ import { MatIcon } from '@angular/material/icon';
     MatCheckbox,
     MatIcon,
     MatSuffix,
-    MatIconButton
+    MatIconButton,
+    MatDivider
   ]
 })
 export class PublicModule {}

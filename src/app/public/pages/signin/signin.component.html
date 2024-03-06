@@ -5,7 +5,7 @@
     <form
       (ngSubmit)="signIn()"
       [formGroup]="signInFormGroup"
-      class="h-100 w-100 p-5 d-flex flex-column gap-3 justify-content-center"
+      class="h-100 w-100 p-5 d-flex flex-column gap-4 justify-content-center"
     >
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Email</mat-label>
@@ -14,6 +14,8 @@
           type="email"
           formControlName="email"
           autocomplete="email"
+          placeholder="Type your email"
+          class="font__sm"
         />
       </mat-form-field>
 
@@ -24,6 +26,8 @@
           formControlName="password"
           autocomplete="password"
           [type]="showPassword ? 'text' : 'password'"
+          placeholder="Type your password"
+          class="font__sm"
         />
         <button
           type="button"
@@ -39,7 +43,13 @@
         </button>
       </mat-form-field>
 
-      <a routerLink="#" class="mb-3">Forgot password?</a>
+      <div class="d-flex justify-content-end">
+        <a
+          routerLink="#"
+          class="font__sm text-black fw-semibold text-decoration-none"
+          >Forgot password?</a
+        >
+      </div>
 
       <button
         type="submit"
@@ -49,6 +59,15 @@
       >
         Sign In
       </button>
+
+      <mat-divider class="my-2"></mat-divider>
+
+      <p class="font__sm text-black m-0 text-center">
+        Don't have an account?
+        <a routerLink="#" class="text-black fw-semibold text-decoration-none"
+          >Register Now</a
+        >
+      </p>
     </form>
   </mat-card>
 </div>
