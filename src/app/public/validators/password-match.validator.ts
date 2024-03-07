@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-export class PasswordMatcher implements ErrorStateMatcher {
+export class PasswordMatchState implements ErrorStateMatcher {
   isErrorState(control: AbstractControl<string, string> | null): boolean {
     if (!control) return false;
 
@@ -11,16 +11,12 @@ export class PasswordMatcher implements ErrorStateMatcher {
   }
 }
 
-const passwordMatch: ValidatorFn = (
+const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
 ): ValidationErrors | null => {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
-  if (
-    password &&
-    confirmPassword &&
-    password?.value != confirmPassword?.value
-  ) {
+  if (password && confirmPassword && password.value != confirmPassword.value) {
     return {
       mismatch: true
     };
@@ -28,4 +24,4 @@ const passwordMatch: ValidatorFn = (
   return null;
 };
 
-export default passwordMatch;
+export default passwordMatchValidator;

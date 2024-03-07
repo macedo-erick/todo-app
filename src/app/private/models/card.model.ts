@@ -1,6 +1,6 @@
 import { Checklist } from './checklist.model';
 import { Priority } from './priority.model';
-import { Comment } from '../../../comment.model';
+import { Comment } from './comment.model';
 
 export interface Card {
   name: string;

@@ -2,8 +2,8 @@ import { Component, model, signal } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { editorConfig } from '../../../util/util';
-import { Comment } from '../../../../comment.model';
 import { FormControl, Validators } from '@angular/forms';
+import { Comment } from '../../models/comment.model';
 
 @Component({
   selector: 'todo-comments',

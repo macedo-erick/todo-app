@@ -16,7 +16,7 @@ import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { Comment } from '../../../../comment.model';
+import { Comment } from '../../models/comment.model';
 
 @Component({
   selector: 'todo-card-detail',

@@ -5,9 +5,9 @@ import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
 import { SnackBarComponent } from '../../../private/components/snack-bar/snack-bar.component';
-import passwordMatch, {
-  PasswordMatcher
-} from '../../validators/password-match';
+import passwordMatchValidator, {
+  PasswordMatchState
+} from '../../validators/password-match.validator';
 
 @Component({
   templateUrl: './sign-up.component.html',
@@ -28,7 +28,7 @@ export class SignUpComponent {
       ]),
       confirmPassword: new FormControl('', [Validators.required])
     },
-    { validators: passwordMatch }
+    { validators: passwordMatchValidator }
   );
 
   showPassword = signal(false);
@@ -49,7 +49,7 @@ export class SignUpComponent {
     return 'fa-eye';
   });
 
-  passwordMatcher = new PasswordMatcher();
+  passwordMatcher = new PasswordMatchState();
 
   constructor(
     private authService: AuthService,
