@@ -33,7 +33,7 @@ export class SignUpComponent {
 
   showPassword = signal(false);
 
-  evaluateInputType = computed(() => {
+  evaluateType = computed(() => {
     if (this.showPassword()) {
       return 'text';
     }
@@ -41,7 +41,7 @@ export class SignUpComponent {
     return 'password';
   });
 
-  evaluateInputSuffixIcon = computed(() => {
+  evaluateSuffixIcon = computed(() => {
     if (this.showPassword()) {
       return 'fa-eye-slash';
     }

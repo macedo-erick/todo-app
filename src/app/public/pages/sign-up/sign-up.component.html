@@ -58,7 +58,7 @@
           <input
             matInput
             formControlName="password"
-            [type]="evaluateInputType()"
+            [type]="evaluateType()"
             placeholder="Type your password"
             class="font__sm"
           />
@@ -68,22 +68,19 @@
             mat-icon-button
             (click)="onShowPasswordChange()"
           >
-            <i
-              [ngClass]="evaluateInputSuffixIcon()"
-              class="fa-regular fa-2xs"
-            ></i>
+            <i [ngClass]="evaluateSuffixIcon()" class="fa-regular fa-2xs"></i>
           </button>
         </mat-form-field>
 
         <ul class="m-0 px-3">
-          <li class="m-0 text-black-50 font__sm">Has minimum 8 characters</li>
+          <li class="m-0 text-black-50 font__sm">At least 8 characters</li>
           <li class="m-0 text-black-50 font__sm">
-            At least one uppercase english letter
+            At least one capital letter
           </li>
           <li class="m-0 text-black-50 font__sm">
-            At least one lowercase english letter
+            At least one lowercase letter
           </li>
-          <li class="m-0 text-black-50 font__sm">At least one digit</li>
+          <li class="m-0 text-black-50 font__sm">At least one number</li>
           <li class="m-0 text-black-50 font__sm">
             At least one special character
           </li>
@@ -96,7 +93,7 @@
           matInput
           formControlName="confirmPassword"
           autocomplete="password"
-          [type]="evaluateInputType()"
+          [type]="evaluateType()"
           placeholder="Type your password"
           class="font__sm"
           [errorStateMatcher]="passwordMatcher"
