@@ -1,0 +1,16 @@
+.avatar__btn {
+  background-color: #ff991f;
+
+  &.size__lg {
+    height: 2rem;
+    width: 2rem;
+    font-size: 0.65rem;
+  }
+
+  &.size__md {
+    height: 1.5rem;
+    width: 1.5rem;
+
+    font-size: 0.6rem;
+  }
+}

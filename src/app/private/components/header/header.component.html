@@ -5,15 +5,10 @@
     <h1 class="text-white fw-bolder m-0">Todo</h1>
   </a>
 
-  <button
-    mat-mini-fab
+  <todo-user-initials
+    [initials]="initials()"
     [matMenuTriggerFor]="menu"
-    class="avatar__btn text-black fw-bolder"
-  >
-    @if (userInitials$ | async; as res) {
-      {{ res.initials }}
-    }
-  </button>
+  ></todo-user-initials>
 </header>
 
 <mat-menu #menu="matMenu" class="bg__slate__gray">

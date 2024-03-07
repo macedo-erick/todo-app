@@ -1,6 +1,6 @@
 @if (card(); as card) {
   <div class="text__misty__gray d-flex px-4 py-3 gap-4">
-    <div class="d-flex flex-column gap-4 flex-grow-1">
+    <div class="info__container d-flex flex-column gap-4">
       <div class="d-flex align-items-center gap-1">
         <i class="fa-regular fa-credit-card-blank fs-5"></i>
         <h2
@@ -13,7 +13,7 @@
         </h2>
       </div>
       @if (card.dueDate || card.priority || card.timeSpent) {
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 default__margin">
           @if (card.dueDate) {
             <input
               type="checkbox"
@@ -89,6 +89,7 @@
           [config]="config"
           [ngModel]="card.description"
           (blur)="onDescriptionChange($event)"
+          class="default__margin"
         ></ckeditor>
       </div>
       @if (card.checklist) {
@@ -103,6 +104,18 @@
           />
         </div>
       }
+
+      <div class="d-grid gap-3">
+        <div class="d-flex align-items-center default__gap">
+          <i class="fa-regular fa-comment-lines fs-5"></i>
+          <h3 class="m-0 fw-semibold">Comments</h3>
+        </div>
+
+        <todo-comments
+          [comments]="card.comments"
+          (commentsChange)="onCommentsChange($event)"
+        ></todo-comments>
+      </div>
     </div>
     <div class="actions__container d-flex flex-column gap-3">
       <div class="d-flex flex-column gap-2">

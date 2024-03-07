@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../../../public/services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -8,7 +8,7 @@ import { UserService } from '../../services/user/user.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  userInitials$ = this.userService.getUserInitials();
+  initials = signal(this.userService.getUserInitials());
 
   constructor(
     private authService: AuthService,

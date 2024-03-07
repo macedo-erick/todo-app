@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   ElementRef,
@@ -16,12 +17,22 @@ import { timer } from 'rxjs';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
-export class BoardComponent {
+export class BoardComponent implements AfterViewInit {
   board = model.required<Board>();
   loaded: Signal<boolean> = computed(() => !!this.board());
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
+
+  ngAfterViewInit() {
+    // this.board.update((board) => ({
+    //   ...board,
+    //   lists: board.lists.map(({ cards, ...list }) => ({
+    //     ...list,
+    //     cards: cards.map((card) => ({ ...card, comments: [] }))
+    //   }))
+    // }));
+  }
 
   addList(): void {
     this.board.update(({ lists, ...board }) => ({

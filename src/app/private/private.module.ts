@@ -59,6 +59,9 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatDivider } from '@angular/material/divider';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserInitialsComponent } from './components/user-initials/user-initials.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CardDetailComponent,
     ChecklistComponent,
     TaskComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    UserInitialsComponent,
+    CommentsComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,

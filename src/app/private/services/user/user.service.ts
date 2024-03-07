@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, shareReplay } from 'rxjs';
-import { UserInitials } from '../../models/user-initials.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +8,26 @@ import { UserInitials } from '../../models/user-initials.model';
 export class UserService {
   private readonly basePath = 'http://localhost:8080/api/dev/users';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private jwtService: JwtHelperService
+  ) {}
 
   find() {
     return this.http.get(this.basePath);
   }
 
-  getUserInitials(): Observable<UserInitials> {
-    return this.http
-      .get<UserInitials>(`${this.basePath}/initials`)
-      .pipe(shareReplay());
+  getUserInitials(): string {
+    const fullName = this.getLoggedUser();
+
+    const [firstname, lastname] = fullName.split(/\s+/);
+
+    return firstname.charAt(0).concat(lastname.charAt(0));
+  }
+
+  getLoggedUser(): string {
+    const { fullName } = this.jwtService.decodeToken();
+
+    return fullName;
   }
 }

@@ -153,6 +153,10 @@ body {
   }
 }
 
+.has__not__hover {
+  cursor: default !important;
+}
+
 .has__hover:hover:not(:focus-visible) {
   background-color: var(--soft-azure) !important;
   cursor: pointer;
@@ -205,6 +209,10 @@ body {
 
   color: var(--misty-gray);
   font-size: 0.8rem !important;
+}
+
+.ck-content {
+  word-break: break-word;
 }
 
 .ck.ck-toolbar {

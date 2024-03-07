@@ -1,0 +1,12 @@
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 3rem !important;
+}
+
+.save__btn {
+  width: 4rem;
+  background-color: var(--transparent-black);
+
+  &:not(.mat-mdc-button-disabled) {
+    background-color: var(--soft-azure);
+  }
+}

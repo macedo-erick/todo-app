@@ -1,0 +1,47 @@
+<div class="d-grid gap-3">
+  <div class="d-flex align-items-center gap-2">
+    <todo-user-initials
+      [initials]="initials()"
+      [hasHover]="false"
+      size="md"
+    ></todo-user-initials>
+
+    @if (isEditing()) {
+      <div class="d-grid gap-2 flex-grow-1">
+        <ckeditor
+          [editor]="editor"
+          [config]="config"
+          class="w-100"
+          [formControl]="description"
+        ></ckeditor>
+        <button
+          mat-button
+          class="save__btn has__hover text__misty__gray font__sm fw-medium mt-2"
+          [disabled]="description.invalid"
+          (click)="onAddComment()"
+        >
+          Save
+        </button>
+      </div>
+    } @else {
+      <button
+        mat-button
+        class="bg__graphite__black border__rounded font__sm flex-grow-1 p-3 py-4 text__misty__gray justify-content-start"
+        (click)="onWriteCommentClick()"
+      >
+        Write a comment
+      </button>
+    }
+  </div>
+
+  <ul class="d-flex flex-column p-0 m-0 gap-2">
+    @if (comments(); as comments) {
+      @for (comment of comments; let index = $index; track index) {
+        <todo-comment
+          [comment]="comment"
+          (deletedComment)="onDeletedComment(index)"
+        ></todo-comment>
+      }
+    }
+  </ul>
+</div>

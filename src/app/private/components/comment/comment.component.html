@@ -1,0 +1,29 @@
+@if (comment(); as comment) {
+  <li class="d-flex align-items-center gap-2">
+    <todo-user-initials [initials]="initials()" size="md"></todo-user-initials>
+
+    <div class="d-grid flex-grow-1 gap-1">
+      <div class="d-flex align-items-center gap-2">
+        <h4 class="font__sm text__misty__gray m-0 fw-bolder">
+          {{ comment.user }}
+        </h4>
+        <span class="created__date m-0 text-white-50 fw-medium">{{
+          comment.createdDate | date: "MMMM d, y 'at' h:mm:ss"
+        }}</span>
+      </div>
+
+      <div
+        class="comment__description bg__graphite__black border__rounded font__sm m-0 fw-medium flex-grow-1 p-3 text__misty__gray justify-content-start"
+        [innerHTML]="comment.description"
+      ></div>
+
+      <button
+        mat-button
+        class="font__sm text__misty__gray fw-medium"
+        (click)="deletedComment.emit()"
+      >
+        Delete
+      </button>
+    </div>
+  </li>
+}

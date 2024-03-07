@@ -16,6 +16,7 @@ import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Comment } from '../../../../comment.model';
 
 @Component({
   selector: 'todo-card-detail',
@@ -95,5 +96,9 @@ export class CardDetailComponent {
     const { value: timeSpent } = event.target as HTMLInputElement;
 
     this.card.update((card) => ({ ...card, timeSpent: Number(timeSpent) }));
+  }
+
+  onCommentsChange(comments: Comment[]) {
+    this.card.update((card) => ({ ...card, comments }));
   }
 }

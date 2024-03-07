@@ -20,20 +20,28 @@
               class="fa-solid fa-lg priority"
             ></i>
           }
+
           @if (card.description) {
             <i class="fa-regular fa-align-left fa-lg"></i>
           }
+
+          @if (card.comments.length) {
+            <i class="fa-regular fa-comment-lines fa-lg"></i>
+          }
+
           @if (card.checklist && card.checklist.tasks.length) {
             <span class="d-flex align-items-center gap-1 fw-medium">
               <i class="fa-regular fa-square-check fa-lg"></i>
               {{ evaluateCheckListStatus() }}
             </span>
           }
+
           @if (card.timeSpent) {
             <span class="bg__sky__blue rounded-5 px-2 fw-medium text-black"
               >{{ card.timeSpent }}h</span
             >
           }
+
           @if (card.dueDate) {
             <span
               class="due__date border__rounded d-flex align-items-center px-2 gap-1 fw-medium"

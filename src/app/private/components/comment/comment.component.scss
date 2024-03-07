@@ -1,0 +1,15 @@
+:host ::ng-deep p {
+  margin: 0 !important;
+}
+
+.created__date {
+  font-size: 0.65rem;
+}
+
+button {
+  width: 1rem;
+
+  ::ng-deep .mdc-button__label {
+    font-size: 0.65rem !important;
+  }
+}
