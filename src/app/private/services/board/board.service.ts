@@ -35,4 +35,8 @@ export class BoardService extends Socket {
   onFindOne(): Observable<Board> {
     return this.fromEvent('onFindOne');
   }
+
+  findByName(name: string) {
+    this.emit('findByName', { name });
+  }
 }

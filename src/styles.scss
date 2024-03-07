@@ -29,6 +29,7 @@ body {
   --soft-blue-grey: #8c9bab;
   --sunbeam-yellow: #f2d600;
   --ngxMatInputTel-opacity: 1;
+  --ocean-blue: #005586;
 }
 
 .material-symbols-outlined {
@@ -107,6 +108,10 @@ body {
   .mdc-dialog__surface {
     background-color: var(--slate-gray) !important;
   }
+}
+
+.bg__ocean__blue {
+  background-color: var(--ocean-blue) !important;
 }
 
 .text__misty__gray {

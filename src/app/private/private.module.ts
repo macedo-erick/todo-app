@@ -40,7 +40,7 @@ import {
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
 import { MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardComponent as BoardPage } from './pages/board/board.component';
 import { BoardComponent as BoardComponent } from './components/board/board.component';
 import { ChecklistComponent } from './components/checklist/checklist.component';
@@ -114,7 +114,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSlideToggle,
     MatDivider,
     MatDialogClose,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]

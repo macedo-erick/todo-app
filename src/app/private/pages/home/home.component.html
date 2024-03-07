@@ -1,10 +1,19 @@
 <div class="card__wrapper p-4 d-grid gap-3">
   <div class="boards__header d-flex justify-content-between align-items-center">
-    <h2>Boards</h2>
+    <h2 class="m-0">Your Workspace</h2>
+
     <mat-form-field appearance="outline" floatLabel="always">
-      <i matIconPrefix class="fa-regular fa-magnifying-glass ps-3 pe-2"></i>
+      <i
+        matIconPrefix
+        class="fa-regular fa-sm fa-magnifying-glass ps-3 pe-2"
+      ></i>
       <mat-label>Search Boards</mat-label>
-      <input matInput type="text" />
+      <input
+        matInput
+        type="text"
+        class="font__sm"
+        [formControl]="searchInput"
+      />
     </mat-form-field>
   </div>
   @if (boards(); as boards) {
@@ -19,7 +28,7 @@
         <li>
           <button
             mat-button
-            class="bg__graphite__black w-100 h-100 fw-bolder fs-6 text-white"
+            class="bg__ocean__blue border__rounded w-100 h-100 fw-bolder fs-6 text-white"
             (click)="newBoard()"
           >
             <i class="fa-regular fa-plus fa-sm"></i>
