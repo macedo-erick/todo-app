@@ -34,11 +34,10 @@
         <ngx-mat-input-tel
           [preferredCountries]="['us', 'br']"
           [enablePlaceholder]="true"
-          name="phone"
           formControlName="phone"
           inputPlaceholder="Type your phone"
           format="international"
-          class="font__sm panel"
+          class="font__sm"
         ></ngx-mat-input-tel>
       </mat-form-field>
 
@@ -59,7 +58,7 @@
           <input
             matInput
             formControlName="password"
-            [type]="showPassword ? 'text' : 'password'"
+            [type]="evaluateInputType()"
             placeholder="Type your password"
             class="font__sm"
           />
@@ -67,12 +66,11 @@
             type="button"
             matIconSuffix
             mat-icon-button
-            (click)="showPassword = !showPassword"
+            (click)="onShowPasswordChange()"
           >
             <i
-              class="fa-regular {{
-                !showPassword ? 'fa-eye' : 'fa-eye-slash'
-              }} fa-2xs"
+              [ngClass]="evaluateInputSuffixIcon()"
+              class="fa-regular fa-2xs"
             ></i>
           </button>
         </mat-form-field>
@@ -98,7 +96,7 @@
           matInput
           formControlName="confirmPassword"
           autocomplete="password"
-          [type]="showPassword ? 'text' : 'password'"
+          [type]="evaluateInputType()"
           placeholder="Type your password"
           class="font__sm"
           [errorStateMatcher]="passwordMatcher"

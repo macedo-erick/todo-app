@@ -16,9 +16,8 @@
         >
           @if (card.priority) {
             <i
-              class="fa-solid fa-lg priority {{ evaluatePriority() }} {{
-                evaluatePriorityIcon()
-              }}"
+              [ngClass]="[evaluatePriority(), evaluatePriorityIcon()]"
+              class="fa-solid fa-lg priority"
             ></i>
           }
           @if (card.description) {

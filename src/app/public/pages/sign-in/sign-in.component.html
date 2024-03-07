@@ -25,7 +25,7 @@
           matInput
           formControlName="password"
           autocomplete="password"
-          [type]="showPassword ? 'text' : 'password'"
+          [type]="evaluateInputType()"
           placeholder="Type your password"
           class="font__sm"
         />
@@ -33,12 +33,11 @@
           type="button"
           matIconSuffix
           mat-icon-button
-          (click)="showPassword = !showPassword"
+          (click)="onShowPasswordChange()"
         >
           <i
-            class="fa-regular {{
-              !showPassword ? 'fa-eye' : 'fa-eye-slash'
-            }} fa-2xs"
+            [ngClass]="evaluateInputSuffixIcon()"
+            class="fa-regular fa-2xs"
           ></i>
         </button>
       </mat-form-field>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,7 +31,24 @@ export class SignUpComponent {
     { validators: passwordMatch }
   );
 
-  showPassword = false;
+  showPassword = signal(false);
+
+  evaluateInputType = computed(() => {
+    if (this.showPassword()) {
+      return 'text';
+    }
+
+    return 'password';
+  });
+
+  evaluateInputSuffixIcon = computed(() => {
+    if (this.showPassword()) {
+      return 'fa-eye-slash';
+    }
+
+    return 'fa-eye';
+  });
+
   passwordMatcher = new PasswordMatcher();
 
   constructor(
@@ -65,5 +82,9 @@ export class SignUpComponent {
         })
       )
       .subscribe();
+  }
+
+  onShowPasswordChange(): void {
+    this.showPassword.update((showPassword) => !showPassword);
   }
 }
