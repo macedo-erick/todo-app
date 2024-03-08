@@ -19,10 +19,9 @@ export class UserService {
 
   getUserInitials(): string {
     const fullName = this.getLoggedUser();
+    const [firstName, lastName] = fullName.split(/\s+/);
 
-    const [firstname, lastname] = fullName.split(/\s+/);
-
-    return firstname.charAt(0).concat(lastname.charAt(0));
+    return firstName.charAt(0).concat(lastName.charAt(0)).toUpperCase();
   }
 
   getLoggedUser(): string {

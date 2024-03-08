@@ -62,6 +62,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserInitialsComponent } from './components/user-initials/user-initials.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { ActivitiesComponent } from './components/activities/activities.component';
+import { ActivityComponent } from './components/activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { CommentComponent } from './components/comment/comment.component';
     SnackBarComponent,
     UserInitialsComponent,
     CommentsComponent,
-    CommentComponent
+    CommentComponent,
+    ActivitiesComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,

@@ -17,6 +17,7 @@ import { Priority } from '../../models/priority.model';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Comment } from '../../models/comment.model';
+import { ActivityService } from '../../services/activity/activity.service';
 
 @Component({
   selector: 'todo-card-detail',
@@ -40,36 +41,86 @@ export class CardDetailComponent {
   ];
 
   @Output() deletedCard = new EventEmitter();
-
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
+  constructor(private activityService: ActivityService) {}
+
   addDueDate(): void {
-    this.card.update((card) => ({ ...card, dueDate: addDays(new Date(), 1) }));
+    if (!this.card().dueDate) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        dueDate: addDays(new Date(), 1),
+        activities: [
+          ...activities,
+          this.activityService.create('added due date to the card')
+        ]
+      }));
+    }
   }
 
   addChecklist(): void {
-    this.card.update((card) => ({
-      ...card,
-      checklist: { name: 'Checklist', tasks: [] }
-    }));
+    if (!this.card().checklist) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        checklist: { name: 'Checklist', tasks: [] },
+        activities: [
+          ...activities,
+          this.activityService.create('added checklist to the card')
+        ]
+      }));
+    }
   }
 
   addPriority(): void {
-    this.card.update((card) => ({ ...card, priority: Priority.MEDIUM }));
+    if (!this.card().priority) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        priority: Priority.MEDIUM,
+        activities: [
+          ...activities,
+          this.activityService.create('added priority to the card')
+        ]
+      }));
+    }
   }
 
   addTimeSpent(): void {
-    this.card.update((card) => ({ ...card, timeSpent: 0 }));
+    if (!this.evaluateTimeSpentVisibility()) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        activities: [
+          ...activities,
+          this.activityService.create('added time spent to the card')
+        ],
+        timeSpent: 0
+      }));
+    }
   }
 
   onNameChange(): void {
     const { innerText } = this.cardName.nativeElement;
 
-    this.card.update((card) => ({ ...card, name: innerText.trim() }));
+    if (innerText.trim() !== this.card().name) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        name: innerText.trim(),
+        activities: [
+          ...activities,
+          this.activityService.create(`changed the name of the card`)
+        ]
+      }));
+    }
   }
 
   onDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
-    this.card.update((card) => ({ ...card, description: editor.getData() }));
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      description: editor.getData(),
+      activities: [
+        ...activities,
+        this.activityService.create(`changed the card description`)
+      ]
+    }));
   }
 
   onChecklistChange(checklist: Checklist): void {
@@ -79,23 +130,57 @@ export class CardDetailComponent {
   onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
     const { value: dueDate } = event;
 
-    this.card.update((card) => ({ ...card, dueDate: dueDate as Date }));
+    const formattedDueDate = new Date(String(dueDate)).toLocaleDateString('en');
+
+    const description = dueDate
+      ? `changed the due date to ${formattedDueDate}`
+      : 'removed the due date';
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      dueDate: dueDate as Date,
+      activities: [...activities, this.activityService.create(description)]
+    }));
   }
 
   onPriorityChange(event: MatSelectChange) {
     const { value: priority } = event;
 
-    this.card.update((card) => ({ ...card, priority }));
+    this.card.update(({ activities, priority: oldPriority, ...card }) => ({
+      ...card,
+      priority,
+      activities: [
+        ...activities,
+        this.activityService.create(
+          `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
+        )
+      ]
+    }));
   }
 
   onFinishedChange(finished: boolean): void {
-    this.card.update((card) => ({ ...card, finished }));
+    const description = finished
+      ? 'changed the due date to finished'
+      : 'changed the due date to unfinished';
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      finished,
+      activities: [...activities, this.activityService.create(description)]
+    }));
   }
 
   onTimeSpentChange(event: Event): void {
-    const { value: timeSpent } = event.target as HTMLInputElement;
+    const { value } = event.target as HTMLInputElement;
 
-    this.card.update((card) => ({ ...card, timeSpent: Number(timeSpent) }));
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      timeSpent: Number(value),
+      activities: [
+        ...activities,
+        this.activityService.create(`changed the time spent to ${value}h`)
+      ]
+    }));
   }
 
   onCommentsChange(comments: Comment[]) {

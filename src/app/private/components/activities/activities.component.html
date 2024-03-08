@@ -1,0 +1,7 @@
+@if (sortedActivities(); as activities) {
+  <ol class="ls__none d-flex flex-column p-0 m-0 gap-3">
+    @for (activity of activities; let index = $index; track index) {
+      <todo-activity [activity]="activity" />
+    }
+  </ol>
+}

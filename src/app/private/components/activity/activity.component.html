@@ -1,0 +1,24 @@
+@if (activity(); as activity) {
+  <li class="d-flex align-items-center gap-2">
+    <todo-user-initials
+      [initials]="evaluateAuthorInitials()"
+      [hasHover]="false"
+      size="md"
+    ></todo-user-initials>
+
+    <div class="d-grid flex-grow-1 gap-1">
+      <div class="d-flex align-items-center gap-1">
+        <span class="font__sm text__misty__gray m-0 fw-bolder">
+          {{ activity.author }}
+        </span>
+        <span class="font__sm m-0 fw-medium text-white-50">{{
+          activity.description
+        }}</span>
+      </div>
+
+      <p class="font__xm m-0 text-white-50 fw-medium">
+        {{ activity.createdDate | date: "MMMM d, y 'at' h:mm:ss" }}
+      </p>
+    </div>
+  </li>
+}

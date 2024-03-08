@@ -34,14 +34,16 @@
     }
   </div>
 
-  <ul class="d-flex flex-column p-0 m-0 gap-2">
-    @if (comments(); as comments) {
-      @for (comment of comments; let index = $index; track index) {
-        <todo-comment
-          [comment]="comment"
-          (deletedComment)="onDeletedComment(index)"
-        ></todo-comment>
-      }
+  @if (sortedComments(); as comments) {
+    @if (comments.length) {
+      <ol class="d-flex flex-column p-0 m-0 gap-2">
+        @for (comment of comments; let index = $index; track index) {
+          <todo-comment
+            [comment]="comment"
+            (deletedComment)="onDeletedComment(index)"
+          ></todo-comment>
+        }
+      </ol>
     }
-  </ul>
+  }
 </div>

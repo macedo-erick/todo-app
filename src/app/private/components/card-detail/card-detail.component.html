@@ -13,7 +13,7 @@
         </h2>
       </div>
       @if (card.dueDate || card.priority || card.timeSpent) {
-        <div class="d-flex gap-2 default__margin">
+        <div class="d-flex gap-2">
           @if (card.dueDate) {
             <input
               type="checkbox"
@@ -116,6 +116,17 @@
           (commentsChange)="onCommentsChange($event)"
         ></todo-comments>
       </div>
+
+      @if (card.activities.length) {
+        <div class="d-grid gap-3">
+          <div class="d-flex align-items-center default__gap">
+            <i class="fa-solid fa-chart-line fs-5"></i>
+            <h3 class="m-0 fw-semibold">Activities</h3>
+          </div>
+
+          <todo-activities [activities]="card.activities"></todo-activities>
+        </div>
+      }
     </div>
     <div class="actions__container d-flex flex-column gap-3">
       <div class="d-flex flex-column gap-2">

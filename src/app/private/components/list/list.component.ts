@@ -14,6 +14,9 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
 import { timer } from 'rxjs';
+import { ActivityService } from '../../services/activity/activity.service';
+import { Comment } from '../../models/comment.model';
+import { Activity } from '../../models/activity.model';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -30,12 +33,16 @@ export class ListComponent {
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
+  constructor(private activityService: ActivityService) {}
+
   addCard(): void {
     const card = {
       name: 'New Card',
       description: '',
       finished: false,
-      createdDate: new Date()
+      createdDate: new Date(),
+      comments: [] as Comment[],
+      activities: [] as Activity[]
     } as Card;
 
     this.list.update(({ cards, ...list }) => ({
@@ -63,9 +70,14 @@ export class ListComponent {
         event.previousIndex,
         event.currentIndex
       );
+
+      this.generateActivity(event);
     }
 
-    this.list.update(({ ...list }) => ({ ...list, cards: this.list().cards }));
+    this.list.update(({ ...list }) => ({
+      ...list,
+      cards: this.list().cards
+    }));
   }
 
   onNameChange(): void {
@@ -177,5 +189,25 @@ export class ListComponent {
         cards: cards.sort((a, b) => b.priority - a.priority)
       }));
     }
+  }
+
+  private generateActivity(event: CdkDragDrop<Card[]>) {
+    const previousList = document.getElementById(event.previousContainer.id)
+      ?.parentElement?.parentElement as HTMLElement;
+
+    const previousListName = (
+      previousList.querySelector('h2') as HTMLHeadingElement
+    ).innerText;
+
+    const currentListName = this.list().name;
+
+    const card = this.list().cards[event.currentIndex];
+
+    card.activities = [
+      ...card.activities,
+      this.activityService.create(
+        `moved the card from ${previousListName} to ${currentListName}`
+      )
+    ];
   }
 }

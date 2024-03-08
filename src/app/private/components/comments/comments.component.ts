@@ -1,4 +1,4 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, computed, model, signal } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { editorConfig } from '../../../util/util';
@@ -12,8 +12,15 @@ import { Comment } from '../../models/comment.model';
 })
 export class CommentsComponent {
   initials = signal(this.userService.getUserInitials());
-  comments = model.required<Comment[]>();
   isEditing = signal(false);
+
+  comments = model.required<Comment[]>();
+  sortedComments = computed(() =>
+    this.comments().sort(
+      (a, b) =>
+        new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+    )
+  );
 
   editor = ClassicEditor;
   config = editorConfig;
@@ -29,19 +36,14 @@ export class CommentsComponent {
   onAddComment() {
     this.isEditing.update(() => false);
 
-    this.comments.update((comments) =>
-      [
-        {
-          user: this.userService.getLoggedUser(),
-          createdDate: new Date(),
-          description: String(this.description.value)
-        },
-        ...comments
-      ].sort(
-        (a, b) =>
-          new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
-      )
-    );
+    this.comments.update((comments) => [
+      {
+        author: this.userService.getLoggedUser(),
+        createdDate: new Date(),
+        description: String(this.description.value)
+      },
+      ...comments
+    ]);
 
     this.description.patchValue('');
   }

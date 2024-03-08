@@ -16,11 +16,10 @@ export class CommentComponent {
   comment = model.required<Comment>();
 
   initials = computed(() => {
-    const user = this.comment().user;
+    const user = this.comment().author;
+    const [firstName, lastName] = user.split(/\s+/);
 
-    const [firstname, lastname] = user.split(/\s+/);
-
-    return firstname.charAt(0).concat(lastname.charAt(0));
+    return firstName.charAt(0).concat(lastName.charAt(0));
   });
 
   @Output() deletedComment = new EventEmitter();
