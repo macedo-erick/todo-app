@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { Config } from '../../sockets/socket';
 import { Observable } from 'rxjs';
 import { Board } from '../../models/board.model';
+import { BoardsResponseDto } from '../../dtos/board.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class BoardService extends Socket {
     this.emit('update', board);
   }
 
-  onFindAll(): Observable<Board[]> {
+  onFindAll(): Observable<BoardsResponseDto[]> {
     return this.fromEvent('onFindAll');
   }
 

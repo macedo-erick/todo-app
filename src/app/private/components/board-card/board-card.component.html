@@ -1,7 +1,7 @@
 @if (board(); as board) {
   <a
     class="board__container d-inline-block w-100 text-decoration-none"
-    [routerLink]="['/s/board/', board._id]"
+    [routerLink]="['/s/board/', board.boardId]"
   >
     <mat-card
       class="bg__ocean__blue border__rounded h-100 w-100 d-flex justify-content-center align-items-center"

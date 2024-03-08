@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Board } from '../../models/board.model';
+import { BoardsResponseDto } from '../../dtos/board.dto';
 
 @Component({
   selector: 'todo-board-card',
@@ -7,5 +7,5 @@ import { Board } from '../../models/board.model';
   styleUrl: './board-card.component.scss'
 })
 export class BoardCardComponent {
-  board = input<Board>();
+  board = input<BoardsResponseDto>();
 }
