@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private readonly basePath = `${environment.apiBasePath}/users`;
+  constructor(private jwtService: JwtHelperService) {}
 
-  constructor(
-    private http: HttpClient,
-    private jwtService: JwtHelperService
-  ) {}
+  getLoggedUser(): string {
+    const { fullName } = this.jwtService.decodeToken();
 
-  find() {
-    return this.http.get(this.basePath);
+    return fullName;
   }
 
   getUserInitials(): string {
@@ -23,11 +18,5 @@ export class UserService {
     const [firstName, lastName] = fullName.split(/\s+/);
 
     return firstName.charAt(0).concat(lastName.charAt(0)).toUpperCase();
-  }
-
-  getLoggedUser(): string {
-    const { fullName } = this.jwtService.decodeToken();
-
-    return fullName;
   }
 }

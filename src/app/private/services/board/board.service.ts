@@ -17,27 +17,27 @@ export class BoardService extends Socket {
     this.emit('create', board);
   }
 
-  findAll() {
-    this.emit('findAll');
-  }
-
   update(board: Board) {
     this.emit('update', board);
   }
 
-  onFindAll(): Observable<BoardsResponseDto[]> {
-    return this.fromEvent('onFindAll');
+  findAll() {
+    this.emit('findAll');
   }
 
   findOne(_id: string) {
     this.emit('findOne', { _id });
   }
 
-  onFindOne(): Observable<Board> {
-    return this.fromEvent('onFindOne');
-  }
-
   findByName(name: string) {
     this.emit('findByName', { name });
+  }
+
+  onFindAll(): Observable<BoardsResponseDto[]> {
+    return this.fromEvent('onFindAll');
+  }
+
+  onFindOne(): Observable<Board> {
+    return this.fromEvent('onFindOne');
   }
 }
