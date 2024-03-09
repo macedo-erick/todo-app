@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SigninRequest, SigninResponse } from '../../models/sign-in.model';
 import { SignUpRequest } from '../../models/sign-up.model';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly basePath = 'http://localhost:8080/api/dev/auth';
+  private readonly basePath = `${environment.apiBasePath}/auth`;
 
   isAuthenticated = signal(!this.jwtService.isTokenExpired());
 
