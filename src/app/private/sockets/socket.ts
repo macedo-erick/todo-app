@@ -1,8 +1,6 @@
 import { SocketIoConfig } from 'ngx-socket-io';
 import { tokenGetter } from '../../app.module';
-import { environment } from '../../../environments/environment.development'; // Workaround till ngx-socket-io fixes the missing "extraHeaders", add extraHeaders to Options
 
-// Workaround till ngx-socket-io fixes the missing "extraHeaders", add extraHeaders to Options
 export interface ExtendedSocketIoConfig extends SocketIoConfig {
   options?: {
     /**
@@ -110,11 +108,15 @@ export interface ExtendedSocketIoConfig extends SocketIoConfig {
   };
 }
 
-export const Config = (namespace: string): ExtendedSocketIoConfig => {
+export const Config = (
+  socketUrl: string,
+  basePath: string,
+  namespace: string
+): ExtendedSocketIoConfig => {
   return {
-    url: environment.wsUrl,
+    url: socketUrl,
     options: {
-      path: `${environment.wsBasePath}/${namespace}`,
+      path: `${basePath}/${namespace}`,
       extraHeaders: {
         Authorization: tokenGetter()
       }

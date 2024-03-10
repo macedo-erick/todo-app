@@ -4,13 +4,14 @@ import { Config } from '../../sockets/socket';
 import { Observable } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { BoardsResponseDto } from '../../dtos/board.dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService extends Socket {
   constructor() {
-    super(Config('boards'));
+    super(Config(environment.wsUrl, environment.wsBasePath, 'boards'));
   }
 
   create(board: Board) {
