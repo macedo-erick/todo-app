@@ -42,7 +42,10 @@ export class SignInComponent {
     const { email, password } = this.signInFormGroup.value;
 
     this.authService
-      .signIn({ email, password })
+      .signIn({
+        email: email.replace(/\s+/, ''),
+        password: password.replace(/\s+/, '')
+      })
       .pipe(
         tap({
           error: ({ error: { error } }) => {
