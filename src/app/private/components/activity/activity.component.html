@@ -8,15 +8,15 @@
 
     <div class="d-grid flex-grow-1 gap-1">
       <div class="d-flex align-items-center gap-1">
-        <span class="font__sm text__misty__gray m-0 fw-bolder">
+        <span class="font__sm m-0 fw-bolder">
           {{ activity.author }}
         </span>
-        <span class="font__sm m-0 fw-medium text-white-50">{{
+        <span class="font__sm m-0 fw-medium text-black-50">{{
           activity.description
         }}</span>
       </div>
 
-      <p class="font__xm m-0 text-white-50 fw-medium">
+      <p class="font__xm m-0 text-black-50 fw-medium">
         {{ activity.createdDate | date: "MMMM d, y 'at' h:mm:ss" }}
       </p>
     </div>

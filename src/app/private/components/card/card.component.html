@@ -1,7 +1,7 @@
 @if (card(); as card) {
   <li class="draggable__item" cdkDrag>
     <mat-card
-      class="card__container bg__graphite__black text__misty__gray border__rounded w-100 py-2 px-3"
+      class="card__container border__rounded shadow-sm w-100 py-2 px-3"
       (click)="showCardDetails()"
     >
       <mat-card-title>
@@ -12,7 +12,7 @@
 
       @if (evaluateFooterVisibility()) {
         <mat-card-footer
-          class="card__footer text__misty__gray font__sm d-flex align-items-center fw-medium"
+          class="card__footer font__sm d-flex align-items-center fw-medium"
         >
           @if (card.priority) {
             <i

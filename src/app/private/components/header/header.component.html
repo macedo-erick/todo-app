@@ -1,8 +1,8 @@
 <header
-  class="header__container position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
+  class="header__container bg__pale__blue shadow-sm position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
 >
   <a routerLink="/p/home" class="text-decoration-none">
-    <h1 class="text-white fw-bolder m-0">Todo</h1>
+    <h1 class="text-black fw-bolder m-0">Todo</h1>
   </a>
 
   <todo-user-initials
@@ -11,6 +11,6 @@
   ></todo-user-initials>
 </header>
 
-<mat-menu #menu="matMenu" class="bg__slate__gray">
+<mat-menu #menu="matMenu">
   <button mat-menu-item (click)="signOut()" class="has__hover">Sign Out</button>
 </mat-menu>
