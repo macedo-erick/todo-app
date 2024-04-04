@@ -14,10 +14,11 @@ import { Checklist } from '../../models/checklist.model';
 import { editorConfig } from '../../../util/util';
 import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
-import { MatSelectChange } from '@angular/material/select';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
+import { Attachment } from '../../models/attachment.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'todo-card-detail',
@@ -136,10 +137,6 @@ export class CardDetailComponent {
     }));
   }
 
-  onChecklistChange(checklist: Checklist): void {
-    this.card.update((card) => ({ ...card, checklist }));
-  }
-
   onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
     const { value: dueDate } = event;
 
@@ -171,18 +168,6 @@ export class CardDetailComponent {
     }));
   }
 
-  onFinishedChange(finished: boolean): void {
-    const description = finished
-      ? 'changed the due date to finished'
-      : 'changed the due date to unfinished';
-
-    this.card.update(({ activities, ...card }) => ({
-      ...card,
-      finished,
-      activities: [...activities, this.activityService.create(description)]
-    }));
-  }
-
   onTimeSpentChange(event: Event): void {
     const { value } = event.target as HTMLInputElement;
 
@@ -196,9 +181,27 @@ export class CardDetailComponent {
     }));
   }
 
+  onFinishedChange(finished: boolean): void {
+    const description = finished
+      ? 'changed the due date to finished'
+      : 'changed the due date to unfinished';
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      finished,
+      activities: [...activities, this.activityService.create(description)]
+    }));
+  }
+
+  onChecklistChange(checklist: Checklist): void {
+    this.card.update((card) => ({ ...card, checklist }));
+  }
+
+  onAttachmentsChange(attachments: Attachment[]): void {
+    this.card.update((card) => ({ ...card, attachments }));
+  }
+
   onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
   }
-
-  onAttachmentsChange(attachments: any): void {}
 }

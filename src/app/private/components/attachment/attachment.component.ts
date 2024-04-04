@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, model, output } from '@angular/core';
 import { Attachment } from '../../models/attachment.model';
 
 @Component({
@@ -8,5 +8,7 @@ import { Attachment } from '../../models/attachment.model';
 })
 export class AttachmentComponent {
   attachment = model.required<Attachment>();
-  // deletedAttachment = output;
+
+  deletedAttachment = output();
+  downloadAttachment = output();
 }
