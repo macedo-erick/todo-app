@@ -16,11 +16,12 @@
       cdkDragHandle
     >
       <input
-        class="font__sm border-0 flex-grow-1 fw-medium"
+        class="font__sm select__none border-0 flex-grow-1 fw-medium"
         name="name"
         #nameInput
         [ngModel]="task.name"
-        (click)="inputContainer.classList.add('focused')"
+        [readonly]="evaluateReadOnlyState()"
+        (click)="toggleEditName()"
         (blur)="onNameChange($event)"
       />
       <button

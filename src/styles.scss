@@ -159,8 +159,14 @@ body {
 
 .draggable__container {
   &.cdk-drop-list-dragging {
+    cursor: grabbing;
+
     .draggable__item:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+
+      &:hover {
+        cursor: grabbing;
+      }
 
       .card__container {
         outline: none;
@@ -168,6 +174,10 @@ body {
 
       .input__container {
         background-color: transparent !important;
+
+        input {
+          cursor: grabbing !important;
+        }
 
         button {
           display: none !important;

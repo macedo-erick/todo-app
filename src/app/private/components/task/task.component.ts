@@ -4,6 +4,7 @@ import {
   EventEmitter,
   model,
   Output,
+  signal,
   ViewChild
 } from '@angular/core';
 import { Task } from '../../models/task.model';
@@ -16,6 +17,8 @@ import { Task } from '../../models/task.model';
 export class TaskComponent {
   task = model.required<Task>();
   @Output() taskDeleted = new EventEmitter();
+
+  evaluateReadOnlyState = signal(true);
 
   @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
@@ -30,5 +33,12 @@ export class TaskComponent {
     this.inputContainer.nativeElement.classList.remove('focused');
 
     this.task.update((task) => ({ ...task, name: value.trim() }));
+
+    this.evaluateReadOnlyState.update(() => true);
+  }
+
+  toggleEditName(): void {
+    this.inputContainer.nativeElement.classList.add('focused');
+    this.evaluateReadOnlyState.update(() => false);
   }
 }
