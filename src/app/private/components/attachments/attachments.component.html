@@ -1,0 +1,10 @@
+@if (attachments(); as attachments) {
+  @if (attachments.length) {
+    @for (attachment of attachments; track attachment.key) {
+      <todo-attachment
+        [attachment]="attachment"
+        (deletedAttachment)="onDeletedAttachment(attachment.key)"
+      ></todo-attachment>
+    }
+  }
+}

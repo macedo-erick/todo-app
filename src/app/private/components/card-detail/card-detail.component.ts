@@ -58,19 +58,6 @@ export class CardDetailComponent {
     }
   }
 
-  addChecklist(): void {
-    if (!this.card().checklist) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        checklist: { name: 'Checklist', tasks: [] },
-        activities: [
-          ...activities,
-          this.activityService.create('added checklist to the card')
-        ]
-      }));
-    }
-  }
-
   addPriority(): void {
     if (!this.card().priority) {
       this.card.update(({ activities, ...card }) => ({
@@ -93,6 +80,32 @@ export class CardDetailComponent {
           this.activityService.create('added time spent to the card')
         ],
         timeSpent: 0
+      }));
+    }
+  }
+
+  addChecklist(): void {
+    if (!this.card().checklist) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        checklist: { name: 'Checklist', tasks: [] },
+        activities: [
+          ...activities,
+          this.activityService.create('added checklist to the card')
+        ]
+      }));
+    }
+  }
+
+  addAttachments(): void {
+    if (!this.card().attachments) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        attachments: [],
+        activities: [
+          ...activities,
+          this.activityService.create('added attachments to the card')
+        ]
       }));
     }
   }
@@ -183,7 +196,9 @@ export class CardDetailComponent {
     }));
   }
 
-  onCommentsChange(comments: Comment[]) {
+  onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
   }
+
+  onAttachmentsChange(attachments: any): void {}
 }
