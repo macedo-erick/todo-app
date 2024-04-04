@@ -33,19 +33,26 @@ export class CommentsComponent {
     this.isEditing.update(() => true);
   }
 
+  onCancel(): void {
+    this.isEditing.update(() => false);
+    this.description.patchValue('');
+  }
+
   onAddComment(): void {
     this.isEditing.update(() => false);
 
-    this.comments.update((comments) => [
-      {
-        author: this.userService.getLoggedUser(),
-        createdDate: new Date(),
-        description: String(this.description.value)
-      },
-      ...comments
-    ]);
+    if (String(this.description.value)) {
+      this.comments.update((comments) => [
+        {
+          author: this.userService.getLoggedUser(),
+          createdDate: new Date(),
+          description: String(this.description.value)
+        },
+        ...comments
+      ]);
 
-    this.description.patchValue('');
+      this.description.patchValue('');
+    }
   }
 
   onDeletedComment(index: number): void {

@@ -14,14 +14,24 @@
           class="w-100"
           [formControl]="description"
         ></ckeditor>
-        <button
-          mat-button
-          class="save__btn font__sm fw-medium mt-2"
-          [disabled]="description.invalid"
-          (click)="onAddComment()"
-        >
-          Save
-        </button>
+
+        <div class="d-flex gap-2">
+          <button
+            mat-button
+            class="save__btn font__sm fw-medium mt-2"
+            (click)="onCancel()"
+          >
+            Cancel
+          </button>
+          <button
+            mat-button
+            class="save__btn font__sm fw-medium mt-2"
+            [disabled]="description.invalid"
+            (click)="onAddComment()"
+          >
+            Save
+          </button>
+        </div>
       </div>
     } @else {
       <button
@@ -29,7 +39,7 @@
         class="bg__pale__blue border__rounded font__sm flex-grow-1 p-3 py-4 justify-content-start"
         (click)="onWriteCommentClick()"
       >
-        Write a comment
+        Write comment
       </button>
     }
   </div>
