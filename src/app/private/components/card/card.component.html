@@ -42,7 +42,7 @@
             >
           }
 
-          @if (card.attachments?.length) {
+          @if (card.attachments && card.attachments.length) {
             <span class="d-flex align-items-center gap-1 fw-medium">
               <i class="fa-regular fa-paperclip fa-lg"></i>
               {{ card.attachments.length }}
