@@ -19,7 +19,7 @@
           <button
             mat-button
             class="save__btn font__sm fw-medium mt-2"
-            (click)="onCancel()"
+            (click)="onCancelClick()"
           >
             Cancel
           </button>
@@ -27,7 +27,7 @@
             mat-button
             class="save__btn font__sm fw-medium mt-2"
             [disabled]="description.invalid"
-            (click)="onAddComment()"
+            (click)="onSaveClick()"
           >
             Save
           </button>

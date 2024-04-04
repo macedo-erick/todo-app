@@ -33,12 +33,12 @@ export class CommentsComponent {
     this.isEditing.update(() => true);
   }
 
-  onCancel(): void {
+  onCancelClick(): void {
     this.isEditing.update(() => false);
     this.description.patchValue('');
   }
 
-  onAddComment(): void {
+  onSaveClick(): void {
     this.isEditing.update(() => false);
 
     if (String(this.description.value)) {

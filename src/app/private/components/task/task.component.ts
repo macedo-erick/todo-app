@@ -16,9 +16,9 @@ import { Task } from '../../models/task.model';
 })
 export class TaskComponent {
   task = model.required<Task>();
-  @Output() taskDeleted = new EventEmitter();
-
   evaluateReadOnlyState = signal(true);
+
+  @Output() taskDeleted = new EventEmitter();
 
   @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
