@@ -6,5 +6,5 @@ export interface SigninRequest {
 export interface SigninResponse {
   email: string;
   id: string;
-  access_token: string;
+  accessToken: string;
 }

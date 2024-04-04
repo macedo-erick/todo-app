@@ -1,0 +1,28 @@
+@if (attachments(); as attachments) {
+  <ul class="ls__none d-flex flex-column m-0 gap-2">
+    @for (attachment of attachments; track attachment.key) {
+      <todo-attachment
+        [attachment]="attachment"
+        (deletedAttachment)="onDeletedAttachment(attachment.key)"
+        (downloadAttachment)="
+          onDownloadAttachment(attachment.key, attachment.fileName)
+        "
+      ></todo-attachment>
+    }
+  </ul>
+
+  <input
+    type="file"
+    class="d-none"
+    #fileInput
+    (change)="onFileInputChange($event)"
+  />
+
+  <button
+    mat-button
+    class="new__attachment__btn bg__pale__blue has__hover font__sm fw-medium mt-2"
+    (click)="fileInput.click()"
+  >
+    Add attachment
+  </button>
+}

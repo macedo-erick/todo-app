@@ -32,11 +32,16 @@ export class CardComponent {
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
-    const { priority, dueDate, description, checklist } = this.card();
+    const { priority, dueDate, description, checklist, attachments } =
+      this.card();
 
-    return [priority, dueDate, description, checklist?.tasks.length].filter(
-      (k) => k
-    ).length;
+    return [
+      priority,
+      dueDate,
+      description,
+      checklist?.tasks.length,
+      attachments?.length
+    ].filter((k) => k).length;
   });
 
   evaluateDueDateStatus = computed(() => {

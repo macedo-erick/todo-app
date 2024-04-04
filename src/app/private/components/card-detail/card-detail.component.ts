@@ -14,10 +14,11 @@ import { Checklist } from '../../models/checklist.model';
 import { editorConfig } from '../../../util/util';
 import { addDays } from 'date-fns';
 import { Priority } from '../../models/priority.model';
-import { MatSelectChange } from '@angular/material/select';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
+import { Attachment } from '../../models/attachment.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'todo-card-detail',
@@ -58,19 +59,6 @@ export class CardDetailComponent {
     }
   }
 
-  addChecklist(): void {
-    if (!this.card().checklist) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        checklist: { name: 'Checklist', tasks: [] },
-        activities: [
-          ...activities,
-          this.activityService.create('added checklist to the card')
-        ]
-      }));
-    }
-  }
-
   addPriority(): void {
     if (!this.card().priority) {
       this.card.update(({ activities, ...card }) => ({
@@ -93,6 +81,32 @@ export class CardDetailComponent {
           this.activityService.create('added time spent to the card')
         ],
         timeSpent: 0
+      }));
+    }
+  }
+
+  addChecklist(): void {
+    if (!this.card().checklist) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        checklist: { name: 'Checklist', tasks: [] },
+        activities: [
+          ...activities,
+          this.activityService.create('added checklist to the card')
+        ]
+      }));
+    }
+  }
+
+  addAttachments(): void {
+    if (!this.card().attachments) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        attachments: [],
+        activities: [
+          ...activities,
+          this.activityService.create('added attachments to the card')
+        ]
       }));
     }
   }
@@ -121,10 +135,6 @@ export class CardDetailComponent {
         this.activityService.create(`changed the card description`)
       ]
     }));
-  }
-
-  onChecklistChange(checklist: Checklist): void {
-    this.card.update((card) => ({ ...card, checklist }));
   }
 
   onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
@@ -158,18 +168,6 @@ export class CardDetailComponent {
     }));
   }
 
-  onFinishedChange(finished: boolean): void {
-    const description = finished
-      ? 'changed the due date to finished'
-      : 'changed the due date to unfinished';
-
-    this.card.update(({ activities, ...card }) => ({
-      ...card,
-      finished,
-      activities: [...activities, this.activityService.create(description)]
-    }));
-  }
-
   onTimeSpentChange(event: Event): void {
     const { value } = event.target as HTMLInputElement;
 
@@ -183,7 +181,27 @@ export class CardDetailComponent {
     }));
   }
 
-  onCommentsChange(comments: Comment[]) {
+  onFinishedChange(finished: boolean): void {
+    const description = finished
+      ? 'changed the due date to finished'
+      : 'changed the due date to unfinished';
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      finished,
+      activities: [...activities, this.activityService.create(description)]
+    }));
+  }
+
+  onChecklistChange(checklist: Checklist): void {
+    this.card.update((card) => ({ ...card, checklist }));
+  }
+
+  onAttachmentsChange(attachments: Attachment[]): void {
+    this.card.update((card) => ({ ...card, attachments }));
+  }
+
+  onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
   }
 }

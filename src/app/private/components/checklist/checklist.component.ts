@@ -30,7 +30,7 @@ export class ChecklistComponent {
     }));
   }
 
-  onTaskChange(index: number, task: Task) {
+  onTaskChange(index: number, task: Task): void {
     this.checklist.update(({ tasks, ...checklist }) => {
       tasks[index] = task;
 

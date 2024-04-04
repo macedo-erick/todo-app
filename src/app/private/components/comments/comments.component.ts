@@ -29,11 +29,11 @@ export class CommentsComponent {
 
   constructor(private userService: UserService) {}
 
-  onWriteCommentClick() {
+  onWriteCommentClick(): void {
     this.isEditing.update(() => true);
   }
 
-  onAddComment() {
+  onAddComment(): void {
     this.isEditing.update(() => false);
 
     this.comments.update((comments) => [
@@ -48,7 +48,7 @@ export class CommentsComponent {
     this.description.patchValue('');
   }
 
-  onDeletedComment(index: number) {
+  onDeletedComment(index: number): void {
     this.comments.update((comments) => comments.filter((_, i) => i !== index));
   }
 }

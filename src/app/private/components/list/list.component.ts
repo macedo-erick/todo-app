@@ -191,7 +191,7 @@ export class ListComponent {
     }
   }
 
-  private generateActivity(event: CdkDragDrop<Card[]>) {
+  private generateActivity(event: CdkDragDrop<Card[]>): void {
     const previousList = document.getElementById(event.previousContainer.id)
       ?.parentElement?.parentElement as HTMLElement;
 

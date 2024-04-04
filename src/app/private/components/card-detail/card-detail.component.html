@@ -104,6 +104,19 @@
         </div>
       }
 
+      @if (card.attachments) {
+        <div class="d-grid gap-3">
+          <div class="d-flex align-items-center default__gap">
+            <i class="fa-regular fa-paperclip fs-5"></i>
+            <h3 class="m-0 fw-semibold">Attachments</h3>
+          </div>
+          <todo-attachments
+            [attachments]="card.attachments"
+            (attachmentsChange)="onAttachmentsChange($event)"
+          />
+        </div>
+      }
+
       <div class="d-grid gap-3">
         <div class="d-flex align-items-center default__gap">
           <i class="fa-regular fa-comment-lines fs-5"></i>
@@ -157,6 +170,16 @@
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"
+          (click)="addPriority()"
+        >
+          <span class="d-flex align-items-center gap-2">
+            <i class="fa-regular fa-circle-exclamation fa-lg"></i>
+            Priority
+          </span>
+        </button>
+        <button
+          mat-button
+          class="bg__pale__blue has__hover font__sm justify-content-start"
           (click)="addTimeSpent()"
         >
           <span class="d-flex align-items-center gap-2">
@@ -177,11 +200,11 @@
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"
-          (click)="addPriority()"
+          (click)="addAttachments()"
         >
           <span class="d-flex align-items-center gap-2">
-            <i class="fa-regular fa-circle-exclamation fa-lg"></i>
-            Priority
+            <i class="fa-regular fa-paperclip fa-lg"></i>
+            Attachments
           </span>
         </button>
       </div>

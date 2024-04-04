@@ -64,6 +64,8 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
 import { ActivityComponent } from './components/activity/activity.component';
+import { AttachmentsComponent } from './components/attachments/attachments.component';
+import { AttachmentComponent } from './components/attachment/attachment.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { ActivityComponent } from './components/activity/activity.component';
     CommentsComponent,
     CommentComponent,
     ActivitiesComponent,
-    ActivityComponent
+    ActivityComponent,
+    AttachmentsComponent,
+    AttachmentComponent
   ],
   imports: [
     CommonModule,

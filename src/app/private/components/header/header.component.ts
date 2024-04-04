@@ -15,7 +15,7 @@ export class HeaderComponent {
     private userService: UserService
   ) {}
 
-  signOut() {
+  signOut(): void {
     this.authService.signOut();
   }
 }
