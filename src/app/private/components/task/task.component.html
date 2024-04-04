@@ -16,7 +16,7 @@
       cdkDragHandle
     >
       <input
-        class="font__sm text__misty__gray border-0 flex-grow-1 fw-medium"
+        class="font__sm border-0 flex-grow-1 fw-medium"
         name="name"
         #nameInput
         [ngModel]="task.name"
@@ -25,8 +25,8 @@
       />
       <button
         mat-icon-button
-        class="text__misty__gray"
         (mousedown)="taskDeleted.emit()"
+        class="has__hover"
       >
         <i class="fa-regular fa-trash fa-2xs"></i>
       </button>

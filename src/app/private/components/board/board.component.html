@@ -1,8 +1,8 @@
 @if (board(); as board) {
-  <div class="board__container bg__ocean__blue d-flex flex-column w-100 h-100">
-    <div class="board__header bg__transparent__black d-flex align-items-center">
+  <div class="board__container bg__light__blue d-flex flex-column w-100 h-100">
+    <div class="board__header d-flex align-items-center">
       <h1
-        class="has__hover border__rounded content__editable select__none m-0 px-2 fs-5 fw-bolder text-white"
+        class="has__hover border__rounded content__editable select__none m-0 px-2 fs-5 fw-bolder"
         contenteditable
         #boardName
         (blur)="onNameChange()"
@@ -29,7 +29,7 @@
       @if (loaded()) {
         <button
           mat-button
-          class="list__item bg__transparent__white border__rounded font__sm d-flex justify-content-start py-4 fw-medium text-white"
+          class="list__item border__rounded has__hover font__sm d-flex justify-content-start py-4 fw-medium"
           (click)="addList()"
         >
           <span class="d-flex gap-2 align-items-center">

@@ -11,25 +11,23 @@ body {
   margin: 0;
   overflow-y: hidden;
   font-family: -apple-system, Roboto, 'Helvetica Neue', sans-serif;
-  background-color: #f3f3f3;
+  background-color: var(--light-blue);
 }
 
 :root {
   --white: #fafbfcff;
-  --midnight-blue: #1d2125;
-  --charcoal-gray: #101204;
   --slate-gray: #282e33;
   --misty-gray: #b6c2cf;
   --soft-azure: #a6c5e229;
-  --graphite-black: #22272b;
   --transparent-black: #0000003d;
-  --transparent-white: #ffffff3d;
   --sky-blue: #85b8ff;
   --electric-blue: #0055cc;
-  --soft-blue-grey: #8c9bab;
   --sunbeam-yellow: #f2d600;
   --ngxMatInputTel-opacity: 1;
-  --ocean-blue: #005586;
+
+  --light-blue: #e6ecf4;
+  --pale-blue: #f6faff;
+  --slate-blue: #667085;
 }
 
 .material-symbols-outlined {
@@ -43,7 +41,6 @@ body {
 
   .mat-mdc-menu-item-text {
     font-size: 0.8rem !important;
-    color: var(--misty-gray) !important;
     font-weight: 500 !important;
   }
 
@@ -74,52 +71,16 @@ body {
   }
 }
 
-.bg__transparent__white {
-  background-color: var(--transparent-white) !important;
+.bg__light__blue {
+  background-color: var(--light-blue) !important;
 }
 
-.bg__transparent__black {
-  background-color: var(--transparent-black) !important;
-}
-
-.bg__charcoal__gray {
-  background-color: var(--charcoal-gray) !important;
-}
-
-.bg__sunbeam__yellow {
-  background-color: var(--sunbeam-yellow) !important;
+.bg__pale__blue {
+  background-color: var(--pale-blue) !important;
 }
 
 .bg__sky__blue {
   background-color: var(--sky-blue) !important;
-}
-
-.bg__graphite__black {
-  background-color: var(--graphite-black) !important;
-}
-
-.bg__soft___azure {
-  background-color: var(--soft-azure) !important;
-}
-
-.bg__slate__gray {
-  background-color: var(--slate-gray) !important;
-
-  .mdc-dialog__surface {
-    background-color: var(--slate-gray) !important;
-  }
-}
-
-.bg__ocean__blue {
-  background-color: var(--ocean-blue) !important;
-}
-
-.text__misty__gray {
-  color: var(--misty-gray) !important;
-}
-
-.text__soft__blue {
-  color: var(--soft-blue-grey) !important;
 }
 
 .font__xm {
@@ -195,7 +156,7 @@ body {
       }
 
       .input__container {
-        background-color: var(--slate-gray) !important;
+        background-color: transparent !important;
 
         button {
           display: none !important;
@@ -209,9 +170,6 @@ body {
   min-height: 15rem !important;
   padding: 0 1.5rem !important;
 
-  background-color: var(--graphite-black) !important;
-
-  color: var(--misty-gray);
   font-size: 0.8rem !important;
 }
 
@@ -219,70 +177,15 @@ body {
   word-break: break-word;
 }
 
-.ck.ck-toolbar {
-  background-color: var(--graphite-black) !important;
-
-  border: none !important;
-
-  color: var(--misty-gray);
-}
-
-.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
-  border: none !important;
-}
-
-.ck.ck-editor__main > .ck-editor__editable {
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.ck-toolbar__items {
-  .ck-toolbar__separator {
-    background-color: var(--misty-gray) !important;
-  }
-
-  .ck-button {
-    color: var(--misty-gray) !important;
-
-    &:hover,
-    &:active {
-      background-color: var(--soft-azure) !important;
-    }
-
-    &.ck-on {
-      color: var(--misty-gray) !important;
-
-      background-color: var(--soft-azure) !important;
-
-      &:hover,
-      &:active {
-        background-color: var(--soft-azure) !important;
-      }
-    }
-  }
-
-  .ck-list {
-    background-color: var(--graphite-black) !important;
-
-    color: var(--misty-gray) !important;
-
-    .ck-list__item {
-      &:hover {
-        background-color: var(--soft-azure) !important;
-      }
-    }
-  }
-}
-
 ::-webkit-scrollbar {
-  background-color: var(--slate-gray);
+  background-color: var(--pale-blue);
 
   width: 4px;
   height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--slate-gray);
+  background-color: var(--pale-blue);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -295,18 +198,6 @@ body {
 }
 
 .mat-mdc-option {
-  &:hover {
-    background-color: var(--soft-azure) !important;
-  }
-
-  &.mdc-list-item--selected {
-    background-color: var(--soft-azure) !important;
-  }
-
-  .mdc-list-item__primary-text {
-    color: var(--misty-gray) !important;
-  }
-
   mat-pseudo-checkbox {
     display: none;
   }

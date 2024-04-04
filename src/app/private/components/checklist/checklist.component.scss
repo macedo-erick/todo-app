@@ -9,9 +9,9 @@
     height: 8px;
   }
 
-  ::ng-deep .mdc-linear-progress__buffer-bar {
-    background-color: var(--graphite-black);
-  }
+  //::ng-deep .mdc-linear-progress__buffer-bar {
+  //  background-color: var(--graphite-black);
+  //}
 
   ::ng-deep .mdc-linear-progress__bar-inner {
     border-color: var(--electric-blue);

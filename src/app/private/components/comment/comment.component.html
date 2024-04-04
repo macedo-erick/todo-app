@@ -8,22 +8,22 @@
 
     <div class="d-grid flex-grow-1 gap-1">
       <div class="d-flex align-items-center gap-2">
-        <h4 class="font__sm text__misty__gray m-0 fw-bolder">
+        <h4 class="font__sm m-0 fw-bolder">
           {{ comment.author }}
         </h4>
-        <span class="font__xm m-0 text-white-50 fw-medium">{{
+        <span class="font__xm text-black-50 m-0 fw-medium">{{
           comment.createdDate | date: "MMMM d, y 'at' h:mm:ss"
         }}</span>
       </div>
 
       <div
-        class="bg__graphite__black border__rounded font__sm m-0 fw-medium flex-grow-1 p-3 text__misty__gray justify-content-start"
+        class="bg__pale__blue border__rounded font__sm m-0 fw-medium flex-grow-1 p-3 justify-content-start"
         [innerHTML]="comment.description"
       ></div>
 
       <button
         mat-button
-        class="font__xm text__misty__gray fw-medium"
+        class="font__xm fw-medium has__hover"
         (click)="deletedComment.emit()"
       >
         Delete
