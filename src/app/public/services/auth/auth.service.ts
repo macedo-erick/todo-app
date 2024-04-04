@@ -26,7 +26,7 @@ export class AuthService {
       .post<SigninResponse>(`${this.basePath}/sign-in`, signinRequest)
       .pipe(
         tap((res) => {
-          localStorage.setItem('SESSION', res.access_token);
+          localStorage.setItem('SESSION', res.accessToken);
           this.isAuthenticated.set(true);
           void this.router.navigate(['/s/home']);
         })
