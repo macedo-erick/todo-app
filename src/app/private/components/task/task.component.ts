@@ -1,9 +1,9 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
+  inject,
   model,
-  Output,
+  output,
   signal,
   ViewChild
 } from '@angular/core';
@@ -16,15 +16,15 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './task.component.scss'
 })
 export class TaskComponent {
+  boardService = inject(BoardService);
+
   task = model.required<Task>();
   evaluateReadOnlyState = signal(true);
 
-  @Output() taskDeleted = new EventEmitter();
+  taskDeleted = output();
 
   @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
-
-  constructor(public boardService: BoardService) {}
 
   onFinishedChange(finished: boolean): void {
     this.task.update((task) => ({ ...task, finished }));

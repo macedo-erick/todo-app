@@ -8,7 +8,6 @@ import { Activity } from '../../models/activity.model';
 })
 export class ActivityComponent {
   activity = model.required<Activity>();
-
   evaluateAuthorInitials = computed(() => {
     const author = this.activity().author;
     const [firstName, lastName] = author.split(/\s+/g);

@@ -2,9 +2,9 @@ import {
   Component,
   computed,
   ElementRef,
-  EventEmitter,
+  inject,
   model,
-  Output,
+  output,
   ViewChild
 } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -26,6 +26,9 @@ import { formatInTimeZone, toDate } from 'date-fns-tz';
   styleUrl: './card-detail.component.scss'
 })
 export class CardDetailComponent {
+  #activityService = inject(ActivityService);
+  boardService = inject(BoardService);
+
   card = model.required<Card>();
 
   evaluateTimeSpentVisibility = computed(() =>
@@ -47,13 +50,9 @@ export class CardDetailComponent {
     { value: 3, label: 'High' }
   ];
 
-  @Output() deletedCard = new EventEmitter();
-  @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
+  deletedCard = output();
 
-  constructor(
-    private activityService: ActivityService,
-    public boardService: BoardService
-  ) {}
+  @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
   addChecklist(): void {
     if (!this.card().checklist) {
@@ -62,7 +61,7 @@ export class CardDetailComponent {
         checklist: { name: 'Checklist', tasks: [] },
         activities: [
           ...activities,
-          this.activityService.create('added checklist to the card')
+          this.#activityService.create('added checklist to the card')
         ]
       }));
     }
@@ -75,7 +74,7 @@ export class CardDetailComponent {
         attachments: [],
         activities: [
           ...activities,
-          this.activityService.create('added attachments to the card')
+          this.#activityService.create('added attachments to the card')
         ]
       }));
     }
@@ -90,7 +89,7 @@ export class CardDetailComponent {
         name: innerText.trim(),
         activities: [
           ...activities,
-          this.activityService.create(`changed the name of the card`)
+          this.#activityService.create(`changed the name of the card`)
         ]
       }));
     }
@@ -102,7 +101,7 @@ export class CardDetailComponent {
       description: editor.getData(),
       activities: [
         ...activities,
-        this.activityService.create(`changed the card description`)
+        this.#activityService.create(`changed the card description`)
       ]
     }));
   }
@@ -115,7 +114,7 @@ export class CardDetailComponent {
       priority,
       activities: [
         ...activities,
-        this.activityService.create(
+        this.#activityService.create(
           `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
         )
       ]
@@ -148,7 +147,7 @@ export class CardDetailComponent {
       sprintId,
       activities: [
         ...activities,
-        this.activityService.create(
+        this.#activityService.create(
           `moved card to sprint [Sprint ${index + 1}] - ${sprintStartDate} - ${sprintEndDate}`
         )
       ]
@@ -163,7 +162,7 @@ export class CardDetailComponent {
       type,
       activities: [
         ...activities,
-        this.activityService.create(
+        this.#activityService.create(
           `changed the type from ${this.types[oldType - 1]?.label} to ${this.types[type - 1]?.label}`
         )
       ]
@@ -178,7 +177,7 @@ export class CardDetailComponent {
       timeSpent: Number(value),
       activities: [
         ...activities,
-        this.activityService.create(`changed the time spent to ${value}h`)
+        this.#activityService.create(`changed the time spent to ${value}h`)
       ]
     }));
   }
@@ -191,7 +190,7 @@ export class CardDetailComponent {
       storyPoints: Number(value),
       activities: [
         ...activities,
-        this.activityService.create(`changed the story points to ${value}d`)
+        this.#activityService.create(`changed the story points to ${value}d`)
       ]
     }));
   }

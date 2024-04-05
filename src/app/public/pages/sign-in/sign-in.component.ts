@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,13 +10,10 @@ import { SnackBarComponent } from '../../../private/components/snack-bar/snack-b
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent {
-  signInFormGroup: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
-  });
+  #authService = inject(AuthService);
+  #snackBarService = inject(MatSnackBar);
 
   showPassword = signal(false);
-
   evaluateInputType = computed(() => {
     if (this.showPassword()) {
       return 'text';
@@ -24,7 +21,6 @@ export class SignInComponent {
 
     return 'password';
   });
-
   evaluateInputSuffixIcon = computed(() => {
     if (this.showPassword()) {
       return 'fa-eye-slash';
@@ -33,15 +29,15 @@ export class SignInComponent {
     return 'fa-eye';
   });
 
-  constructor(
-    private authService: AuthService,
-    private snackBarService: MatSnackBar
-  ) {}
+  signInFormGroup: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  });
 
   signIn(): void {
     const { email, password } = this.signInFormGroup.value;
 
-    this.authService
+    this.#authService
       .signIn({
         email: email.replace(/\s+/, ''),
         password: password.replace(/\s+/, '')
@@ -49,7 +45,7 @@ export class SignInComponent {
       .pipe(
         tap({
           error: ({ error: { error } }) => {
-            this.snackBarService.openFromComponent(SnackBarComponent, {
+            this.#snackBarService.openFromComponent(SnackBarComponent, {
               duration: 3000,
               data: error,
               horizontalPosition: 'end',

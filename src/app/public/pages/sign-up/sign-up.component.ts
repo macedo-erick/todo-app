@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,6 +14,25 @@ import passwordMatchValidator, {
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
+  #authService = inject(AuthService);
+  #snackBarService = inject(MatSnackBar);
+
+  showPassword = signal(false);
+  evaluateType = computed(() => {
+    if (this.showPassword()) {
+      return 'text';
+    }
+
+    return 'password';
+  });
+  evaluateSuffixIcon = computed(() => {
+    if (this.showPassword()) {
+      return 'fa-eye-slash';
+    }
+
+    return 'fa-eye';
+  });
+
   strongPasswordRegex = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
 
   formGroup: FormGroup = new FormGroup(
@@ -31,40 +50,17 @@ export class SignUpComponent {
     { validators: passwordMatchValidator }
   );
 
-  showPassword = signal(false);
-
-  evaluateType = computed(() => {
-    if (this.showPassword()) {
-      return 'text';
-    }
-
-    return 'password';
-  });
-
-  evaluateSuffixIcon = computed(() => {
-    if (this.showPassword()) {
-      return 'fa-eye-slash';
-    }
-
-    return 'fa-eye';
-  });
-
   passwordMatcher = new PasswordMatchState();
-
-  constructor(
-    private authService: AuthService,
-    private snackBarService: MatSnackBar
-  ) {}
 
   signUp(): void {
     const { confirmPassword, ...rest } = this.formGroup.value;
 
-    this.authService
+    this.#authService
       .signUp({ ...rest })
       .pipe(
         tap({
           next: () => {
-            this.snackBarService.openFromComponent(SnackBarComponent, {
+            this.#snackBarService.openFromComponent(SnackBarComponent, {
               duration: 3000,
               data: 'User registered sucessfully',
               horizontalPosition: 'end',
@@ -72,7 +68,7 @@ export class SignUpComponent {
             });
           },
           error: ({ error: { error } }) => {
-            this.snackBarService.openFromComponent(SnackBarComponent, {
+            this.#snackBarService.openFromComponent(SnackBarComponent, {
               duration: 3000,
               data: error,
               horizontalPosition: 'end',

@@ -1,4 +1,4 @@
-import { Component, computed, model } from '@angular/core';
+import { Component, computed, inject, model } from '@angular/core';
 import { Checklist } from '../../models/checklist.model';
 import { Task } from '../../models/task.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -11,14 +11,14 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './checklist.component.scss'
 })
 export class ChecklistComponent {
+  boardService = inject(BoardService);
+
   checklist = model.required<Checklist>();
   progress = computed(() => {
     const tasks = this.checklist().tasks;
     const finishedTasks = tasks.filter((c) => c.finished).length;
     return Math.floor((finishedTasks / tasks.length) * 100) || 0;
   });
-
-  constructor(public boardService: BoardService) {}
 
   drop(event: CdkDragDrop<List>): void {
     moveItemInArray(

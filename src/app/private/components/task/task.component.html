@@ -12,6 +12,7 @@
       (ngModelChange)="onFinishedChange($event)"
       *ngIf="boardService.isSprintModifiable()"
     />
+
     <div
       class="input__container border__rounded d-flex flex-grow-1 px-1"
       [class.readonly]="!boardService.isSprintModifiable()"
@@ -28,6 +29,7 @@
         (click)="toggleChangeName()"
         (blur)="onNameChange($event)"
       />
+
       <button
         mat-icon-button
         (mousedown)="taskDeleted.emit()"

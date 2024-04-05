@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { Card } from '../../models/card.model';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Priority } from '../../enums/priority.enum';
 import { CardType } from '../../enums/card-type.enum';
 import { BoardService } from '../../services/board/board.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'todo-card',
@@ -20,8 +20,11 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  card = model.required<Card>();
   boardService = inject(BoardService);
+  dialogService = inject(MatDialog);
+
+  card = model.required<Card>();
+
   deletedCard = output();
 
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
@@ -91,8 +94,6 @@ export class CardComponent {
         return 'fa-circle-chevron-up';
     }
   });
-
-  constructor(private dialogService: MatDialog) {}
 
   showCardDetails(): void {
     this.dialogService.open(this.cardDetail, {

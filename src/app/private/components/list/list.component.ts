@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  model,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, model, output, ViewChild } from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
@@ -29,7 +22,7 @@ type SortDirection = 'asc' | 'desc';
 export class ListComponent {
   list = model.required<List>();
 
-  @Output() removedList = new EventEmitter();
+  removedList = output();
 
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;

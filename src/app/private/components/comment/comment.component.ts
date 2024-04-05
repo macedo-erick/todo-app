@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   EventEmitter,
+  inject,
   model,
   Output
 } from '@angular/core';
@@ -14,8 +15,9 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './comment.component.scss'
 })
 export class CommentComponent {
-  comment = model.required<Comment>();
+  boardService = inject(BoardService);
 
+  comment = model.required<Comment>();
   initials = computed(() => {
     const user = this.comment().author;
     const [firstName, lastName] = user.split(/\s+/);
@@ -24,6 +26,4 @@ export class CommentComponent {
   });
 
   @Output() deletedComment = new EventEmitter();
-
-  constructor(public boardService: BoardService) {}
 }

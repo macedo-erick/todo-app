@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
 import { Attachment } from '../../models/attachment.model';
 import { AttachmentService } from '../../services/attachment/attachment.service';
 import { tap } from 'rxjs';
@@ -10,12 +10,10 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './attachments.component.scss'
 })
 export class AttachmentsComponent {
-  attachments = model.required<Attachment[]>();
+  #attachmentService = inject(AttachmentService);
+  boardService = inject(BoardService);
 
-  constructor(
-    private attachmentService: AttachmentService,
-    public boardService: BoardService
-  ) {}
+  attachments = model.required<Attachment[]>();
 
   onFileInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -25,7 +23,7 @@ export class AttachmentsComponent {
       const formData = new FormData();
       formData.append('file', files[0]);
 
-      this.attachmentService
+      this.#attachmentService
         .uploadFile(formData)
         .pipe(
           tap((res): void => {
@@ -38,7 +36,7 @@ export class AttachmentsComponent {
   }
 
   onDeletedAttachment(key: string): void {
-    this.attachmentService
+    this.#attachmentService
       .deleteFile(key)
       .pipe(
         tap(() =>
@@ -51,6 +49,6 @@ export class AttachmentsComponent {
   }
 
   onDownloadAttachment(key: string, fileName: string): void {
-    this.attachmentService.downloadFile(key, fileName).subscribe();
+    this.#attachmentService.downloadFile(key, fileName).subscribe();
   }
 }

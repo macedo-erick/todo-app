@@ -4,9 +4,9 @@
       <div class="d-flex align-items-center gap-1">
         <i class="fa-regular fa-credit-card-blank fs-5"></i>
         <h2
-          [class.has__hover.content__editable]="
-            boardService.isSprintModifiable()
-          "
+          [ngClass]="{
+            'has__hover content__editable': boardService.isSprintModifiable()
+          }"
           class="border__rounded flex-grow-1 m-0 fw-semibold p-2"
           #cardName
           (blur)="onNameChange()"
@@ -133,6 +133,7 @@
           [disabled]="!boardService.isSprintModifiable()"
         ></ckeditor>
       </div>
+
       @if (
         (card.checklist && card.checklist.tasks.length) ||
         boardService.isSprintModifiable()
@@ -198,6 +199,7 @@
     >
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Actions</p>
+
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"
@@ -213,6 +215,7 @@
 
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Add to card</p>
+
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"

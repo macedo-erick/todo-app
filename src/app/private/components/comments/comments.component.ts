@@ -1,4 +1,4 @@
-import { Component, computed, model, signal } from '@angular/core';
+import { Component, computed, inject, model, signal } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { editorConfig } from '../../../util/util';
@@ -12,7 +12,10 @@ import { BoardService } from '../../services/board/board.service';
   styleUrl: './comments.component.scss'
 })
 export class CommentsComponent {
-  initials = signal(this.userService.getUserInitials());
+  #userService = inject(UserService);
+  boardService = inject(BoardService);
+
+  initials = signal(this.#userService.getUserInitials());
   isEditing = signal(false);
 
   comments = model.required<Comment[]>();
@@ -27,11 +30,6 @@ export class CommentsComponent {
   config = editorConfig;
 
   description = new FormControl('', Validators.required);
-
-  constructor(
-    private userService: UserService,
-    public boardService: BoardService
-  ) {}
 
   onWriteCommentClick(): void {
     this.isEditing.update(() => true);
@@ -48,7 +46,7 @@ export class CommentsComponent {
     if (String(this.description.value)) {
       this.comments.update((comments) => [
         {
-          author: this.userService.getLoggedUser(),
+          author: this.#userService.getLoggedUser(),
           createdDate: new Date(),
           description: String(this.description.value)
         },

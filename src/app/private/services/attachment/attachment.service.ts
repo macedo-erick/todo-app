@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Attachment } from '../../models/attachment.model';
@@ -8,17 +8,17 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AttachmentService {
-  private readonly BASE_URL = environment.apiBasePath.concat('/attachments');
+  #http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  #BASE_URL = environment.apiBasePath.concat('/attachments');
 
   uploadFile(formData: FormData): Observable<Attachment> {
-    return this.http.post<Attachment>(this.BASE_URL, formData);
+    return this.#http.post<Attachment>(this.#BASE_URL, formData);
   }
 
   downloadFile(key: string, fileName: string): Observable<Blob> {
-    return this.http
-      .get(this.BASE_URL.concat(`/${key}`), {
+    return this.#http
+      .get(this.#BASE_URL.concat(`/${key}`), {
         responseType: 'blob'
       })
       .pipe(
@@ -38,6 +38,6 @@ export class AttachmentService {
   }
 
   deleteFile(key: string): Observable<unknown> {
-    return this.http.delete(this.BASE_URL.concat(`/${key}`));
+    return this.#http.delete(this.#BASE_URL.concat(`/${key}`));
   }
 }
