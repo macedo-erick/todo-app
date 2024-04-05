@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { editorConfig } from '../../../util/util';
 import { FormControl, Validators } from '@angular/forms';
 import { Comment } from '../../models/comment.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-comments',
@@ -27,7 +28,10 @@ export class CommentsComponent {
 
   description = new FormControl('', Validators.required);
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    public boardService: BoardService
+  ) {}
 
   onWriteCommentClick(): void {
     this.isEditing.update(() => true);

@@ -1,15 +1,25 @@
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Config } from '../../sockets/socket';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { BoardsResponseDto } from '../../dtos/board.dto';
 import { environment } from '../../../../environments/environment';
+import { SprintStatus } from '../../enums/sprint-status';
+import { Sprint } from '../../models/sprint.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService extends Socket {
+  activeSprint = signal<Sprint>({} as Sprint);
+  sprints = signal<Sprint[]>([]);
+  isSprintModifiable = computed(() => {
+    return [SprintStatus.ACTIVE, SprintStatus.PENDING].includes(
+      this.activeSprint().status
+    );
+  });
+
   constructor() {
     super(Config(environment.wsUrl, environment.wsBasePath, 'boards'));
   }
@@ -39,6 +49,16 @@ export class BoardService extends Socket {
   }
 
   onFindOne(): Observable<Board> {
-    return this.fromEvent('onFindOne');
+    return this.fromEvent<Board>('onFindOne').pipe(
+      tap((res) => {
+        this.sprints.update(() => res.sprints);
+        this.activeSprint.update(
+          () =>
+            res.sprints.find(
+              (sprint) => sprint.status === SprintStatus.ACTIVE
+            ) as Sprint
+        );
+      })
+    );
   }
 }

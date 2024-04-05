@@ -11,6 +11,20 @@
     gap: 0.75rem;
     height: 1.5rem;
 
+    .type {
+      &.story {
+        color: green;
+      }
+
+      &.task {
+        color: blue;
+      }
+
+      &.bug {
+        color: red;
+      }
+    }
+
     .priority {
       &.low {
         color: #0065ff;
@@ -22,25 +36,6 @@
 
       &.high {
         color: #ff5630;
-      }
-    }
-
-    .due__date {
-      &.pending {
-        background-color: var(--sunbeam-yellow);
-        padding: 0 0.5rem;
-        color: #000;
-      }
-
-      &.overdue {
-        background-color: red;
-        padding: 0 0.5rem;
-      }
-
-      &.finished {
-        background-color: #61bd4f;
-        padding: 0 0.5rem;
-        color: #000;
       }
     }
   }

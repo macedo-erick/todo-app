@@ -25,6 +25,7 @@
         mat-button
         class="font__xm fw-medium has__hover"
         (click)="deletedComment.emit()"
+        *ngIf="boardService.isSprintModifiable()"
       >
         Delete
       </button>

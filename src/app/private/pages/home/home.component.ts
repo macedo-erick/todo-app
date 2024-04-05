@@ -27,7 +27,8 @@ export class HomeComponent {
   newBoard(): void {
     this.boardService.create({
       name: 'New Board',
-      lists: []
+      lists: [],
+      sprints: []
     });
   }
 }

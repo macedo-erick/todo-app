@@ -8,6 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-task',
@@ -23,6 +24,8 @@ export class TaskComponent {
   @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
 
+  constructor(public boardService: BoardService) {}
+
   onFinishedChange(finished: boolean): void {
     this.task.update((task) => ({ ...task, finished }));
   }
@@ -37,8 +40,10 @@ export class TaskComponent {
     this.evaluateReadOnlyState.update(() => true);
   }
 
-  toggleEditName(): void {
-    this.inputContainer.nativeElement.classList.add('focused');
-    this.evaluateReadOnlyState.update(() => false);
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.inputContainer.nativeElement.classList.add('focused');
+      this.evaluateReadOnlyState.update(() => false);
+    }
   }
 }

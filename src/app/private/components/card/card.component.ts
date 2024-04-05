@@ -1,23 +1,18 @@
 import {
   Component,
   computed,
-  EventEmitter,
+  inject,
   model,
-  Output,
+  output,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import { Card } from '../../models/card.model';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { MatDialog } from '@angular/material/dialog';
-import { differenceInHours, endOfDay } from 'date-fns';
-import { Priority } from '../../models/priority.model';
-
-enum DueDateStatus {
-  OVERDUE = 'overdue',
-  PENDING = 'pending',
-  FINISHED = 'finished'
-}
+import { Priority } from '../../enums/priority.enum';
+import { CardType } from '../../enums/card-type.enum';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-card',
@@ -26,39 +21,42 @@ enum DueDateStatus {
 })
 export class CardComponent {
   card = model.required<Card>();
-
-  @Output() deletedCard = new EventEmitter();
+  boardService = inject(BoardService);
+  deletedCard = output();
 
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
-    const { priority, dueDate, description, checklist, attachments } =
-      this.card();
+    const { priority, description, checklist, attachments } = this.card();
 
     return [
       priority,
-      dueDate,
       description,
       checklist?.tasks.length,
       attachments?.length
     ].filter((k) => k).length;
   });
 
-  evaluateDueDateStatus = computed(() => {
-    const dueDate = endOfDay(new Date(this.card().dueDate));
-    const currentDate = new Date();
-    const overdue = currentDate > dueDate;
-    const withinNextDay = differenceInHours(dueDate, currentDate) <= 24;
-
-    if (this.card().finished) {
-      return DueDateStatus.FINISHED;
-    } else if (overdue) {
-      return DueDateStatus.OVERDUE;
-    } else if (withinNextDay) {
-      return DueDateStatus.PENDING;
+  evaluateType = computed(() => {
+    switch (this.card().type) {
+      case CardType.STORY:
+        return 'story';
+      case CardType.TASK:
+        return 'task';
+      case CardType.BUG:
+        return 'bug';
     }
+  });
 
-    return;
+  evaluateTypeIcon = computed(() => {
+    switch (this.card().type) {
+      case CardType.STORY:
+        return 'fa-square-ellipsis';
+      case CardType.TASK:
+        return 'fa-square-check';
+      case CardType.BUG:
+        return 'fa-square-exclamation';
+    }
   });
 
   evaluateCheckListStatus = computed(() => {

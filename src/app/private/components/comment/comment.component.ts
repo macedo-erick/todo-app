@@ -6,6 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { Comment } from '../../models/comment.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-comment',
@@ -23,4 +24,6 @@ export class CommentComponent {
   });
 
   @Output() deletedComment = new EventEmitter();
+
+  constructor(public boardService: BoardService) {}
 }

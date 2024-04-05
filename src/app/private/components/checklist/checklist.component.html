@@ -26,6 +26,7 @@
         mat-button
         class="new__task__btn bg__pale__blue has__hover font__sm fw-medium mt-2"
         (click)="addTask()"
+        *ngIf="boardService.isSprintModifiable()"
       >
         Add item
       </button>

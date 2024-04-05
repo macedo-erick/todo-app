@@ -14,6 +14,7 @@
         mat-button
         class="font__xm fw-medium has__hover"
         (click)="deletedAttachment.emit()"
+        *ngIf="boardService.isSprintModifiable()"
       >
         Delete
       </button>

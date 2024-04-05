@@ -1,12 +1,16 @@
 @if (list(); as list) {
-  <li class="draggable__item" cdkDrag>
+  <li
+    class="draggable__item"
+    cdkDrag
+    [cdkDragDisabled]="!boardService.isSprintModifiable()"
+  >
     <mat-card class="border__rounded bg__pale__blue shadow-sm">
       <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
         <h2
-          class="content__editable font__md flex-grow-1 fw-bolder py-2 px-2 m-0"
+          class="content__editable select__none font__md flex-grow-1 fw-bolder py-2 px-2 m-0"
           #listName
           (blur)="onNameChange()"
-          (click)="toggleEditHeader()"
+          (click)="toggleChangeListName()"
         >
           {{ list.name }}
         </h2>
@@ -15,6 +19,7 @@
           mat-icon-button
           class="has__hover"
           [matMenuTriggerFor]="listMenu"
+          *ngIf="boardService.isSprintModifiable()"
         >
           <i class="fa-regular fa-ellipsis fa-sm"></i>
         </button>
@@ -36,7 +41,10 @@
           }
         </ol>
       </mat-card-content>
-      <mat-card-actions class="list__actions d-flex">
+      <mat-card-actions
+        class="list__actions d-flex"
+        *ngIf="boardService.isSprintModifiable()"
+      >
         <button
           mat-button
           class="border__rounded has__hover font__sm flex-grow-1 justify-content-start fw-medium"
@@ -68,12 +76,6 @@
   </button>
   <button (click)="sortByCreationDate()" mat-menu-item class="has__hover">
     Creation date (oldest first)
-  </button>
-  <button (click)="sortByDueDate('desc')" mat-menu-item class="has__hover">
-    Due date (highest to lowest)
-  </button>
-  <button (click)="sortByDueDate()" mat-menu-item class="has__hover">
-    Due date (lowest to highest)
   </button>
   <button (click)="sortByName()" mat-menu-item class="has__hover">
     Name A-Z

@@ -1,5 +1,9 @@
 @if (card(); as card) {
-  <li class="draggable__item" cdkDrag>
+  <li
+    class="draggable__item"
+    cdkDrag
+    [cdkDragDisabled]="!boardService.isSprintModifiable()"
+  >
     <mat-card
       class="card__container border__rounded shadow-sm w-100 py-2 px-3"
       (click)="showCardDetails()"
@@ -14,6 +18,13 @@
         <mat-card-footer
           class="card__footer font__sm d-flex align-items-center fw-medium"
         >
+          @if (card.type) {
+            <i
+              [ngClass]="[evaluateType(), evaluateTypeIcon()]"
+              class="fa-solid fa-lg type"
+            ></i>
+          }
+
           @if (card.priority) {
             <i
               [ngClass]="[evaluatePriority(), evaluatePriorityIcon()]"
@@ -46,16 +57,6 @@
             <span class="d-flex align-items-center gap-1 fw-medium">
               <i class="fa-regular fa-paperclip fa-lg"></i>
               {{ card.attachments.length }}
-            </span>
-          }
-
-          @if (card.dueDate) {
-            <span
-              class="due__date border__rounded d-flex align-items-center gap-1 fw-medium"
-              [ngClass]="evaluateDueDateStatus()"
-            >
-              <i class="fa-regular fa-calendar fa-lg"></i>
-              {{ card.dueDate | date: 'MM/dd/yyyy' }}
             </span>
           }
         </mat-card-footer>

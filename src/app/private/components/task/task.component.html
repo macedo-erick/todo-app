@@ -3,15 +3,19 @@
     class="draggable__item task__container d-flex align-items-center gap-2"
     cdkDrag
     cdkDragLockAxis="y"
+    [cdkDragDisabled]="!boardService.isSprintModifiable()"
   >
     <input
       type="checkbox"
       name="finished"
       [ngModel]="task.finished"
       (ngModelChange)="onFinishedChange($event)"
+      *ngIf="boardService.isSprintModifiable()"
     />
     <div
       class="input__container border__rounded d-flex flex-grow-1 px-1"
+      [class.readonly]="!boardService.isSprintModifiable()"
+      [class.ms-4]="!boardService.isSprintModifiable()"
       #inputContainer
       cdkDragHandle
     >
@@ -21,13 +25,14 @@
         #nameInput
         [ngModel]="task.name"
         [readonly]="evaluateReadOnlyState()"
-        (click)="toggleEditName()"
+        (click)="toggleChangeName()"
         (blur)="onNameChange($event)"
       />
       <button
         mat-icon-button
         (mousedown)="taskDeleted.emit()"
         class="has__hover"
+        *ngIf="boardService.isSprintModifiable()"
       >
         <i class="fa-regular fa-trash fa-2xs"></i>
       </button>

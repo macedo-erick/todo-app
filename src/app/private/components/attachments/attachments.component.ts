@@ -2,6 +2,7 @@ import { Component, model } from '@angular/core';
 import { Attachment } from '../../models/attachment.model';
 import { AttachmentService } from '../../services/attachment/attachment.service';
 import { tap } from 'rxjs';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-attachments',
@@ -11,7 +12,10 @@ import { tap } from 'rxjs';
 export class AttachmentsComponent {
   attachments = model.required<Attachment[]>();
 
-  constructor(private attachmentService: AttachmentService) {}
+  constructor(
+    private attachmentService: AttachmentService,
+    public boardService: BoardService
+  ) {}
 
   onFileInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
