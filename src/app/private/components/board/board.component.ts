@@ -3,6 +3,7 @@ import {
   computed,
   effect,
   ElementRef,
+  inject,
   model,
   OnDestroy,
   Signal,
@@ -13,6 +14,7 @@ import { List } from '../../models/list.model';
 import { Board } from '../../models/board.model';
 import { timer } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-board',
@@ -20,13 +22,16 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnDestroy {
+  titleService = inject(Title);
+  boardService = inject(BoardService);
+
   board = model.required<Board>();
   loaded: Signal<boolean> = computed(() => !!this.board());
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
 
-  constructor(private titleService: Title) {
+  constructor() {
     effect(() => {
       this.titleService.setTitle(this.board().name);
     });
@@ -66,6 +71,13 @@ export class BoardComponent implements OnDestroy {
       ...board,
       lists: lists.filter((_, i) => i !== index)
     }));
+  }
+
+  toggleChangeBoardName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.boardName.nativeElement.contentEditable = 'true';
+      this.boardName.nativeElement.focus();
+    }
   }
 
   onNameChange(): void {

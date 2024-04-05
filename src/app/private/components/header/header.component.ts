@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../../public/services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -8,14 +8,12 @@ import { UserService } from '../../services/user/user.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  initials = signal(this.userService.getUserInitials());
+  #authService = inject(AuthService);
+  #userService = inject(UserService);
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
+  initials = signal(this.#userService.getUserInitials());
 
   signOut(): void {
-    this.authService.signOut();
+    this.#authService.signOut();
   }
 }

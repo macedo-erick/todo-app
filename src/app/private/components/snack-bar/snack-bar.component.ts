@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarRef
@@ -11,8 +11,6 @@ import {
   styleUrl: './snack-bar.component.scss'
 })
 export class SnackBarComponent {
-  constructor(
-    public snackBarRef: MatSnackBarRef<any>,
-    @Inject(MAT_SNACK_BAR_DATA) public message: string
-  ) {}
+  snackBarRef = inject(MatSnackBarRef<any>);
+  message = inject(MAT_SNACK_BAR_DATA);
 }

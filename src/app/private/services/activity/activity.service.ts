@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { Activity } from '../../models/activity.model';
 
@@ -6,7 +6,7 @@ import { Activity } from '../../models/activity.model';
   providedIn: 'root'
 })
 export class ActivityService {
-  constructor(private userService: UserService) {}
+  userService = inject(UserService);
 
   create(description: string): Activity {
     return {

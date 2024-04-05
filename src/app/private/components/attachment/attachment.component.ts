@@ -1,5 +1,6 @@
-import { Component, model, output } from '@angular/core';
+import { Component, inject, model, output } from '@angular/core';
 import { Attachment } from '../../models/attachment.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-attachment',
@@ -7,6 +8,8 @@ import { Attachment } from '../../models/attachment.model';
   styleUrl: './attachment.component.scss'
 })
 export class AttachmentComponent {
+  boardService = inject(BoardService);
+
   attachment = model.required<Attachment>();
 
   deletedAttachment = output();

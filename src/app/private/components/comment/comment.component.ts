@@ -2,10 +2,12 @@ import {
   Component,
   computed,
   EventEmitter,
+  inject,
   model,
   Output
 } from '@angular/core';
 import { Comment } from '../../models/comment.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-comment',
@@ -13,8 +15,9 @@ import { Comment } from '../../models/comment.model';
   styleUrl: './comment.component.scss'
 })
 export class CommentComponent {
-  comment = model.required<Comment>();
+  boardService = inject(BoardService);
 
+  comment = model.required<Comment>();
   initials = computed(() => {
     const user = this.comment().author;
     const [firstName, lastName] = user.split(/\s+/);

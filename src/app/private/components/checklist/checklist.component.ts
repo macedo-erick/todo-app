@@ -1,8 +1,9 @@
-import { Component, computed, model } from '@angular/core';
+import { Component, computed, inject, model } from '@angular/core';
 import { Checklist } from '../../models/checklist.model';
 import { Task } from '../../models/task.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-checklist',
@@ -10,6 +11,8 @@ import { List } from '../../models/list.model';
   styleUrl: './checklist.component.scss'
 })
 export class ChecklistComponent {
+  boardService = inject(BoardService);
+
   checklist = model.required<Checklist>();
   progress = computed(() => {
     const tasks = this.checklist().tasks;

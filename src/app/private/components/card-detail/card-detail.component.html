@@ -4,80 +4,121 @@
       <div class="d-flex align-items-center gap-1">
         <i class="fa-regular fa-credit-card-blank fs-5"></i>
         <h2
-          class="content__editable has__hover border__rounded flex-grow-1 m-0 fw-semibold p-2"
-          contenteditable
+          [ngClass]="{
+            'has__hover content__editable': boardService.isSprintModifiable()
+          }"
+          class="border__rounded flex-grow-1 m-0 fw-semibold p-2"
           #cardName
           (blur)="onNameChange()"
+          (click)="toggleChangeName()"
         >
           {{ card.name }}
         </h2>
       </div>
-      @if (card.dueDate || card.priority || card.timeSpent !== undefined) {
-        <div class="d-flex gap-2">
-          @if (card.dueDate) {
-            <input
-              type="checkbox"
-              name="finished"
-              [ngModel]="card.finished"
-              (ngModelChange)="onFinishedChange($event)"
-            />
-            <mat-form-field
-              appearance="outline"
-              class="form__field"
-              floatLabel="always"
-            >
-              <mat-label>Due date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="datePicker"
-                [value]="card.dueDate"
-                (dateChange)="onDueDateChange($event)"
-              />
-              <mat-datepicker-toggle matIconSuffix [for]="datePicker">
-                <i
-                  class="fa-regular fa-calendar fa-2xs"
-                  matDatepickerToggleIcon
-                ></i>
-              </mat-datepicker-toggle>
-              <mat-datepicker #datePicker></mat-datepicker>
-            </mat-form-field>
-          }
-          @if (card.priority) {
-            <mat-form-field
-              appearance="outline"
-              class="form__field"
-              floatLabel="always"
-            >
-              <mat-label>Priority</mat-label>
-              <mat-select
-                [ngModel]="card.priority"
-                (selectionChange)="onPriorityChange($event)"
-              >
-                @for (priority of priorities; let index = $index; track index) {
-                  <mat-option [value]="priority.value" class="font__sm"
-                    >{{ priority.label }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          }
-          @if (evaluateTimeSpentVisibility()) {
-            <mat-form-field
-              appearance="outline"
-              floatLabel="always"
-              class="form__field"
-            >
-              <mat-label>Time spent (h)</mat-label>
-              <input
-                matInput
-                type="number"
-                [ngModel]="card.timeSpent"
-                (change)="onTimeSpentChange($event)"
-              />
-            </mat-form-field>
-          }
+
+      <div class="d-flex flex-column gap-3">
+        <div class="default__gap d-flex align-items-center">
+          <i class="fa-regular fa-circle-info fs-5"></i>
+          <h3 class="m-0 fw-semibold">Details</h3>
         </div>
-      }
+
+        <div class="details__container default__margin d-flex flex-wrap">
+          <mat-form-field
+            appearance="outline"
+            class="form__field"
+            floatLabel="always"
+          >
+            <mat-label>Sprint</mat-label>
+            <mat-select
+              [ngModel]="card.sprintId"
+              panelWidth="17rem"
+              (selectionChange)="onSprintChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            >
+              @for (
+                sprint of boardService.sprints();
+                let index = $index;
+                track index
+              ) {
+                <mat-option [value]="sprint.id" class="font__sm"
+                  >[Sprint {{ index + 1 }}]
+                  {{ sprint.startDate | date: 'dd/MM/yyyy' }} -
+                  {{ sprint.endDate | date: 'dd/MM/yyyy' }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="form__field"
+            floatLabel="always"
+          >
+            <mat-label>Type</mat-label>
+            <mat-select
+              [ngModel]="card.type"
+              (selectionChange)="onTypeChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            >
+              @for (type of types; let index = $index; track index) {
+                <mat-option [value]="type.value" class="font__sm"
+                  >{{ type.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="form__field"
+            floatLabel="always"
+          >
+            <mat-label>Priority</mat-label>
+            <mat-select
+              [ngModel]="card.priority"
+              (selectionChange)="onPriorityChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            >
+              @for (priority of priorities; let index = $index; track index) {
+                <mat-option [value]="priority.value" class="font__sm"
+                  >{{ priority.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            class="form__field"
+          >
+            <mat-label>Story points (d)</mat-label>
+            <input
+              matInput
+              type="number"
+              [ngModel]="card.storyPoints"
+              (change)="onStoryPointsChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            />
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            class="form__field"
+          >
+            <mat-label>Time spent (h)</mat-label>
+            <input
+              matInput
+              type="number"
+              [ngModel]="card.timeSpent"
+              (change)="onTimeSpentChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="d-flex flex-column gap-3">
         <div class="d-flex align-items-center default__gap">
           <i class="fa-regular fa-align-left fs-5"></i>
@@ -89,9 +130,11 @@
           [ngModel]="card.description"
           (blur)="onDescriptionChange($event)"
           class="default__margin"
+          [disabled]="!boardService.isSprintModifiable()"
         ></ckeditor>
       </div>
-      @if (card.checklist) {
+
+      @if (card.checklist && card.checklist.tasks.length) {
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-square-check fs-5"></i>
@@ -104,7 +147,7 @@
         </div>
       }
 
-      @if (card.attachments) {
+      @if (card.attachments && card.attachments.length) {
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-paperclip fs-5"></i>
@@ -117,7 +160,10 @@
         </div>
       }
 
-      <div class="d-grid gap-3">
+      <div
+        class="d-grid gap-3"
+        *ngIf="card.comments?.length || boardService.isSprintModifiable()"
+      >
         <div class="d-flex align-items-center default__gap">
           <i class="fa-regular fa-comment-lines fs-5"></i>
           <h3 class="m-0 fw-semibold">Comments</h3>
@@ -140,9 +186,14 @@
         </div>
       }
     </div>
-    <div class="actions__container d-flex flex-column gap-3">
+
+    <div
+      class="actions__container d-flex flex-column gap-3"
+      *ngIf="boardService.isSprintModifiable()"
+    >
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Actions</p>
+
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"
@@ -155,38 +206,10 @@
           </span>
         </button>
       </div>
+
       <div class="d-flex flex-column gap-2">
         <p class="font__sm m-0 fw-medium">Add to card</p>
-        <button
-          mat-button
-          class="bg__pale__blue has__hover font__sm justify-content-start"
-          (click)="addDueDate()"
-        >
-          <span class="d-flex align-items-center gap-2">
-            <i class="fa-regular fa-calendar fa-lg"></i>
-            Due date
-          </span>
-        </button>
-        <button
-          mat-button
-          class="bg__pale__blue has__hover font__sm justify-content-start"
-          (click)="addPriority()"
-        >
-          <span class="d-flex align-items-center gap-2">
-            <i class="fa-regular fa-circle-exclamation fa-lg"></i>
-            Priority
-          </span>
-        </button>
-        <button
-          mat-button
-          class="bg__pale__blue has__hover font__sm justify-content-start"
-          (click)="addTimeSpent()"
-        >
-          <span class="d-flex align-items-center gap-2">
-            <i class="fa-regular fa-clock-two fa-lg"></i>
-            Time spent
-          </span>
-        </button>
+
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"
@@ -197,6 +220,7 @@
             Checklist
           </span>
         </button>
+
         <button
           mat-button
           class="bg__pale__blue has__hover font__sm justify-content-start"

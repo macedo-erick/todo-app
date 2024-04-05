@@ -1,48 +1,51 @@
 <div class="d-grid gap-3">
-  <div class="d-flex align-items-center gap-2">
-    <todo-user-initials
-      [initials]="initials()"
-      [hasHover]="false"
-      size="md"
-    ></todo-user-initials>
+  @if (boardService.isSprintModifiable()) {
+    <div class="d-flex align-items-center gap-2">
+      <todo-user-initials
+        [initials]="initials()"
+        [hasHover]="false"
+        size="md"
+      ></todo-user-initials>
 
-    @if (isEditing()) {
-      <div class="d-grid gap-2 flex-grow-1">
-        <ckeditor
-          [editor]="editor"
-          [config]="config"
-          class="w-100"
-          [formControl]="description"
-        ></ckeditor>
+      @if (isEditing()) {
+        <div class="d-grid gap-2 flex-grow-1">
+          <ckeditor
+            [editor]="editor"
+            [config]="config"
+            class="w-100"
+            [formControl]="description"
+          ></ckeditor>
 
-        <div class="d-flex gap-2">
-          <button
-            mat-button
-            class="save__btn font__sm fw-medium mt-2"
-            (click)="onCancelClick()"
-          >
-            Cancel
-          </button>
-          <button
-            mat-button
-            class="save__btn font__sm fw-medium mt-2"
-            [disabled]="description.invalid"
-            (click)="onSaveClick()"
-          >
-            Save
-          </button>
+          <div class="d-flex gap-2">
+            <button
+              mat-button
+              class="save__btn font__sm fw-medium mt-2"
+              (click)="onCancelClick()"
+            >
+              Cancel
+            </button>
+
+            <button
+              mat-button
+              class="save__btn font__sm fw-medium mt-2"
+              [disabled]="description.invalid"
+              (click)="onSaveClick()"
+            >
+              Save
+            </button>
+          </div>
         </div>
-      </div>
-    } @else {
-      <button
-        mat-button
-        class="bg__pale__blue border__rounded font__sm flex-grow-1 p-3 py-4 justify-content-start"
-        (click)="onWriteCommentClick()"
-      >
-        Write comment
-      </button>
-    }
-  </div>
+      } @else {
+        <button
+          mat-button
+          class="bg__pale__blue border__rounded font__sm flex-grow-1 p-3 py-4 justify-content-start"
+          (click)="onWriteCommentClick()"
+        >
+          Write comment
+        </button>
+      }
+    </div>
+  }
 
   @if (sortedComments(); as comments) {
     @if (comments.length) {

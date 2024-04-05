@@ -4,6 +4,7 @@
       <h4 class="font__sm m-0 fw-bolder">
         {{ attachment.fileName }}
       </h4>
+
       <span class="font__xm text-black-50 m-0 fw-medium">{{
         attachment.uploadedDate | date: "MMMM d, y 'at' h:mm:ss a"
       }}</span>
@@ -14,6 +15,7 @@
         mat-button
         class="font__xm fw-medium has__hover"
         (click)="deletedAttachment.emit()"
+        *ngIf="boardService.isSprintModifiable()"
       >
         Delete
       </button>

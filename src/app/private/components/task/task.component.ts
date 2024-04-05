@@ -1,13 +1,14 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
+  inject,
   model,
-  Output,
+  output,
   signal,
   ViewChild
 } from '@angular/core';
 import { Task } from '../../models/task.model';
+import { BoardService } from '../../services/board/board.service';
 
 @Component({
   selector: 'todo-task',
@@ -15,10 +16,12 @@ import { Task } from '../../models/task.model';
   styleUrl: './task.component.scss'
 })
 export class TaskComponent {
+  boardService = inject(BoardService);
+
   task = model.required<Task>();
   evaluateReadOnlyState = signal(true);
 
-  @Output() taskDeleted = new EventEmitter();
+  taskDeleted = output();
 
   @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
@@ -37,8 +40,10 @@ export class TaskComponent {
     this.evaluateReadOnlyState.update(() => true);
   }
 
-  toggleEditName(): void {
-    this.inputContainer.nativeElement.classList.add('focused');
-    this.evaluateReadOnlyState.update(() => false);
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.inputContainer.nativeElement.classList.add('focused');
+      this.evaluateReadOnlyState.update(() => false);
+    }
   }
 }

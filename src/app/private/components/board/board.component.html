@@ -2,14 +2,18 @@
   <div class="board__container bg__light__blue d-flex flex-column w-100 h-100">
     <div class="board__header d-flex align-items-center">
       <h1
-        class="has__hover border__rounded content__editable select__none m-0 px-2 fs-5 fw-bolder"
-        contenteditable
+        [ngClass]="{
+          'has__hover content__editable': boardService.isSprintModifiable()
+        }"
+        class="border__rounded select__none m-0 px-2 fs-5 fw-bolder"
         #boardName
         (blur)="onNameChange()"
+        (click)="toggleChangeBoardName()"
       >
         {{ board.name }}
       </h1>
     </div>
+
     <ol
       class="draggable__container ls__none d-flex flex-grow-1 mb-0 p-4 gap-3"
       cdkDropListGroup
@@ -26,7 +30,8 @@
           (removedList)="onRemovedList(index)"
         />
       }
-      @if (loaded()) {
+
+      @if (loaded() && boardService.isSprintModifiable()) {
         <button
           mat-button
           class="list__item border__rounded has__hover font__sm d-flex justify-content-start py-4 fw-medium"

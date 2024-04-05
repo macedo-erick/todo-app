@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  model,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, model, output, ViewChild } from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
@@ -17,6 +10,7 @@ import { timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
 import { Comment } from '../../models/comment.model';
 import { Activity } from '../../models/activity.model';
+import { BoardService } from '../../services/board/board.service';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -28,19 +22,22 @@ type SortDirection = 'asc' | 'desc';
 export class ListComponent {
   list = model.required<List>();
 
-  @Output() removedList = new EventEmitter();
+  removedList = output();
 
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
-  constructor(private activityService: ActivityService) {}
+  constructor(
+    private activityService: ActivityService,
+    public boardService: BoardService
+  ) {}
 
   addCard(): void {
     const card = {
       name: 'New Card',
       description: '',
-      finished: false,
       createdDate: new Date(),
+      sprintId: this.boardService.activeSprint()?.id,
       comments: [] as Comment[],
       activities: [] as Activity[]
     } as Card;
@@ -93,9 +90,11 @@ export class ListComponent {
     });
   }
 
-  toggleEditHeader(): void {
-    this.listName.nativeElement.contentEditable = 'true';
-    this.listName.nativeElement.focus();
+  toggleChangeListName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.listName.nativeElement.contentEditable = 'true';
+      this.listName.nativeElement.focus();
+    }
   }
 
   onDeletedCard(index: number): void {
@@ -125,36 +124,6 @@ export class ListComponent {
             new Date(b.createdDate).getTime() -
             new Date(a.createdDate).getTime()
         )
-      }));
-    }
-  }
-
-  sortByDueDate(sortDirection: SortDirection = 'asc'): void {
-    const predicate = (card: Card) => card.dueDate;
-
-    if (sortDirection == 'asc') {
-      this.list.update(({ cards, ...list }) => ({
-        ...list,
-        cards: cards
-          .filter(predicate)
-          .sort(
-            (a, b) =>
-              new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-          )
-          .concat(cards.filter((card) => !predicate(card)))
-      }));
-    }
-
-    if (sortDirection == 'desc') {
-      this.list.update(({ cards, ...list }) => ({
-        ...list,
-        cards: cards
-          .filter(predicate)
-          .sort(
-            (a, b) =>
-              new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
-          )
-          .concat(cards.filter((card) => !predicate(card)))
       }));
     }
   }

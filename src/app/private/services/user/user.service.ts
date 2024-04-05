@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private jwtService: JwtHelperService) {}
+  jwtService = inject(JwtHelperService);
 
   getLoggedUser(): string {
     const { fullName } = this.jwtService.decodeToken();

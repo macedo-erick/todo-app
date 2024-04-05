@@ -8,6 +8,7 @@
         [value]="progress()"
       ></mat-progress-bar>
     </div>
+
     <ol
       class="draggable__container ls__none d-grid gap-1 p-0 m-0"
       cdkDropList
@@ -22,10 +23,12 @@
           (taskDeleted)="onTaskDeleted(index)"
         />
       }
+
       <button
         mat-button
         class="new__task__btn bg__pale__blue has__hover font__sm fw-medium mt-2"
         (click)="addTask()"
+        *ngIf="boardService.isSprintModifiable()"
       >
         Add item
       </button>

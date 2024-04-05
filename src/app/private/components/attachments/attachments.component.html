@@ -22,6 +22,7 @@
     mat-button
     class="new__attachment__btn bg__pale__blue has__hover font__sm fw-medium mt-2"
     (click)="fileInput.click()"
+    *ngIf="boardService.isSprintModifiable()"
   >
     Add attachment
   </button>

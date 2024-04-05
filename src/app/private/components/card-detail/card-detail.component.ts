@@ -2,9 +2,9 @@ import {
   Component,
   computed,
   ElementRef,
-  EventEmitter,
+  inject,
   model,
-  Output,
+  output,
   ViewChild
 } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -12,13 +12,13 @@ import { Card } from '../../models/card.model';
 import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 import { Checklist } from '../../models/checklist.model';
 import { editorConfig } from '../../../util/util';
-import { addDays } from 'date-fns';
-import { Priority } from '../../models/priority.model';
 import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
 import { Attachment } from '../../models/attachment.model';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatSelectChange } from '@angular/material/select';
+import { BoardService } from '../../services/board/board.service';
+import { Sprint } from '../../models/sprint.model';
+import { formatInTimeZone, toDate } from 'date-fns-tz';
 
 @Component({
   selector: 'todo-card-detail',
@@ -26,6 +26,9 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrl: './card-detail.component.scss'
 })
 export class CardDetailComponent {
+  #activityService = inject(ActivityService);
+  boardService = inject(BoardService);
+
   card = model.required<Card>();
 
   evaluateTimeSpentVisibility = computed(() =>
@@ -35,55 +38,21 @@ export class CardDetailComponent {
   editor = ClassicEditor;
   config = editorConfig;
 
+  types = [
+    { value: 1, label: 'Story' },
+    { value: 2, label: 'Task' },
+    { value: 3, label: 'Bug' }
+  ];
+
   priorities = [
     { value: 1, label: 'Low' },
     { value: 2, label: 'Medium' },
     { value: 3, label: 'High' }
   ];
 
-  @Output() deletedCard = new EventEmitter();
+  deletedCard = output();
+
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
-
-  constructor(private activityService: ActivityService) {}
-
-  addDueDate(): void {
-    if (!this.card().dueDate) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        dueDate: addDays(new Date(), 1),
-        activities: [
-          ...activities,
-          this.activityService.create('added due date to the card')
-        ]
-      }));
-    }
-  }
-
-  addPriority(): void {
-    if (!this.card().priority) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        priority: Priority.MEDIUM,
-        activities: [
-          ...activities,
-          this.activityService.create('added priority to the card')
-        ]
-      }));
-    }
-  }
-
-  addTimeSpent(): void {
-    if (!this.evaluateTimeSpentVisibility()) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        activities: [
-          ...activities,
-          this.activityService.create('added time spent to the card')
-        ],
-        timeSpent: 0
-      }));
-    }
-  }
 
   addChecklist(): void {
     if (!this.card().checklist) {
@@ -92,7 +61,7 @@ export class CardDetailComponent {
         checklist: { name: 'Checklist', tasks: [] },
         activities: [
           ...activities,
-          this.activityService.create('added checklist to the card')
+          this.#activityService.create('added checklist to the card')
         ]
       }));
     }
@@ -105,7 +74,7 @@ export class CardDetailComponent {
         attachments: [],
         activities: [
           ...activities,
-          this.activityService.create('added attachments to the card')
+          this.#activityService.create('added attachments to the card')
         ]
       }));
     }
@@ -120,7 +89,7 @@ export class CardDetailComponent {
         name: innerText.trim(),
         activities: [
           ...activities,
-          this.activityService.create(`changed the name of the card`)
+          this.#activityService.create(`changed the name of the card`)
         ]
       }));
     }
@@ -132,28 +101,12 @@ export class CardDetailComponent {
       description: editor.getData(),
       activities: [
         ...activities,
-        this.activityService.create(`changed the card description`)
+        this.#activityService.create(`changed the card description`)
       ]
     }));
   }
 
-  onDueDateChange(event: MatDatepickerInputEvent<Date, Date>): void {
-    const { value: dueDate } = event;
-
-    const formattedDueDate = new Date(String(dueDate)).toLocaleDateString('en');
-
-    const description = dueDate
-      ? `changed the due date to ${formattedDueDate}`
-      : 'removed the due date';
-
-    this.card.update(({ activities, ...card }) => ({
-      ...card,
-      dueDate: dueDate as Date,
-      activities: [...activities, this.activityService.create(description)]
-    }));
-  }
-
-  onPriorityChange(event: MatSelectChange) {
+  onPriorityChange(event: MatSelectChange): void {
     const { value: priority } = event;
 
     this.card.update(({ activities, priority: oldPriority, ...card }) => ({
@@ -161,8 +114,56 @@ export class CardDetailComponent {
       priority,
       activities: [
         ...activities,
-        this.activityService.create(
+        this.#activityService.create(
           `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
+        )
+      ]
+    }));
+  }
+
+  onSprintChange(event: MatSelectChange): void {
+    const { value: sprintId } = event;
+
+    const sprint = this.boardService
+      .sprints()
+      .find((sprint) => sprint.id === sprintId) as Sprint;
+
+    const index = this.boardService.sprints().indexOf(sprint);
+
+    const sprintStartDate = formatInTimeZone(
+      toDate(sprint.startDate),
+      'America/Sao_Paulo',
+      'MM/dd/yyyy'
+    );
+
+    const sprintEndDate = formatInTimeZone(
+      toDate(sprint.endDate),
+      'America/Sao_Paulo',
+      'MM/dd/yyyy'
+    );
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      sprintId,
+      activities: [
+        ...activities,
+        this.#activityService.create(
+          `moved card to sprint [Sprint ${index + 1}] - ${sprintStartDate} - ${sprintEndDate}`
+        )
+      ]
+    }));
+  }
+
+  onTypeChange(event: MatSelectChange): void {
+    const { value: type } = event;
+
+    this.card.update(({ activities, type: oldType, ...card }) => ({
+      ...card,
+      type,
+      activities: [
+        ...activities,
+        this.#activityService.create(
+          `changed the type from ${this.types[oldType - 1]?.label} to ${this.types[type - 1]?.label}`
         )
       ]
     }));
@@ -176,20 +177,21 @@ export class CardDetailComponent {
       timeSpent: Number(value),
       activities: [
         ...activities,
-        this.activityService.create(`changed the time spent to ${value}h`)
+        this.#activityService.create(`changed the time spent to ${value}h`)
       ]
     }));
   }
 
-  onFinishedChange(finished: boolean): void {
-    const description = finished
-      ? 'changed the due date to finished'
-      : 'changed the due date to unfinished';
+  onStoryPointsChange(event: Event): void {
+    const { value } = event.target as HTMLInputElement;
 
     this.card.update(({ activities, ...card }) => ({
       ...card,
-      finished,
-      activities: [...activities, this.activityService.create(description)]
+      storyPoints: Number(value),
+      activities: [
+        ...activities,
+        this.#activityService.create(`changed the story points to ${value}d`)
+      ]
     }));
   }
 
@@ -203,5 +205,12 @@ export class CardDetailComponent {
 
   onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
+  }
+
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.cardName.nativeElement.contentEditable = 'true';
+      this.cardName.nativeElement.focus();
+    }
   }
 }
