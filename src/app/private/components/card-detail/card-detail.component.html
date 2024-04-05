@@ -134,10 +134,7 @@
         ></ckeditor>
       </div>
 
-      @if (
-        (card.checklist && card.checklist.tasks.length) ||
-        boardService.isSprintModifiable()
-      ) {
+      @if (card.checklist && card.checklist.tasks.length) {
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-square-check fs-5"></i>
@@ -150,10 +147,7 @@
         </div>
       }
 
-      @if (
-        (card.attachments && card.attachments.length) ||
-        boardService.isSprintModifiable()
-      ) {
+      @if (card.attachments && card.attachments.length) {
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-paperclip fs-5"></i>
