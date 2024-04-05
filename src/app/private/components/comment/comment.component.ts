@@ -18,6 +18,7 @@ export class CommentComponent {
   boardService = inject(BoardService);
 
   comment = model.required<Comment>();
+
   initials = computed(() => {
     const user = this.comment().author;
     const [firstName, lastName] = user.split(/\s+/);

@@ -18,6 +18,7 @@ export class SignUpComponent {
   #snackBarService = inject(MatSnackBar);
 
   showPassword = signal(false);
+
   evaluateType = computed(() => {
     if (this.showPassword()) {
       return 'text';
@@ -25,6 +26,7 @@ export class SignUpComponent {
 
     return 'password';
   });
+
   evaluateSuffixIcon = computed(() => {
     if (this.showPassword()) {
       return 'fa-eye-slash';

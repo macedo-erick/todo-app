@@ -8,6 +8,7 @@ import { Activity } from '../../models/activity.model';
 })
 export class ActivitiesComponent {
   activities = model.required<Activity[]>();
+
   sortedActivities = computed(() => {
     return this.activities().sort(
       (a, b) =>

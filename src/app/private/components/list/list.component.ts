@@ -1,4 +1,11 @@
-import { Component, ElementRef, model, output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  model,
+  output,
+  ViewChild
+} from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
@@ -20,17 +27,15 @@ type SortDirection = 'asc' | 'desc';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
+  #activityService = inject(ActivityService);
+  boardService = inject(BoardService);
+
   list = model.required<List>();
 
   removedList = output();
 
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
-
-  constructor(
-    private activityService: ActivityService,
-    public boardService: BoardService
-  ) {}
 
   addCard(): void {
     const card = {
@@ -174,7 +179,7 @@ export class ListComponent {
 
     card.activities = [
       ...card.activities,
-      this.activityService.create(
+      this.#activityService.create(
         `moved the card from ${previousListName} to ${currentListName}`
       )
     ];

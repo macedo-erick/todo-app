@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import {
   MatNativeDateModule,
@@ -129,7 +129,8 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
     MatDivider,
     MatDialogClose,
     MatSnackBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgOptimizedImage
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]

@@ -19,6 +19,7 @@ export class CommentsComponent {
   isEditing = signal(false);
 
   comments = model.required<Comment[]>();
+
   sortedComments = computed(() =>
     this.comments().sort(
       (a, b) =>

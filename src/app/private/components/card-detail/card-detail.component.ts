@@ -9,16 +9,17 @@ import {
 } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Card } from '../../models/card.model';
-import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 import { Checklist } from '../../models/checklist.model';
 import { editorConfig } from '../../../util/util';
 import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
+import { BoardService } from '../../services/board/board.service';
 import { Attachment } from '../../models/attachment.model';
 import { MatSelectChange } from '@angular/material/select';
-import { BoardService } from '../../services/board/board.service';
+import { toDate } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
-import { formatInTimeZone, toDate } from 'date-fns-tz';
+import { BlurEvent } from '@ckeditor/ckeditor5-angular';
 
 @Component({
   selector: 'todo-card-detail',
@@ -35,9 +36,6 @@ export class CardDetailComponent {
     Object.hasOwn(this.card(), 'timeSpent')
   );
 
-  editor = ClassicEditor;
-  config = editorConfig;
-
   types = [
     { value: 1, label: 'Story' },
     { value: 2, label: 'Task' },
@@ -51,32 +49,17 @@ export class CardDetailComponent {
   ];
 
   deletedCard = output();
+  closeModal = output();
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
-  addChecklist(): void {
-    if (!this.card().checklist) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        checklist: { name: 'Checklist', tasks: [] },
-        activities: [
-          ...activities,
-          this.#activityService.create('added checklist to the card')
-        ]
-      }));
-    }
-  }
+  editor = ClassicEditor;
+  config = editorConfig;
 
-  addAttachments(): void {
-    if (!this.card().attachments) {
-      this.card.update(({ activities, ...card }) => ({
-        ...card,
-        attachments: [],
-        activities: [
-          ...activities,
-          this.#activityService.create('added attachments to the card')
-        ]
-      }));
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.cardName.nativeElement.contentEditable = 'true';
+      this.cardName.nativeElement.focus();
     }
   }
 
@@ -93,32 +76,6 @@ export class CardDetailComponent {
         ]
       }));
     }
-  }
-
-  onDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
-    this.card.update(({ activities, ...card }) => ({
-      ...card,
-      description: editor.getData(),
-      activities: [
-        ...activities,
-        this.#activityService.create(`changed the card description`)
-      ]
-    }));
-  }
-
-  onPriorityChange(event: MatSelectChange): void {
-    const { value: priority } = event;
-
-    this.card.update(({ activities, priority: oldPriority, ...card }) => ({
-      ...card,
-      priority,
-      activities: [
-        ...activities,
-        this.#activityService.create(
-          `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
-        )
-      ]
-    }));
   }
 
   onSprintChange(event: MatSelectChange): void {
@@ -152,6 +109,8 @@ export class CardDetailComponent {
         )
       ]
     }));
+
+    this.closeModal.emit();
   }
 
   onTypeChange(event: MatSelectChange): void {
@@ -169,15 +128,17 @@ export class CardDetailComponent {
     }));
   }
 
-  onTimeSpentChange(event: Event): void {
-    const { value } = event.target as HTMLInputElement;
+  onPriorityChange(event: MatSelectChange): void {
+    const { value: priority } = event;
 
-    this.card.update(({ activities, ...card }) => ({
+    this.card.update(({ activities, priority: oldPriority, ...card }) => ({
       ...card,
-      timeSpent: Number(value),
+      priority,
       activities: [
         ...activities,
-        this.#activityService.create(`changed the time spent to ${value}h`)
+        this.#activityService.create(
+          `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
+        )
       ]
     }));
   }
@@ -195,8 +156,58 @@ export class CardDetailComponent {
     }));
   }
 
+  onTimeSpentChange(event: Event): void {
+    const { value } = event.target as HTMLInputElement;
+
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      timeSpent: Number(value),
+      activities: [
+        ...activities,
+        this.#activityService.create(`changed the time spent to ${value}h`)
+      ]
+    }));
+  }
+
+  onDescriptionChange({ editor }: BlurEvent<ClassicEditor>): void {
+    this.card.update(({ activities, ...card }) => ({
+      ...card,
+      description: editor.getData(),
+      activities: [
+        ...activities,
+        this.#activityService.create(`changed the card description`)
+      ]
+    }));
+  }
+
+  addChecklist(): void {
+    if (!this.card().checklist) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        checklist: { name: 'Checklist', tasks: [] },
+        activities: [
+          ...activities,
+          this.#activityService.create('added checklist to the card')
+        ]
+      }));
+    }
+  }
+
   onChecklistChange(checklist: Checklist): void {
     this.card.update((card) => ({ ...card, checklist }));
+  }
+
+  addAttachments(): void {
+    if (!this.card().attachments) {
+      this.card.update(({ activities, ...card }) => ({
+        ...card,
+        attachments: [],
+        activities: [
+          ...activities,
+          this.#activityService.create('added attachments to the card')
+        ]
+      }));
+    }
   }
 
   onAttachmentsChange(attachments: Attachment[]): void {
@@ -205,12 +216,5 @@ export class CardDetailComponent {
 
   onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
-  }
-
-  toggleChangeName(): void {
-    if (this.boardService.isSprintModifiable()) {
-      this.cardName.nativeElement.contentEditable = 'true';
-      this.cardName.nativeElement.focus();
-    }
   }
 }

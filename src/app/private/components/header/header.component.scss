@@ -1,4 +1,8 @@
 .header__container {
   height: 5rem;
   top: 0;
+
+  .app__title {
+    cursor: pointer;
+  }
 }

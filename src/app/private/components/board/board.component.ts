@@ -38,7 +38,19 @@ export class BoardComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.titleService.setTitle('Todo');
+    this.titleService.setTitle('Streamline');
+  }
+
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.boardName.nativeElement.contentEditable = 'true';
+      this.boardName.nativeElement.focus();
+    }
+  }
+
+  onNameChange(): void {
+    const { innerText } = this.boardName.nativeElement;
+    this.board.update((board) => ({ ...board, name: innerText.trim() }));
   }
 
   addList(): void {
@@ -53,6 +65,20 @@ export class BoardComponent implements OnDestroy {
     });
   }
 
+  onListChange(index: number, list: List): void {
+    this.board.update(({ lists, ...board }) => {
+      lists[index] = list;
+      return { ...board, lists };
+    });
+  }
+
+  onRemovedList(index: number): void {
+    this.board.update(({ lists, ...board }) => ({
+      ...board,
+      lists: lists.filter((_, i) => i !== index)
+    }));
+  }
+
   onDrop(event: CdkDragDrop<List>): void {
     moveItemInArray(
       this.board().lists,
@@ -64,31 +90,5 @@ export class BoardComponent implements OnDestroy {
       ...board,
       lists: this.board().lists
     }));
-  }
-
-  onRemovedList(index: number): void {
-    this.board.update(({ lists, ...board }) => ({
-      ...board,
-      lists: lists.filter((_, i) => i !== index)
-    }));
-  }
-
-  toggleChangeBoardName(): void {
-    if (this.boardService.isSprintModifiable()) {
-      this.boardName.nativeElement.contentEditable = 'true';
-      this.boardName.nativeElement.focus();
-    }
-  }
-
-  onNameChange(): void {
-    const { innerText } = this.boardName.nativeElement;
-    this.board.update((board) => ({ ...board, name: innerText.trim() }));
-  }
-
-  onListChange(index: number, list: List): void {
-    this.board.update(({ lists, ...board }) => {
-      lists[index] = list;
-      return { ...board, lists };
-    });
   }
 }

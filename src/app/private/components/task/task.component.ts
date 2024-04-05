@@ -30,6 +30,13 @@ export class TaskComponent {
     this.task.update((task) => ({ ...task, finished }));
   }
 
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.inputContainer.nativeElement.classList.add('focused');
+      this.evaluateReadOnlyState.update(() => false);
+    }
+  }
+
   onNameChange(event: FocusEvent): void {
     const { value } = event.target as HTMLInputElement;
 
@@ -38,12 +45,5 @@ export class TaskComponent {
     this.task.update((task) => ({ ...task, name: value.trim() }));
 
     this.evaluateReadOnlyState.update(() => true);
-  }
-
-  toggleChangeName(): void {
-    if (this.boardService.isSprintModifiable()) {
-      this.inputContainer.nativeElement.classList.add('focused');
-      this.evaluateReadOnlyState.update(() => false);
-    }
   }
 }

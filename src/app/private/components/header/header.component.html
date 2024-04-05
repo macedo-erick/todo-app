@@ -1,9 +1,17 @@
 <header
   class="header__container bg__pale__blue shadow-sm position-fixed w-100 d-flex align-items-center justify-content-between py-3 px-4"
 >
-  <a routerLink="/p/home" class="text-decoration-none">
-    <h1 class="text-black fw-bolder m-0">Todo</h1>
-  </a>
+  <div
+    class="app__title d-flex gap-2 align-items-center"
+    (mouseover)="appIcon.classList.add('fa-shake')"
+    (mouseleave)="appIcon.classList.remove('fa-shake')"
+  >
+    <i class="fa-regular fa-square-kanban fs-5" #appIcon></i>
+
+    <a routerLink="/p/home" class="text-decoration-none">
+      <h1 class="text-black fw-bolder m-0">Streamline</h1>
+    </a>
+  </div>
 
   <todo-user-initials
     [initials]="initials()"

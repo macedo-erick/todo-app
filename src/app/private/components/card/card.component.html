@@ -68,6 +68,7 @@
         [card]="card"
         (cardChange)="onCardChange($event)"
         (deletedCard)="deletedCard.emit()"
+        (closeModal)="dialogRef.close()"
       ></todo-card-detail>
     </ng-template>
   </li>

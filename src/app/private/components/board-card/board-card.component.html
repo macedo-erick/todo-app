@@ -7,7 +7,11 @@
       class="border__rounded shadow-sm h-100 w-100 d-flex justify-content-center align-items-center"
       matRipple
     >
-      <h3 class="m-0 fw-bolder fs-6 text-black">{{ board.name }}</h3>
+      <mat-card-content>
+        <h3 class="m-0 fw-bolder fs-6 text-black text-center">
+          {{ board.name }}
+        </h3>
+      </mat-card-content>
     </mat-card>
   </a>
 }

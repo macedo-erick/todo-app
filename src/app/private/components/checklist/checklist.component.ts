@@ -14,22 +14,17 @@ export class ChecklistComponent {
   boardService = inject(BoardService);
 
   checklist = model.required<Checklist>();
+
   progress = computed(() => {
     const tasks = this.checklist().tasks;
     const finishedTasks = tasks.filter((c) => c.finished).length;
     return Math.floor((finishedTasks / tasks.length) * 100) || 0;
   });
 
-  drop(event: CdkDragDrop<List>): void {
-    moveItemInArray(
-      this.checklist().tasks,
-      event.previousIndex,
-      event.currentIndex
-    );
-
-    this.checklist.update(({ ...checklist }) => ({
+  addTask(): void {
+    this.checklist.update(({ tasks, ...checklist }) => ({
       ...checklist,
-      tasks: this.checklist().tasks
+      tasks: tasks.concat({ name: 'New Task', finished: false })
     }));
   }
 
@@ -51,10 +46,16 @@ export class ChecklistComponent {
     }));
   }
 
-  addTask(): void {
-    this.checklist.update(({ tasks, ...checklist }) => ({
+  drop(event: CdkDragDrop<List>): void {
+    moveItemInArray(
+      this.checklist().tasks,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.checklist.update(({ ...checklist }) => ({
       ...checklist,
-      tasks: tasks.concat({ name: 'New Task', finished: false })
+      tasks: this.checklist().tasks
     }));
   }
 }

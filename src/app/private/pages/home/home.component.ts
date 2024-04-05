@@ -3,6 +3,9 @@ import { BoardService } from '../../services/board/board.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { SprintStatus } from '../../enums/sprint-status';
+import { v4 as uuidv4 } from 'uuid';
+import { addDays } from 'date-fns';
 
 @Component({
   templateUrl: './home.component.html',
@@ -30,10 +33,21 @@ export class HomeComponent implements OnInit {
   }
 
   newBoard(): void {
+    /**
+     * Todo: Remove automatic sprint creation after board management
+     */
+
     this.boardService.create({
       name: 'New Board',
       lists: [],
-      sprints: []
+      sprints: [
+        {
+          status: SprintStatus.ACTIVE,
+          id: uuidv4(),
+          startDate: new Date(),
+          endDate: addDays(new Date(), 15)
+        }
+      ]
     });
   }
 }

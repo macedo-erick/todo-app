@@ -12,7 +12,7 @@ import { CardDetailComponent } from '../card-detail/card-detail.component';
 import { Priority } from '../../enums/priority.enum';
 import { CardType } from '../../enums/card-type.enum';
 import { BoardService } from '../../services/board/board.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'todo-card',
@@ -27,6 +27,7 @@ export class CardComponent {
 
   deletedCard = output();
 
+  dialogRef!: MatDialogRef<CardDetailComponent>;
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
@@ -62,17 +63,6 @@ export class CardComponent {
     }
   });
 
-  evaluateCheckListStatus = computed(() => {
-    if (this.card().checklist && this.card().checklist.tasks) {
-      const tasks = this.card().checklist.tasks;
-      const finishedTasks = tasks.filter((c) => c.finished).length;
-
-      return `${finishedTasks}/${tasks.length}`;
-    }
-
-    return;
-  });
-
   evaluatePriority = computed(() => {
     switch (this.card().priority) {
       case Priority.LOW:
@@ -95,8 +85,19 @@ export class CardComponent {
     }
   });
 
+  evaluateCheckListStatus = computed(() => {
+    if (this.card().checklist && this.card().checklist.tasks) {
+      const tasks = this.card().checklist.tasks;
+      const finishedTasks = tasks.filter((c) => c.finished).length;
+
+      return `${finishedTasks}/${tasks.length}`;
+    }
+
+    return;
+  });
+
   showCardDetails(): void {
-    this.dialogService.open(this.cardDetail, {
+    this.dialogRef = this.dialogService.open(this.cardDetail, {
       width: '55rem',
       height: '50rem',
       autoFocus: 'dialog',
