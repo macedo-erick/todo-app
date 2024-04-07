@@ -204,7 +204,7 @@ export class CardDetailComponent {
         attachments: [],
         activities: [
           ...activities,
-          this.#activityService.create('added attachments to the card')
+          this.#activityService.create('added attachment to the card')
         ]
       }));
     }
