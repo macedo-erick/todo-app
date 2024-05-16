@@ -9,7 +9,6 @@ import { Observable, tap } from 'rxjs';
 })
 export class AttachmentService {
   #http = inject(HttpClient);
-
   #BASE_URL = environment.apiBasePath.concat('/attachments');
 
   uploadFile(formData: FormData): Observable<Attachment> {

@@ -36,6 +36,9 @@ export class CardDetailComponent {
     Object.hasOwn(this.card(), 'timeSpent')
   );
 
+  deletedCard = output();
+  closeModal = output();
+
   types = [
     { value: 1, label: 'Story' },
     { value: 2, label: 'Task' },
@@ -47,9 +50,6 @@ export class CardDetailComponent {
     { value: 2, label: 'Medium' },
     { value: 3, label: 'High' }
   ];
-
-  deletedCard = output();
-  closeModal = output();
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 

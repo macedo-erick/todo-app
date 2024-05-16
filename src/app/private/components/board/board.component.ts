@@ -6,7 +6,6 @@ import {
   inject,
   model,
   OnDestroy,
-  Signal,
   ViewChild
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -26,7 +25,7 @@ export class BoardComponent implements OnDestroy {
   boardService = inject(BoardService);
 
   board = model.required<Board>();
-  loaded: Signal<boolean> = computed(() => !!this.board());
+  loaded = computed(() => !!this.board());
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;

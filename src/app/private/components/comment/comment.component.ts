@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  EventEmitter,
-  inject,
-  model,
-  Output
-} from '@angular/core';
+import { Component, computed, inject, model, output } from '@angular/core';
 import { Comment } from '../../models/comment.model';
 import { BoardService } from '../../services/board/board.service';
 
@@ -26,5 +19,5 @@ export class CommentComponent {
     return firstName.charAt(0).concat(lastName.charAt(0));
   });
 
-  @Output() deletedComment = new EventEmitter();
+  deletedComment = output();
 }
