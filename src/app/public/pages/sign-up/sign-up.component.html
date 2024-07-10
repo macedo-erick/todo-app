@@ -13,6 +13,7 @@
           matInput
           type="email"
           formControlName="firstName"
+          autocomplete="given-name"
           placeholder="Type your first name"
           class="font__sm"
         />
@@ -24,6 +25,7 @@
           matInput
           type="email"
           formControlName="lastName"
+          autocomplete="family-name"
           placeholder="Type your last name"
           class="font__sm"
         />
@@ -46,6 +48,7 @@
         <input
           matInput
           type="email"
+          autocomplete="email"
           formControlName="email"
           placeholder="Type your email"
           class="font__sm"
@@ -58,6 +61,7 @@
           <input
             matInput
             formControlName="password"
+            autocomplete="current-password"
             [type]="evaluateType()"
             placeholder="Type your password"
             class="font__sm"
@@ -92,7 +96,7 @@
         <input
           matInput
           formControlName="confirmPassword"
-          autocomplete="password"
+          autocomplete="current-password"
           [type]="evaluateType()"
           placeholder="Type your password"
           class="font__sm"

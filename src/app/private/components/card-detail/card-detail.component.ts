@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   ElementRef,
   inject,
   model,
@@ -31,10 +30,6 @@ export class CardDetailComponent {
   boardService = inject(BoardService);
 
   card = model.required<Card>();
-
-  evaluateTimeSpentVisibility = computed(() =>
-    Object.hasOwn(this.card(), 'timeSpent')
-  );
 
   deletedCard = output();
   closeModal = output();
