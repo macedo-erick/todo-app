@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, computed, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
-import { SnackBarComponent } from '../../../private/components/snack-bar/snack-bar.component';
-import passwordMatchValidator, {
-  PasswordMatchState
-} from '../../validators/password-match.validator';
+import {Component, computed, inject, signal} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {tap} from 'rxjs';
+import {SnackBarComponent} from '../../../private/components/snack-bar/snack-bar.component';
+import passwordMatchValidator, {PasswordMatchState} from '../../validators/password-match.validator';
 
 @Component({
   templateUrl: './sign-up.component.html',
@@ -85,4 +83,6 @@ export class SignUpComponent {
   onShowPasswordChange(): void {
     this.showPassword.update((showPassword) => !showPassword);
   }
+
+  protected readonly Array = Array;
 }
