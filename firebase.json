@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "kivo",
     "public": "dist/todo-app/browser",
     "ignore": [
       "firebase.json",

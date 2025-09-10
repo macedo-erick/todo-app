@@ -1,5 +1,5 @@
 export const environment = {
-  apiBasePath: 'https://todo-api-dot-todo-app-416700.rj.r.appspot.com/api/prod',
-  wsUrl: 'https://todo-api-dot-todo-app-416700.rj.r.appspot.com',
+  apiBasePath: 'http://api.kivo.app.br/api/prod',
+  wsUrl: 'http://api.kivo.app.br',
   wsBasePath: '/ws/prod'
 };
