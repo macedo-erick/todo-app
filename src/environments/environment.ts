@@ -1,5 +1,5 @@
 export const environment = {
-  apiBasePath: 'http://api.kivo.app.br/prod',
-  wsUrl: 'http://api.kivo.app.br',
+  apiBasePath: 'https://api.kivo.app.br/prod',
+  wsUrl: 'https://api.kivo.app.br',
   wsBasePath: '/ws/prod'
 };
