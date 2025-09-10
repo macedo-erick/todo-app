@@ -199,10 +199,10 @@ body {
 }
 
 ::-webkit-scrollbar {
-  background-color: var(--pale-blue);
+  background-color: var(--slate-blue);
 
   width: 4px;
-  height: 4px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -210,7 +210,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--soft-azure);
+  background-color: var(--slate-blue);
   border: 0 solid;
 }
 

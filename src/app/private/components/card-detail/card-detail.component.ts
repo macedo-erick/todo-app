@@ -117,7 +117,9 @@ export class CardDetailComponent {
       activities: [
         ...activities,
         this.#activityService.create(
-          `changed the type from ${this.types[oldType - 1]?.label} to ${this.types[type - 1]?.label}`
+          oldType
+            ? `changed the type from ${this.types[oldType - 1]?.label} to ${this.types[type - 1]?.label}`
+            : `changed the type to ${this.types[type - 1]?.label}`
         )
       ]
     }));
@@ -132,7 +134,9 @@ export class CardDetailComponent {
       activities: [
         ...activities,
         this.#activityService.create(
-          `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
+          oldPriority
+            ? `changed the priority from ${this.priorities[oldPriority - 1]?.label} to ${this.priorities[priority - 1]?.label}`
+            : `changed the priority to ${this.priorities[priority - 1]?.label}`
         )
       ]
     }));

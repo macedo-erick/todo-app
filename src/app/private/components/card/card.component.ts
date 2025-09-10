@@ -31,13 +31,14 @@ export class CardComponent {
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
-    const { priority, description, checklist, attachments } = this.card();
+    const { priority, description, checklist, attachments, type } = this.card();
 
     return [
       priority,
       description,
       checklist?.tasks.length,
-      attachments?.length
+      attachments?.length,
+      type,
     ].filter((k) => k).length;
   });
 
