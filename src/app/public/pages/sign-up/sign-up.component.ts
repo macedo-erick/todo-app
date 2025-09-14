@@ -1,24 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {Component, computed, inject, signal} from '@angular/core';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {AuthService} from '../../services/auth/auth.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {tap} from 'rxjs';
-import {SnackBarComponent} from '../../../private/components/snack-bar/snack-bar.component';
-import passwordMatchValidator, {PasswordMatchState} from '../../validators/password-match.validator';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { tap } from 'rxjs';
+import { SnackBarComponent } from '../../../private/components/snack-bar/snack-bar.component';
+import passwordMatchValidator, { PasswordMatchState } from '../../validators/password-match.validator';
 import { RouterLink } from '@angular/router';
 import { MatDivider } from '@angular/material/divider';
 import { NgClass } from '@angular/common';
-import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { NgxMatInputTelComponent } from 'ngx-mat-input-tel';
-import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-    templateUrl: './sign-up.component.html',
-    styleUrl: './sign-up.component.scss',
-    standalone: true,
-    imports: [MatCard, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, NgxMatInputTelComponent, MatIconButton, MatSuffix, NgClass, MatButton, MatDivider, RouterLink]
+  templateUrl: './sign-up.component.html',
+  styleUrl: './sign-up.component.scss',
+  standalone: true,
+  imports: [
+    MatCard,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    NgxMatInputTelComponent,
+    MatIconButton,
+    MatSuffix,
+    NgClass,
+    MatButton,
+    MatDivider,
+    RouterLink
+  ]
 })
 export class SignUpComponent {
   #authService = inject(AuthService);

@@ -8,11 +8,11 @@ import { NgIf } from '@angular/common';
 import { AttachmentComponent } from '../attachment/attachment.component';
 
 @Component({
-    selector: 'todo-attachments',
-    templateUrl: './attachments.component.html',
-    styleUrl: './attachments.component.scss',
-    standalone: true,
-    imports: [AttachmentComponent, NgIf, MatButton]
+  selector: 'todo-attachments',
+  templateUrl: './attachments.component.html',
+  styleUrl: './attachments.component.scss',
+  standalone: true,
+  imports: [AttachmentComponent, NgIf, MatButton]
 })
 export class AttachmentsComponent {
   #attachmentService = inject(AttachmentService);

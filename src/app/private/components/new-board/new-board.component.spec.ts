@@ -8,10 +8,9 @@ describe('NewBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [NewBoardComponent]
-})
-    .compileComponents();
-    
+      imports: [NewBoardComponent]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(NewBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -14,15 +14,22 @@ import { CardType } from '../../enums/card-type.enum';
 import { BoardService } from '../../services/board/board.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgClass } from '@angular/common';
-import { MatCard, MatCardTitle, MatCardFooter } from '@angular/material/card';
+import { MatCard, MatCardFooter, MatCardTitle } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'todo-card',
-    templateUrl: './card.component.html',
-    styleUrl: './card.component.scss',
-    standalone: true,
-    imports: [CdkDrag, MatCard, MatCardTitle, MatCardFooter, NgClass, CardDetailComponent]
+  selector: 'todo-card',
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.scss',
+  standalone: true,
+  imports: [
+    CdkDrag,
+    MatCard,
+    MatCardTitle,
+    MatCardFooter,
+    NgClass,
+    CardDetailComponent
+  ]
 })
 export class CardComponent {
   boardService = inject(BoardService);
@@ -43,7 +50,7 @@ export class CardComponent {
       description,
       checklist?.tasks.length,
       attachments?.length,
-      type,
+      type
     ].filter((k) => k).length;
   });
 

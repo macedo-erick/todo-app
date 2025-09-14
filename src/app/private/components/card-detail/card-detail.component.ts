@@ -14,7 +14,7 @@ import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { Attachment } from '../../models/attachment.model';
-import { MatSelectChange, MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { toDate } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
@@ -27,41 +27,52 @@ import { AttachmentsComponent } from '../attachments/attachments.component';
 import { ChecklistComponent } from '../checklist/checklist.component';
 import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
-import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
-import { NgClass, NgIf, DatePipe } from '@angular/common';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { DatePipe, NgClass, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'todo-card-detail',
-    templateUrl: './card-detail.component.html',
-    styleUrl: './card-detail.component.scss',
-    standalone: true,
-    imports: [NgClass, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, CKEditorModule, ChecklistComponent, AttachmentsComponent, NgIf, CommentsComponent, ActivitiesComponent, MatButton, MatDialogClose, DatePipe]
+  selector: 'todo-card-detail',
+  templateUrl: './card-detail.component.html',
+  styleUrl: './card-detail.component.scss',
+  standalone: true,
+  imports: [
+    NgClass,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    FormsModule,
+    MatOption,
+    MatInput,
+    CKEditorModule,
+    ChecklistComponent,
+    AttachmentsComponent,
+    NgIf,
+    CommentsComponent,
+    ActivitiesComponent,
+    MatButton,
+    MatDialogClose,
+    DatePipe
+  ]
 })
 export class CardDetailComponent {
-  #activityService = inject(ActivityService);
   boardService = inject(BoardService);
-
   card = model.required<Card>();
-
   deletedCard = output();
   closeModal = output();
-
   types = [
     { value: 1, label: 'Story' },
     { value: 2, label: 'Task' },
     { value: 3, label: 'Bug' }
   ];
-
   priorities = [
     { value: 1, label: 'Low' },
     { value: 2, label: 'Medium' },
     { value: 3, label: 'High' }
   ];
-
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
-
   editor = ClassicEditor;
   config = editorConfig;
+  #activityService = inject(ActivityService);
 
   toggleChangeName(): void {
     if (this.boardService.isSprintModifiable()) {

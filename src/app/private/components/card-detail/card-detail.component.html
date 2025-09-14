@@ -36,13 +36,11 @@
               (selectionChange)="onSprintChange($event)"
               [disabled]="!boardService.isSprintModifiable()"
             >
-              @for (
-                sprint of boardService.sprints();
+              @for (sprint of boardService.sprints();
                 let index = $index;
-                track index
-              ) {
+                track index) {
                 <mat-option [value]="sprint.id" class="font__sm"
-                  >[Sprint {{ index + 1 }}]
+                >[Sprint {{ index + 1 }}]
                   {{ sprint.startDate | date: 'dd/MM/yyyy' }} -
                   {{ sprint.endDate | date: 'dd/MM/yyyy' }}
                 </mat-option>
@@ -63,7 +61,7 @@
             >
               @for (type of types; let index = $index; track index) {
                 <mat-option [value]="type.value" class="font__sm"
-                  >{{ type.label }}
+                >{{ type.label }}
                 </mat-option>
               }
             </mat-select>
@@ -82,7 +80,7 @@
             >
               @for (priority of priorities; let index = $index; track index) {
                 <mat-option [value]="priority.value" class="font__sm"
-                  >{{ priority.label }}
+                >{{ priority.label }}
                 </mat-option>
               }
             </mat-select>

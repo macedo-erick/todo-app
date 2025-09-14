@@ -1,30 +1,111 @@
 <h2 mat-dialog-title>New Board</h2>
 <mat-dialog-content>
-  <form [formGroup]="formGroup" class="d-grid gap-2 p-1">
+  <form [formGroup]="formGroup" class="d-grid gap-4 p-1">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input
-        formControlName="name"
-        matInput
-        placeholder="Enter a name"
-      />
+      <input formControlName="name" matInput placeholder="Enter a name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Prefix</mat-label>
       <input
         formControlName="prefix"
+        mask="AAAA"
         matInput
         placeholder="Enter a prefix"
       />
     </mat-form-field>
+
+    <div class="sprints__container" formArrayName="sprints">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 class="m-0">Sprints</h3>
+        <button
+          (click)="addSprint()"
+          class="bg__pale__blue has__hover font__sm"
+          mat-button
+          type="button"
+        >
+          Add sprint
+        </button>
+      </div>
+
+      <table [dataSource]="sprints().controls" mat-table>
+        <ng-container matColumnDef="startDate">
+          <th *matHeaderCellDef mat-header-cell>Start Date</th>
+          <td
+            *matCellDef="let group; let i = index"
+            [formGroupName]="i"
+            mat-cell
+          >
+            <mat-form-field appearance="outline">
+              <input
+                (click)="picker.open()"
+                [formControl]="group.get('startDate')"
+                [matDatepicker]="picker"
+                matInput
+              />
+              <mat-datepicker-toggle [for]="picker" matIconSuffix />
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th *matHeaderCellDef mat-header-cell>End Date</th>
+          <td
+            *matCellDef="let group; let i = index"
+            [formGroupName]="i"
+            mat-cell
+          >
+            <mat-form-field appearance="outline">
+              <input
+                (click)="picker.open()"
+                [formControl]="group.get('endDate')"
+                [matDatepicker]="picker"
+                matInput
+              />
+              <mat-datepicker-toggle [for]="picker" matIconSuffix />
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th *matHeaderCellDef mat-header-cell>Actions</th>
+          <td *matCellDef="let _; let i = index" mat-cell>
+            <button
+              (click)="removeSprint(i)"
+              class="font__sm"
+              mat-button
+              type="button"
+            >
+              Remove
+            </button>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+      </table>
+    </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button class="bg__pale__blue has__hover font__sm" mat-button mat-dialog-close>Cancel</button>
-  <button (click)="saveBoard()" [disabled]="formGroup.invalid" [mat-dialog-close]="true"
-          class="bg__pale__blue has__hover font__sm"
-          mat-button>Save
+  <button
+    class="bg__pale__blue has__hover font__sm"
+    mat-button
+    mat-dialog-close
+  >
+    Cancel
+  </button>
+  <button
+    (click)="saveBoard()"
+    [disabled]="formGroup.invalid"
+    [mat-dialog-close]="true"
+    class="bg__pale__blue has__hover font__sm"
+    mat-button
+  >
+    Save
   </button>
 </mat-dialog-actions>

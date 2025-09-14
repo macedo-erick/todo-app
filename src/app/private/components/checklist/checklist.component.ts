@@ -1,7 +1,12 @@
 import { Component, computed, inject, model } from '@angular/core';
 import { Checklist } from '../../models/checklist.model';
 import { Task } from '../../models/task.model';
-import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray
+} from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
@@ -10,11 +15,18 @@ import { TaskComponent } from '../task/task.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
-    selector: 'todo-checklist',
-    templateUrl: './checklist.component.html',
-    styleUrl: './checklist.component.scss',
-    standalone: true,
-    imports: [MatProgressBar, CdkDropList, CdkDropListGroup, TaskComponent, NgIf, MatButton]
+  selector: 'todo-checklist',
+  templateUrl: './checklist.component.html',
+  styleUrl: './checklist.component.scss',
+  standalone: true,
+  imports: [
+    MatProgressBar,
+    CdkDropList,
+    CdkDropListGroup,
+    TaskComponent,
+    NgIf,
+    MatButton
+  ]
 })
 export class ChecklistComponent {
   boardService = inject(BoardService);

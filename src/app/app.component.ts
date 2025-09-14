@@ -4,11 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './private/components/header/header.component';
 
 @Component({
-    selector: 'todo-root',
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    standalone: true,
-    imports: [HeaderComponent, RouterOutlet]
+  selector: 'todo-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  standalone: true,
+  imports: [HeaderComponent, RouterOutlet]
 })
 export class AppComponent {
   authService = inject(AuthService);

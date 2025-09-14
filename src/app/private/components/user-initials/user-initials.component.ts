@@ -5,11 +5,11 @@ import { MatMiniFabButton } from '@angular/material/button';
 type size = 'md' | 'lg';
 
 @Component({
-    selector: 'todo-user-initials',
-    templateUrl: './user-initials.component.html',
-    styleUrl: './user-initials.component.scss',
-    standalone: true,
-    imports: [MatMiniFabButton, NgClass]
+  selector: 'todo-user-initials',
+  templateUrl: './user-initials.component.html',
+  styleUrl: './user-initials.component.scss',
+  standalone: true,
+  imports: [MatMiniFabButton, NgClass]
 })
 export class UserInitialsComponent {
   initials = model.required<string>();

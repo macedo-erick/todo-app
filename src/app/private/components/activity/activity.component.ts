@@ -4,11 +4,11 @@ import { DatePipe } from '@angular/common';
 import { UserInitialsComponent } from '../user-initials/user-initials.component';
 
 @Component({
-    selector: 'todo-activity',
-    templateUrl: './activity.component.html',
-    styleUrl: './activity.component.scss',
-    standalone: true,
-    imports: [UserInitialsComponent, DatePipe]
+  selector: 'todo-activity',
+  templateUrl: './activity.component.html',
+  styleUrl: './activity.component.scss',
+  standalone: true,
+  imports: [UserInitialsComponent, DatePipe]
 })
 export class ActivityComponent {
   activity = model.required<Activity>();

@@ -2,14 +2,14 @@ import { Component, inject, model, output } from '@angular/core';
 import { Attachment } from '../../models/attachment.model';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'todo-attachment',
-    templateUrl: './attachment.component.html',
-    styleUrl: './attachment.component.scss',
-    standalone: true,
-    imports: [NgIf, MatButton, DatePipe]
+  selector: 'todo-attachment',
+  templateUrl: './attachment.component.html',
+  styleUrl: './attachment.component.scss',
+  standalone: true,
+  imports: [NgIf, MatButton, DatePipe]
 })
 export class AttachmentComponent {
   boardService = inject(BoardService);

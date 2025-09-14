@@ -15,11 +15,11 @@ import { NgIf } from '@angular/common';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'todo-task',
-    templateUrl: './task.component.html',
-    styleUrl: './task.component.scss',
-    standalone: true,
-    imports: [CdkDrag, NgIf, FormsModule, CdkDragHandle, MatIconButton]
+  selector: 'todo-task',
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.scss',
+  standalone: true,
+  imports: [CdkDrag, NgIf, FormsModule, CdkDragHandle, MatIconButton]
 })
 export class TaskComponent {
   boardService = inject(BoardService);

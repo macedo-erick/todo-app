@@ -8,26 +8,34 @@ import { NewBoardComponent } from '../../components/new-board/new-board.componen
 import { Board } from '../../models/board.model';
 import { MatButton } from '@angular/material/button';
 import { BoardCardComponent } from '../../components/board-card/board-card.component';
-import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 
 @Component({
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
-    standalone: true,
-    imports: [MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, BoardCardComponent, MatButton]
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  standalone: true,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    BoardCardComponent,
+    MatButton
+  ]
 })
 export class HomeComponent implements OnInit {
   searchInput = new FormControl('');
-  loaded = signal(() => this.boards());
+
   #boardService = inject(BoardService);
+  loaded = signal(() => this.boards());
+
   boards = toSignal(this.#boardService.onFindAll(), { initialValue: [] });
   #dialogService = inject(MatDialog);
 
   ngOnInit(): void {
     this.#boardService.findAll();
     this.handleInputChange();
-
-    this.newBoard();
   }
 
   handleInputChange(): void {
@@ -39,30 +47,17 @@ export class HomeComponent implements OnInit {
   }
 
   newBoard(): void {
-    /**
-     * Todo: Remove automatic sprint creation after board management
-     */
-
     const dialog = this.#dialogService.open(NewBoardComponent, {
       disableClose: true
     });
 
     dialog
       .afterClosed()
-      .pipe(tap((res: Board) => console.log(res)))
+      .pipe(
+        tap((res: Board) => {
+          if (res) this.#boardService.create(res);
+        })
+      )
       .subscribe();
-
-    /*    this.boardService.create({
-      name: 'New Board',
-      lists: [],
-      sprints: [
-        {
-          status: SprintStatus.ACTIVE,
-          id: uuidv4(),
-          startDate: new Date(),
-          endDate: addDays(new Date(), 15)
-        }
-      ]
-    });*/
   }
 }

@@ -8,8 +8,8 @@ describe('UserInitialsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [UserInitialsComponent]
-}).compileComponents();
+      imports: [UserInitialsComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserInitialsComponent);
     component = fixture.componentInstance;
