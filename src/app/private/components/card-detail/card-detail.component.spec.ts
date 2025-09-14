@@ -8,7 +8,7 @@ describe('CardDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CardDetailComponent]
+      imports: [CardDetailComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CardDetailComponent);

@@ -6,10 +6,14 @@
   >
     <mat-card
       class="card__container border__rounded shadow-sm w-100 py-2 px-3"
-      (click)="showCardDetails()"
     >
       <mat-card-title>
         <h3 class="font__sm select__none m-0 fw-medium">
+
+          <strong>
+            [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]
+          </strong>
+
           {{ card.name }}
         </h3>
       </mat-card-title>
@@ -49,7 +53,7 @@
 
           @if (card.timeSpent) {
             <span class="bg__sky__blue rounded-5 px-2 fw-medium text-black"
-              >{{ card.timeSpent }}h</span
+            >{{ card.timeSpent }}h</span
             >
           }
 

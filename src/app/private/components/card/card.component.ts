@@ -13,21 +13,33 @@ import { Priority } from '../../enums/priority.enum';
 import { CardType } from '../../enums/card-type.enum';
 import { BoardService } from '../../services/board/board.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NgClass } from '@angular/common';
+import { MatCard, MatCardFooter, MatCardTitle } from '@angular/material/card';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'todo-card',
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+  styleUrl: './card.component.scss',
+  standalone: true,
+  imports: [
+    CdkDrag,
+    MatCard,
+    MatCardTitle,
+    MatCardFooter,
+    NgClass,
+    CardDetailComponent
+  ]
 })
 export class CardComponent {
   boardService = inject(BoardService);
-  dialogService = inject(MatDialog);
 
   card = model.required<Card>();
 
   deletedCard = output();
 
   dialogRef!: MatDialogRef<CardDetailComponent>;
+
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
@@ -38,7 +50,7 @@ export class CardComponent {
       description,
       checklist?.tasks.length,
       attachments?.length,
-      type,
+      type
     ].filter((k) => k).length;
   });
 
@@ -87,8 +99,10 @@ export class CardComponent {
   });
 
   evaluateCheckListStatus = computed(() => {
-    if (this.card().checklist && this.card().checklist.tasks) {
-      const tasks = this.card().checklist.tasks;
+    const card = this.card();
+
+    if (card.checklist && card.checklist.tasks) {
+      const tasks = card.checklist.tasks;
       const finishedTasks = tasks.filter((c) => c.finished).length;
 
       return `${finishedTasks}/${tasks.length}`;
@@ -96,15 +110,6 @@ export class CardComponent {
 
     return;
   });
-
-  showCardDetails(): void {
-    this.dialogRef = this.dialogService.open(this.cardDetail, {
-      width: '55rem',
-      height: '50rem',
-      autoFocus: 'dialog',
-      panelClass: 'bg__slate__gray'
-    });
-  }
 
   onCardChange(card: Card): void {
     this.card.update(() => card);

@@ -4,7 +4,7 @@
   <li
     class="draggable__item"
     cdkDrag
-    [cdkDragDisabled]="!boardService.isSprintModifiable()"
+    [cdkDragDisabled]="!boardService.isSprintModifiable() || isEditing"
   >
     <mat-card class="border__rounded bg__pale__blue shadow-sm">
       <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
@@ -13,6 +13,8 @@
           #listName
           (blur)="onNameChange()"
           (click)="toggleChangeListName()"
+          (keydown.enter)="$event.preventDefault(); listName.blur();"
+          (keydown.shift.enter)="$event.preventDefault(); listName.blur();"
         >
           {{ list.name }}
         </h2>
@@ -38,8 +40,8 @@
           @for (card of list.cards; let index = $index; track index) {
             <todo-card
               [card]="card"
-              (cardChange)="onCardChange(index, $event)"
               (deletedCard)="onDeletedCard(index)"
+              (click)="openCardDetail(card)"
             />
           }
         </ol>
@@ -99,3 +101,12 @@
     Priority (lowest to highest)
   </button>
 </mat-menu>
+
+<ng-template #cardDetail>
+  <todo-card-detail
+    [card]="card"
+    (deletedCard)="onDeletedCard(card.id)"
+    (cardChange)="onCardChange($event)"
+    (closeModal)="dialogRef.close()"
+  ></todo-card-detail>
+</ng-template>

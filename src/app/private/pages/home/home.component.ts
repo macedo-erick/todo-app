@@ -1,26 +1,40 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { BoardService } from '../../services/board/board.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { SprintStatus } from '../../enums/sprint-status';
-import { v4 as uuidv4 } from 'uuid';
-import { addDays } from 'date-fns';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { NewBoardComponent } from '../../components/new-board/new-board.component';
+import { Board } from '../../models/board.model';
+import { MatButton } from '@angular/material/button';
+import { BoardCardComponent } from '../../components/board-card/board-card.component';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 
 @Component({
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  standalone: true,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    BoardCardComponent,
+    MatButton
+  ]
 })
 export class HomeComponent implements OnInit {
-  boardService = inject(BoardService);
-
-  boards = toSignal(this.boardService.onFindAll(), { initialValue: [] });
-  loaded = signal(() => this.boards());
-
   searchInput = new FormControl('');
 
+  #boardService = inject(BoardService);
+  loaded = signal(() => this.boards());
+
+  boards = toSignal(this.#boardService.onFindAll(), { initialValue: [] });
+  #dialogService = inject(MatDialog);
+
   ngOnInit(): void {
-    this.boardService.findAll();
+    this.#boardService.findAll();
     this.handleInputChange();
   }
 
@@ -28,26 +42,26 @@ export class HomeComponent implements OnInit {
     this.searchInput.valueChanges
       .pipe(distinctUntilChanged(), debounceTime(200))
       .subscribe((q) => {
-        this.boardService.findByName(String(q));
+        this.#boardService.findByName(String(q));
       });
   }
 
   newBoard(): void {
-    /**
-     * Todo: Remove automatic sprint creation after board management
-     */
-
-    this.boardService.create({
-      name: 'New Board',
-      lists: [],
-      sprints: [
-        {
-          status: SprintStatus.ACTIVE,
-          id: uuidv4(),
-          startDate: new Date(),
-          endDate: addDays(new Date(), 15)
-        }
-      ]
+    const dialog = this.#dialogService.open(NewBoardComponent, {
+      disableClose: true
     });
+
+    dialog
+      .afterClosed()
+      .pipe(
+        tap(({ prefix, ...res }: Board) => {
+          if (res)
+            this.#boardService.create({
+              ...res,
+              prefix: prefix.toUpperCase()
+            });
+        })
+      )
+      .subscribe();
   }
 }

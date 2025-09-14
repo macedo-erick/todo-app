@@ -4,11 +4,14 @@ import {
   inject,
   model,
   output,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 import { List } from '../../models/list.model';
 import {
   CdkDragDrop,
+  CdkDragHandle,
+  DragDropModule,
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
@@ -18,27 +21,64 @@ import { ActivityService } from '../../services/activity/activity.service';
 import { Comment } from '../../models/comment.model';
 import { Activity } from '../../models/activity.model';
 import { BoardService } from '../../services/board/board.service';
+import { CardComponent } from '../card/card.component';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardTitle
+} from '@angular/material/card';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 type SortDirection = 'asc' | 'desc';
 
 @Component({
   selector: 'todo-list',
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
+  standalone: true,
+  imports: [
+    DragDropModule,
+    MatCard,
+    MatCardTitle,
+    CdkDragHandle,
+    NgIf,
+    MatIconButton,
+    MatMenuTrigger,
+    MatCardContent,
+    CardComponent,
+    MatCardActions,
+    MatButton,
+    MatMenu,
+    MatMenuItem,
+    CardDetailComponent
+  ]
 })
 export class ListComponent {
   #activityService = inject(ActivityService);
   boardService = inject(BoardService);
+  #dialogService = inject(MatDialog);
 
   list = model.required<List>();
 
   removedList = output();
 
+  isEditing = false;
+
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
+  card!: Card;
+  dialogRef!: MatDialogRef<CardDetailComponent>;
+  @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
+
   addCard(): void {
     const card = {
+      id: this.boardService.maxId() + 1,
       name: 'New Card',
       description: '',
       createdDate: new Date(),
@@ -56,6 +96,8 @@ export class ListComponent {
       const list = this.cardsList.nativeElement;
       list.scrollTop = list.scrollHeight;
     });
+
+    this.openCardDetail(card);
   }
 
   onDrop(event: CdkDragDrop<Card[]>): void {
@@ -84,28 +126,30 @@ export class ListComponent {
 
   onNameChange(): void {
     const { innerText } = this.listName.nativeElement;
-    this.list.update((list) => ({ ...list, name: innerText.trim() }));
-    this.listName.nativeElement.contentEditable = 'false';
-  }
+    const name = innerText.trim();
 
-  onCardChange(index: number, card: Card): void {
-    this.list.update(({ cards, ...list }) => {
-      cards[index] = card;
-      return { ...list, cards };
-    });
+    if (name) {
+      this.list.update((list) => ({ ...list, name: innerText.trim() }));
+    }
+
+    this.isEditing = false;
+
+    this.listName.nativeElement.contentEditable = 'false';
+    this.listName.nativeElement.innerText = this.list().name;
   }
 
   toggleChangeListName(): void {
     if (this.boardService.isSprintModifiable()) {
       this.listName.nativeElement.contentEditable = 'true';
       this.listName.nativeElement.focus();
+      this.isEditing = true;
     }
   }
 
-  onDeletedCard(index: number): void {
+  onDeletedCard(id: number): void {
     this.list.update(({ cards, ...list }) => ({
       ...list,
-      cards: cards.filter((_, i) => index !== i)
+      cards: cards.filter((c) => c.id !== id)
     }));
   }
 
@@ -183,5 +227,29 @@ export class ListComponent {
         `moved the card from ${previousListName} to ${currentListName}`
       )
     ];
+  }
+
+  openCardDetail(card: Card): void {
+    this.card = card;
+
+    this.dialogRef = this.#dialogService.open(this.cardDetail, {
+      width: '55rem',
+      height: '50rem',
+      autoFocus: 'dialog',
+      panelClass: 'bg__slate__gray'
+    });
+  }
+
+  onCardChange(card: Card) {
+    const cards = this.list().cards;
+
+    const index = cards.indexOf(
+      this.list().cards.find((c) => c.id == card.id) as Card
+    );
+
+    this.list.update(({ cards, ...list }) => {
+      cards[index] = card;
+      return { ...list, cards };
+    });
   }
 }

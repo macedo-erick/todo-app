@@ -16,13 +16,12 @@ body {
 }
 
 *:not(i) {
-  font-family:
-    'Nunito',
-    'Inter',
-    -apple-system,
-    Roboto,
-    'Helvetica Neue',
-    sans-serif !important;
+  font-family: 'Nunito',
+  'Inter',
+  -apple-system,
+  Roboto,
+  'Helvetica Neue',
+  sans-serif !important;
 }
 
 :root {
@@ -222,4 +221,8 @@ body {
   mat-pseudo-checkbox {
     display: none;
   }
+}
+
+.mdc-notched-outline__notch {
+  border-left: none !important;
 }

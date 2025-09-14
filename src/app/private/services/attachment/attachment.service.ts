@@ -15,7 +15,11 @@ export class AttachmentService {
     return this.#http.post<Attachment>(this.#BASE_URL, formData);
   }
 
-  downloadFile(key: string, fileName: string): Observable<Blob> {
+  downloadFile(
+    key: string,
+    fileName: string,
+    preview: boolean = false
+  ): Observable<Blob> {
     return this.#http
       .get(this.#BASE_URL.concat(`/${key}`), {
         responseType: 'blob'
@@ -24,8 +28,15 @@ export class AttachmentService {
         tap((blob) => {
           const url = window.URL.createObjectURL(blob);
           const anchor = document.createElement('a');
-          anchor.download = fileName;
           anchor.href = url;
+
+          if (preview) {
+            anchor.target = '_blank';
+            anchor.rel = 'noopener noreferrer';
+          } else {
+            anchor.download = fileName;
+          }
+
           anchor.click();
 
           setTimeout(() => {

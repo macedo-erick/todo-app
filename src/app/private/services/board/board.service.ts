@@ -14,6 +14,9 @@ import { Sprint } from '../../models/sprint.model';
 export class BoardService extends Socket {
   activeSprint = signal<Sprint>({} as Sprint);
   sprints = signal<Sprint[]>([]);
+  prefix = signal('');
+  maxId = signal(0);
+
   isSprintModifiable = computed(() => {
     return [SprintStatus.ACTIVE, SprintStatus.PENDING].includes(
       this.activeSprint().status
@@ -52,11 +55,22 @@ export class BoardService extends Socket {
     return this.fromEvent<Board>('onFindOne').pipe(
       tap((res) => {
         this.sprints.update(() => res.sprints);
+        this.prefix.update(() => res.prefix);
         this.activeSprint.update(
           () =>
             res.sprints.find(
               (sprint) => sprint.status === SprintStatus.ACTIVE
             ) as Sprint
+        );
+
+        this.maxId.update(() =>
+          Math.max(
+            ...res.lists
+              .map((l) => l.cards)
+              .flat()
+              .map((c) => c.id),
+            0
+          )
         );
       })
     );

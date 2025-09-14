@@ -14,20 +14,50 @@ import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { Attachment } from '../../models/attachment.model';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { toDate } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
-import { BlurEvent } from '@ckeditor/ckeditor5-angular';
+import { BlurEvent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatDialogClose } from '@angular/material/dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { ActivitiesComponent } from '../activities/activities.component';
+import { CommentsComponent } from '../comments/comments.component';
+import { AttachmentsComponent } from '../attachments/attachments.component';
+import { ChecklistComponent } from '../checklist/checklist.component';
+import { MatOption } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { DatePipe, NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'todo-card-detail',
   templateUrl: './card-detail.component.html',
-  styleUrl: './card-detail.component.scss'
+  styleUrl: './card-detail.component.scss',
+  standalone: true,
+  imports: [
+    NgClass,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    FormsModule,
+    MatOption,
+    MatInput,
+    CKEditorModule,
+    ChecklistComponent,
+    AttachmentsComponent,
+    NgIf,
+    CommentsComponent,
+    ActivitiesComponent,
+    MatButton,
+    MatDialogClose,
+    DatePipe,
+    MatIconButton
+  ]
 })
 export class CardDetailComponent {
-  #activityService = inject(ActivityService);
   boardService = inject(BoardService);
+  #activityService = inject(ActivityService);
 
   card = model.required<Card>();
 
@@ -39,7 +69,6 @@ export class CardDetailComponent {
     { value: 2, label: 'Task' },
     { value: 3, label: 'Bug' }
   ];
-
   priorities = [
     { value: 1, label: 'Low' },
     { value: 2, label: 'Medium' },
@@ -49,6 +78,7 @@ export class CardDetailComponent {
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
   editor = ClassicEditor;
+
   config = editorConfig;
 
   toggleChangeName(): void {
@@ -60,8 +90,9 @@ export class CardDetailComponent {
 
   onNameChange(): void {
     const { innerText } = this.cardName.nativeElement;
+    const name = innerText.trim();
 
-    if (innerText.trim() !== this.card().name) {
+    if (name && name !== this.card().name) {
       this.card.update(({ activities, ...card }) => ({
         ...card,
         name: innerText.trim(),
@@ -71,6 +102,8 @@ export class CardDetailComponent {
         ]
       }));
     }
+
+    this.cardName.nativeElement.innerText = this.card().name;
   }
 
   onSprintChange(event: MatSelectChange): void {
@@ -215,5 +248,13 @@ export class CardDetailComponent {
 
   onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
+  }
+
+  deleteChecklist() {
+    this.card.update((card) => ({ ...card, checklist: undefined }));
+  }
+
+  deleteAttachments() {
+    this.card.update((card) => ({ ...card, attachments: undefined }));
   }
 }

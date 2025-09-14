@@ -2,7 +2,7 @@
 
 @if (board(); as board) {
   <div class="board__container bg__light__blue d-flex flex-column w-100 h-100">
-    <div class="board__header d-flex align-items-center">
+    <div class="board__header d-flex align-items-center gap-1">
       <h1
         [ngClass]="{
           'has__hover content__editable': boardService.isSprintModifiable()
@@ -11,9 +11,17 @@
         #boardName
         (blur)="onNameChange()"
         (click)="toggleChangeName()"
+        (keydown.enter)="$event.preventDefault(); boardName.blur();"
+        (keydown.shift.enter)="$event.preventDefault(); boardName.blur();"
       >
         {{ board.name }}
       </h1>
+
+      @if (boardService.activeSprint(); as activeSprint) {
+        <i class="fa-regular fa-calendar-days pe-1"></i>
+        <h2 class="m-0">{{ activeSprint.startDate | date }} - {{ activeSprint.endDate | date }}</h2>
+      }
+
     </div>
 
     <ol

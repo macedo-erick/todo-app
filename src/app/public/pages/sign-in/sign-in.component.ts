@@ -1,13 +1,45 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
 import { SnackBarComponent } from '../../../private/components/snack-bar/snack-bar.component';
+import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import {
+  MatFormField,
+  MatInput,
+  MatLabel,
+  MatSuffix
+} from '@angular/material/input';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.scss'
+  styleUrl: './sign-in.component.scss',
+  standalone: true,
+  imports: [
+    MatCard,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatIconButton,
+    MatSuffix,
+    NgClass,
+    RouterLink,
+    MatButton,
+    MatDivider
+  ]
 })
 export class SignInComponent {
   #authService = inject(AuthService);

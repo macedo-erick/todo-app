@@ -1,18 +1,24 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events -->
-
 @if (card(); as card) {
   <div class="d-flex px-4 py-3 gap-4">
     <div class="wrapper d-flex flex-column gap-4">
-      <div class="d-flex align-items-center gap-1">
+      <div class="d-flex align-items-center gap-2">
         <i class="fa-regular fa-credit-card-blank fs-5"></i>
+
+        <strong class="flex-shrink-0">
+          [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]
+        </strong>
+
         <h2
           [ngClass]="{
             'has__hover content__editable': boardService.isSprintModifiable()
           }"
-          class="border__rounded flex-grow-1 m-0 fw-semibold p-2"
+          class="border__rounded flex-grow-1 m-0 fw-semibold py-2"
           #cardName
           (blur)="onNameChange()"
           (click)="toggleChangeName()"
+          (keydown.enter)="$event.preventDefault(); cardName.blur();"
+          (keydown.shift.enter)="$event.preventDefault(); cardName.blur();"
         >
           {{ card.name }}
         </h2>
@@ -37,13 +43,11 @@
               (selectionChange)="onSprintChange($event)"
               [disabled]="!boardService.isSprintModifiable()"
             >
-              @for (
-                sprint of boardService.sprints();
+              @for (sprint of boardService.sprints();
                 let index = $index;
-                track index
-              ) {
+                track index) {
                 <mat-option [value]="sprint.id" class="font__sm"
-                  >[Sprint {{ index + 1 }}]
+                >[Sprint {{ index + 1 }}]
                   {{ sprint.startDate | date: 'dd/MM/yyyy' }} -
                   {{ sprint.endDate | date: 'dd/MM/yyyy' }}
                 </mat-option>
@@ -64,7 +68,7 @@
             >
               @for (type of types; let index = $index; track index) {
                 <mat-option [value]="type.value" class="font__sm"
-                  >{{ type.label }}
+                >{{ type.label }}
                 </mat-option>
               }
             </mat-select>
@@ -83,7 +87,7 @@
             >
               @for (priority of priorities; let index = $index; track index) {
                 <mat-option [value]="priority.value" class="font__sm"
-                  >{{ priority.label }}
+                >{{ priority.label }}
                 </mat-option>
               }
             </mat-select>
@@ -140,7 +144,14 @@
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-square-check fs-5"></i>
-            <h3 class="m-0 fw-semibold">Checklist</h3>
+            <h3 class="m-0 fw-semibold flex-grow-1">Checklist</h3>
+            <button
+              mat-icon-button
+              class="has__hover"
+              (click)="deleteChecklist()"
+            >
+              <i class="fa-regular fa-trash fa-2xs"></i>
+            </button>
           </div>
           <todo-checklist
             [checklist]="card.checklist"
@@ -153,7 +164,14 @@
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-paperclip fs-5"></i>
-            <h3 class="m-0 fw-semibold">Attachments</h3>
+            <h3 class="m-0 fw-semibold flex-grow-1">Attachments</h3>
+            <button
+              mat-icon-button
+              class="has__hover"
+              (click)="deleteAttachments()"
+            >
+              <i class="fa-regular fa-trash fa-2xs"></i>
+            </button>
           </div>
           <todo-attachments
             [attachments]="card.attachments"

@@ -9,21 +9,28 @@ import {
 } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { BoardService } from '../../services/board/board.service';
+import { MatIconButton } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'todo-task',
   templateUrl: './task.component.html',
-  styleUrl: './task.component.scss'
+  styleUrl: './task.component.scss',
+  standalone: true,
+  imports: [CdkDrag, NgIf, FormsModule, CdkDragHandle, MatIconButton]
 })
 export class TaskComponent {
   boardService = inject(BoardService);
 
   task = model.required<Task>();
   evaluateReadOnlyState = signal(true);
+  isEditing = false;
 
   taskDeleted = output();
 
-  @ViewChild('nameInput') nameInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('taskName') taskName!: ElementRef<HTMLParagraphElement>;
   @ViewChild('inputContainer') inputContainer!: ElementRef<HTMLDivElement>;
 
   onFinishedChange(finished: boolean): void {
@@ -32,18 +39,23 @@ export class TaskComponent {
 
   toggleChangeName(): void {
     if (this.boardService.isSprintModifiable()) {
-      this.inputContainer.nativeElement.classList.add('focused');
-      this.evaluateReadOnlyState.update(() => false);
+      this.taskName.nativeElement.contentEditable = 'true';
+      this.taskName.nativeElement.focus();
+      this.isEditing = true;
     }
   }
 
-  onNameChange(event: FocusEvent): void {
-    const { value } = event.target as HTMLInputElement;
+  onNameChange(): void {
+    const { innerText } = this.taskName.nativeElement;
+    const name = innerText.trim();
 
-    this.inputContainer.nativeElement.classList.remove('focused');
+    if (name) {
+      this.task.update((task) => ({ ...task, name }));
+    }
 
-    this.task.update((task) => ({ ...task, name: value.trim() }));
+    this.isEditing = false;
 
-    this.evaluateReadOnlyState.update(() => true);
+    this.taskName.nativeElement.innerText = this.task().name;
+    this.taskName.nativeElement.contentEditable = 'false';
   }
 }

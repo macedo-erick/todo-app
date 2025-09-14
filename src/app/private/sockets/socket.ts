@@ -1,5 +1,5 @@
 import { SocketIoConfig } from 'ngx-socket-io';
-import { tokenGetter } from '../../app.module';
+import { tokenGetter } from '../../util/util';
 
 export interface ExtendedSocketIoConfig extends SocketIoConfig {
   options?: {
