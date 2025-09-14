@@ -12,7 +12,7 @@
         formControlName="prefix"
         mask="AAAA"
         matInput
-        placeholder="Enter a prefix"
+        placeholder="The prefix should have the AAAA pattern"
       />
     </mat-form-field>
 
@@ -78,6 +78,7 @@
               class="font__sm"
               mat-button
               type="button"
+              [disabled]="sprints().controls.length === 1"
             >
               Remove
             </button>

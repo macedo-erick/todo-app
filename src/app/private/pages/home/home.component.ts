@@ -54,8 +54,12 @@ export class HomeComponent implements OnInit {
     dialog
       .afterClosed()
       .pipe(
-        tap((res: Board) => {
-          if (res) this.#boardService.create(res);
+        tap(({ prefix, ...res }: Board) => {
+          if (res)
+            this.#boardService.create({
+              ...res,
+              prefix: prefix.toUpperCase()
+            });
         })
       )
       .subscribe();

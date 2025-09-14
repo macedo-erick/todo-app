@@ -1,10 +1,12 @@
 import { Component, computed, inject, ViewChild } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators
 } from '@angular/forms';
 import {
@@ -15,12 +17,7 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import {
-  MatFormField,
-  MatInput,
-  MatLabel,
-  MatSuffix
-} from '@angular/material/input';
+import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import {
   MatCell,
@@ -34,11 +31,7 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle
-} from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { addDays } from 'date-fns';
 import { SprintStatus } from '../../enums/sprint-status';
@@ -82,22 +75,28 @@ export class NewBoardComponent {
   formGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     prefix: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    sprints: new FormArray([
-      new FormGroup({
-        id: new FormControl(uuidv4()),
-        startDate: new FormControl(new Date(), [Validators.required]),
-        endDate: new FormControl(addDays(new Date(), 15), [
-          Validators.required
-        ]),
-        status: new FormControl(SprintStatus.ACTIVE)
-      })
-    ])
+    sprints: new FormArray(
+      [
+        new FormGroup({
+          id: new FormControl(uuidv4()),
+          startDate: new FormControl(new Date(), [Validators.required]),
+          endDate: new FormControl(addDays(new Date(), 15), [
+            Validators.required
+          ]),
+          status: new FormControl(SprintStatus.ACTIVE)
+        })
+      ],
+      this.minLengthArray(1)
+    )
   });
+  #dialogRef = inject(MatDialogRef<NewBoardComponent>);
+
   displayedColumns = ['startDate', 'endDate', 'actions'];
+
   sprints = computed(
     () => this.formGroup.get('sprints') as FormArray<FormGroup>
   );
-  #dialogRef = inject(MatDialogRef<NewBoardComponent>);
+
   @ViewChild(MatTable) private table?: MatTable<FormGroup>;
 
   removeSprint(index: number): void {
@@ -113,11 +112,10 @@ export class NewBoardComponent {
     const sprints = this.sprints().value;
     const lastSprint = sprints[sprints.length - 1];
 
+    const endDate = lastSprint?.endDate || new Date();
+
     this.sprints().push(
-      this.createSprint(
-        addDays(lastSprint.endDate, 1),
-        addDays(lastSprint.endDate, 15)
-      )
+      this.createSprint(addDays(endDate, 1), addDays(endDate, 15))
     );
 
     this.table?.renderRows();
@@ -130,5 +128,16 @@ export class NewBoardComponent {
       endDate: new FormControl(endDate, [Validators.required]),
       status: new FormControl(SprintStatus.PENDING)
     });
+  }
+
+  private minLengthArray(min: number) {
+    return (c: AbstractControl): ValidationErrors | null => {
+      if (c instanceof FormArray) {
+        return c.length >= min
+          ? null
+          : { minLengthArray: { required: min, actual: c.length } };
+      }
+      return null;
+    };
   }
 }
