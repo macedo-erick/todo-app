@@ -37,7 +37,7 @@ export class BoardComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.titleService.setTitle('Streamline');
+    this.titleService.setTitle('Kivo');
   }
 
   toggleChangeName(): void {

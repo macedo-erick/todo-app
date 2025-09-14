@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "version": "0.0.5-alpha",
+  "version": "0.0.6-alpha",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -28,6 +28,7 @@
     "date-fns": "2.3.0",
     "date-fns-tz": "^2.0.1",
     "ngx-bootstrap": "^12.0.0",
+    "ngx-mask": "^20.0.3",
     "ngx-mat-input-tel": "^17.2.0",
     "ngx-socket-io": "^4.6.1",
     "rxjs": "~7.8.0",

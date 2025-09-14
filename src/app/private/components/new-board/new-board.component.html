@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>New Board</h2>
+<mat-dialog-content>
+  <form [formGroup]="formGroup" class="d-grid gap-2 p-1">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Enter a name"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prefix</mat-label>
+      <input
+        formControlName="prefix"
+        matInput
+        placeholder="Enter a prefix"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="bg__pale__blue has__hover font__sm" mat-button mat-dialog-close>Cancel</button>
+  <button (click)="saveBoard()" [disabled]="formGroup.invalid" [mat-dialog-close]="true"
+          class="bg__pale__blue has__hover font__sm"
+          mat-button>Save
+  </button>
+</mat-dialog-actions>

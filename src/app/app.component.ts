@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from './public/services/auth/auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthService } from './public/services/auth/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isAuthenticated = this.authService.isAuthenticated;
+  authService = inject(AuthService);
 
-  constructor(private authService: AuthService) {}
+  isAuthenticated = this.authService.isAuthenticated;
 }

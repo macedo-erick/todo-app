@@ -38,7 +38,13 @@ import {
   MatSuffix
 } from '@angular/material/input';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
-import { MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContainer,
+  MatDialogContent,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardComponent as BoardPage } from './pages/board/board.component';
@@ -66,6 +72,7 @@ import { ActivitiesComponent } from './components/activities/activities.componen
 import { ActivityComponent } from './components/activity/activity.component';
 import { AttachmentsComponent } from './components/attachments/attachments.component';
 import { AttachmentComponent } from './components/attachment/attachment.component';
+import { NewBoardComponent } from './components/new-board/new-board.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +93,8 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
     ActivitiesComponent,
     ActivityComponent,
     AttachmentsComponent,
-    AttachmentComponent
+    AttachmentComponent,
+    NewBoardComponent
   ],
   imports: [
     CommonModule,
@@ -130,7 +138,10 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
     MatDialogClose,
     MatSnackBarModule,
     ReactiveFormsModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatDialogTitle,
+    MatDialogActions,
+    MatDialogContainer
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]
