@@ -20,14 +20,14 @@ import { Title } from '@angular/platform-browser';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
 import { ListComponent } from '../list/list.component';
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'todo-board',
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   standalone: true,
-  imports: [NgClass, DragDropModule, ListComponent, MatButton]
+  imports: [NgClass, DragDropModule, ListComponent, MatButton, DatePipe]
 })
 export class BoardComponent implements OnDestroy {
   titleService = inject(Title);

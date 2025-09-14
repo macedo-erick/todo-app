@@ -4,6 +4,7 @@ import {
   inject,
   model,
   output,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 import { List } from '../../models/list.model';
@@ -30,6 +31,8 @@ import {
   MatCardContent,
   MatCardTitle
 } from '@angular/material/card';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -51,12 +54,14 @@ type SortDirection = 'asc' | 'desc';
     MatCardActions,
     MatButton,
     MatMenu,
-    MatMenuItem
+    MatMenuItem,
+    CardDetailComponent
   ]
 })
 export class ListComponent {
   #activityService = inject(ActivityService);
   boardService = inject(BoardService);
+  #dialogService = inject(MatDialog);
 
   list = model.required<List>();
 
@@ -66,6 +71,10 @@ export class ListComponent {
 
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
+
+  card!: Card;
+  dialogRef!: MatDialogRef<CardDetailComponent>;
+  @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   addCard(): void {
     const card = {
@@ -87,6 +96,8 @@ export class ListComponent {
       const list = this.cardsList.nativeElement;
       list.scrollTop = list.scrollHeight;
     });
+
+    this.openCardDetail(card);
   }
 
   onDrop(event: CdkDragDrop<Card[]>): void {
@@ -127,13 +138,6 @@ export class ListComponent {
     this.listName.nativeElement.innerText = this.list().name;
   }
 
-  onCardChange(index: number, card: Card): void {
-    this.list.update(({ cards, ...list }) => {
-      cards[index] = card;
-      return { ...list, cards };
-    });
-  }
-
   toggleChangeListName(): void {
     if (this.boardService.isSprintModifiable()) {
       this.listName.nativeElement.contentEditable = 'true';
@@ -142,10 +146,10 @@ export class ListComponent {
     }
   }
 
-  onDeletedCard(index: number): void {
+  onDeletedCard(id: number): void {
     this.list.update(({ cards, ...list }) => ({
       ...list,
-      cards: cards.filter((_, i) => index !== i)
+      cards: cards.filter((c) => c.id !== id)
     }));
   }
 
@@ -223,5 +227,29 @@ export class ListComponent {
         `moved the card from ${previousListName} to ${currentListName}`
       )
     ];
+  }
+
+  openCardDetail(card: Card): void {
+    this.card = card;
+
+    this.dialogRef = this.#dialogService.open(this.cardDetail, {
+      width: '55rem',
+      height: '50rem',
+      autoFocus: 'dialog',
+      panelClass: 'bg__slate__gray'
+    });
+  }
+
+  onCardChange(card: Card) {
+    const cards = this.list().cards;
+
+    const index = cards.indexOf(
+      this.list().cards.find((c) => c.id == card.id) as Card
+    );
+
+    this.list.update(({ cards, ...list }) => {
+      cards[index] = card;
+      return { ...list, cards };
+    });
   }
 }
