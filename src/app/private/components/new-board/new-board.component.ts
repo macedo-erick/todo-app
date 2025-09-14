@@ -17,7 +17,12 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
+import {
+  MatFormField,
+  MatInput,
+  MatLabel,
+  MatSuffix
+} from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import {
   MatCell,
@@ -31,7 +36,11 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle
+} from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { addDays } from 'date-fns';
 import { SprintStatus } from '../../enums/sprint-status';
