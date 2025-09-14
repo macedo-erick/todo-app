@@ -20,7 +20,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
 import { BlurEvent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatDialogClose } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { ActivitiesComponent } from '../activities/activities.component';
 import { CommentsComponent } from '../comments/comments.component';
 import { AttachmentsComponent } from '../attachments/attachments.component';
@@ -29,6 +29,7 @@ import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { ca } from 'date-fns/locale';
 
 @Component({
   selector: 'todo-card-detail',
@@ -51,7 +52,8 @@ import { DatePipe, NgClass, NgIf } from '@angular/common';
     ActivitiesComponent,
     MatButton,
     MatDialogClose,
-    DatePipe
+    DatePipe,
+    MatIconButton
   ]
 })
 export class CardDetailComponent {
@@ -247,5 +249,13 @@ export class CardDetailComponent {
 
   onCommentsChange(comments: Comment[]): void {
     this.card.update((card) => ({ ...card, comments }));
+  }
+
+  deleteChecklist() {
+    this.card.update((card) => ({ ...card, checklist: undefined }));
+  }
+
+  deleteAttachments() {
+    this.card.update((card) => ({ ...card, attachments: undefined }));
   }
 }

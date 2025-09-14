@@ -144,7 +144,14 @@
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-square-check fs-5"></i>
-            <h3 class="m-0 fw-semibold">Checklist</h3>
+            <h3 class="m-0 fw-semibold flex-grow-1">Checklist</h3>
+            <button
+              mat-icon-button
+              class="has__hover"
+              (click)="deleteChecklist()"
+            >
+              <i class="fa-regular fa-trash fa-2xs"></i>
+            </button>
           </div>
           <todo-checklist
             [checklist]="card.checklist"
@@ -157,7 +164,14 @@
         <div class="d-grid gap-3">
           <div class="d-flex align-items-center default__gap">
             <i class="fa-regular fa-paperclip fs-5"></i>
-            <h3 class="m-0 fw-semibold">Attachments</h3>
+            <h3 class="m-0 fw-semibold flex-grow-1">Attachments</h3>
+            <button
+              mat-icon-button
+              class="has__hover"
+              (click)="deleteAttachments()"
+            >
+              <i class="fa-regular fa-trash fa-2xs"></i>
+            </button>
           </div>
           <todo-attachments
             [attachments]="card.attachments"

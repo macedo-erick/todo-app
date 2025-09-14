@@ -10,10 +10,10 @@ export interface Card {
   name: string;
   description: string;
   createdDate: Date;
-  checklist: Checklist;
+  checklist: Checklist | undefined;
   comments: Comment[];
   activities: Activity[];
-  attachments: Attachment[];
+  attachments: Attachment[] | undefined;
   priority: Priority;
   storyPoints: number;
   timeSpent: number;

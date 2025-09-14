@@ -16,6 +16,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgClass } from '@angular/common';
 import { MatCard, MatCardFooter, MatCardTitle } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { ca } from 'date-fns/locale';
 
 @Component({
   selector: 'todo-card',
@@ -100,8 +101,10 @@ export class CardComponent {
   });
 
   evaluateCheckListStatus = computed(() => {
-    if (this.card().checklist && this.card().checklist.tasks) {
-      const tasks = this.card().checklist.tasks;
+    const card = this.card();
+
+    if (card.checklist && card.checklist.tasks) {
+      const tasks = card.checklist.tasks;
       const finishedTasks = tasks.filter((c) => c.finished).length;
 
       return `${finishedTasks}/${tasks.length}`;
@@ -109,15 +112,6 @@ export class CardComponent {
 
     return;
   });
-
-  showCardDetails(): void {
-    this.dialogRef = this.#dialogService.open(this.cardDetail, {
-      width: '55rem',
-      height: '50rem',
-      autoFocus: 'dialog',
-      panelClass: 'bg__slate__gray'
-    });
-  }
 
   onCardChange(card: Card): void {
     this.card.update(() => card);
