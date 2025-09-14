@@ -11,6 +11,8 @@
         #boardName
         (blur)="onNameChange()"
         (click)="toggleChangeName()"
+        (keydown.enter)="$event.preventDefault(); boardName.blur();"
+        (keydown.shift.enter)="$event.preventDefault(); boardName.blur();"
       >
         {{ board.name }}
       </h1>

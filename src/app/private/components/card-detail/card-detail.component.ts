@@ -56,9 +56,13 @@ import { DatePipe, NgClass, NgIf } from '@angular/common';
 })
 export class CardDetailComponent {
   boardService = inject(BoardService);
+  #activityService = inject(ActivityService);
+
   card = model.required<Card>();
+
   deletedCard = output();
   closeModal = output();
+
   types = [
     { value: 1, label: 'Story' },
     { value: 2, label: 'Task' },
@@ -69,10 +73,12 @@ export class CardDetailComponent {
     { value: 2, label: 'Medium' },
     { value: 3, label: 'High' }
   ];
+
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
+
   editor = ClassicEditor;
+
   config = editorConfig;
-  #activityService = inject(ActivityService);
 
   toggleChangeName(): void {
     if (this.boardService.isSprintModifiable()) {
@@ -83,8 +89,9 @@ export class CardDetailComponent {
 
   onNameChange(): void {
     const { innerText } = this.cardName.nativeElement;
+    const name = innerText.trim();
 
-    if (innerText.trim() !== this.card().name) {
+    if (name && name !== this.card().name) {
       this.card.update(({ activities, ...card }) => ({
         ...card,
         name: innerText.trim(),
@@ -94,6 +101,8 @@ export class CardDetailComponent {
         ]
       }));
     }
+
+    this.cardName.nativeElement.innerText = this.card().name;
   }
 
   onSprintChange(event: MatSelectChange): void {

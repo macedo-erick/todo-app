@@ -12,6 +12,8 @@
           #cardName
           (blur)="onNameChange()"
           (click)="toggleChangeName()"
+          (keydown.enter)="$event.preventDefault(); cardName.blur();"
+          (keydown.shift.enter)="$event.preventDefault(); cardName.blur();"
         >
           {{ card.name }}
         </h2>

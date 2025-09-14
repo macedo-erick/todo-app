@@ -58,7 +58,17 @@ export class BoardComponent implements OnDestroy {
 
   onNameChange(): void {
     const { innerText } = this.boardName.nativeElement;
-    this.board.update((board) => ({ ...board, name: innerText.trim() }));
+    const name = innerText.trim();
+
+    if (name) {
+      this.board.update((board) => ({ ...board, name }));
+    }
+
+    this.boardName.nativeElement.innerText = this.board().name;
+  }
+
+  onEnter(event: Event) {
+    event.preventDefault();
   }
 
   addList(): void {

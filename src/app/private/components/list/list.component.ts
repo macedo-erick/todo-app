@@ -62,6 +62,8 @@ export class ListComponent {
 
   removedList = output();
 
+  isEditing = false;
+
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
@@ -112,8 +114,16 @@ export class ListComponent {
 
   onNameChange(): void {
     const { innerText } = this.listName.nativeElement;
-    this.list.update((list) => ({ ...list, name: innerText.trim() }));
+    const name = innerText.trim();
+
+    this.isEditing = false;
+
+    if (name) {
+      this.list.update((list) => ({ ...list, name: innerText.trim() }));
+    }
+
     this.listName.nativeElement.contentEditable = 'false';
+    this.listName.nativeElement.innerText = this.list().name;
   }
 
   onCardChange(index: number, card: Card): void {
@@ -127,6 +137,7 @@ export class ListComponent {
     if (this.boardService.isSprintModifiable()) {
       this.listName.nativeElement.contentEditable = 'true';
       this.listName.nativeElement.focus();
+      this.isEditing = true;
     }
   }
 
