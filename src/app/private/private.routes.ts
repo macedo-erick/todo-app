@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { BoardComponent } from './pages/board/board.component';
 
-const routes: Routes = [
+export const privateRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'board/:id', component: BoardComponent },
   {
@@ -12,9 +11,3 @@ const routes: Routes = [
     pathMatch: 'full'
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class PrivateRoutingModule {}
