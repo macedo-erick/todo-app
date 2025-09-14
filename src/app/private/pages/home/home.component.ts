@@ -1,15 +1,20 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { BoardService } from '../../services/board/board.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBoardComponent } from '../../components/new-board/new-board.component';
 import { Board } from '../../models/board.model';
+import { MatButton } from '@angular/material/button';
+import { BoardCardComponent } from '../../components/board-card/board-card.component';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
 
 @Component({
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    standalone: true,
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, BoardCardComponent, MatButton]
 })
 export class HomeComponent implements OnInit {
   searchInput = new FormControl('');

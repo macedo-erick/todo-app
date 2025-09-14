@@ -9,11 +9,17 @@ import {
 } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { BoardService } from '../../services/board/board.service';
+import { MatIconButton } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'todo-task',
-  templateUrl: './task.component.html',
-  styleUrl: './task.component.scss'
+    selector: 'todo-task',
+    templateUrl: './task.component.html',
+    styleUrl: './task.component.scss',
+    standalone: true,
+    imports: [CdkDrag, NgIf, FormsModule, CdkDragHandle, MatIconButton]
 })
 export class TaskComponent {
   boardService = inject(BoardService);

@@ -7,24 +7,27 @@ import {
   ViewChild
 } from '@angular/core';
 import { List } from '../../models/list.model';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
 import { timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
 import { Comment } from '../../models/comment.model';
 import { Activity } from '../../models/activity.model';
 import { BoardService } from '../../services/board/board.service';
+import { CardComponent } from '../card/card.component';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatCard, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 type SortDirection = 'asc' | 'desc';
 
 @Component({
-  selector: 'todo-list',
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+    selector: 'todo-list',
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.scss',
+    standalone: true,
+    imports: [CdkDrag, MatCard, MatCardTitle, CdkDragHandle, NgIf, MatIconButton, MatMenuTrigger, MatCardContent, CdkDropList, CardComponent, MatCardActions, MatButton, MatMenu, MatMenuItem]
 })
 export class ListComponent {
   #activityService = inject(ActivityService);

@@ -8,17 +8,22 @@ import {
   OnDestroy,
   ViewChild
 } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropListGroup, CdkDropList } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
 import { Board } from '../../models/board.model';
 import { timer } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { BoardService } from '../../services/board/board.service';
+import { MatButton } from '@angular/material/button';
+import { ListComponent } from '../list/list.component';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'todo-board',
-  templateUrl: './board.component.html',
-  styleUrl: './board.component.scss'
+    selector: 'todo-board',
+    templateUrl: './board.component.html',
+    styleUrl: './board.component.scss',
+    standalone: true,
+    imports: [NgClass, CdkDropListGroup, CdkDropList, ListComponent, MatButton]
 })
 export class BoardComponent implements OnDestroy {
   titleService = inject(Title);

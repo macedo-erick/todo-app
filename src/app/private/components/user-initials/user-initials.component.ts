@@ -1,11 +1,15 @@
 import { Component, computed, model } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { MatMiniFabButton } from '@angular/material/button';
 
 type size = 'md' | 'lg';
 
 @Component({
-  selector: 'todo-user-initials',
-  templateUrl: './user-initials.component.html',
-  styleUrl: './user-initials.component.scss'
+    selector: 'todo-user-initials',
+    templateUrl: './user-initials.component.html',
+    styleUrl: './user-initials.component.scss',
+    standalone: true,
+    imports: [MatMiniFabButton, NgClass]
 })
 export class UserInitialsComponent {
   initials = model.required<string>();

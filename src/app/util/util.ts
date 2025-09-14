@@ -36,4 +36,8 @@ const editorConfig: EditorConfig = {
   }
 };
 
+export function tokenGetter() {
+  return localStorage.getItem('SESSION');
+}
+
 export { editorConfig };

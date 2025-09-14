@@ -14,16 +14,28 @@ import { Comment } from '../../models/comment.model';
 import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { Attachment } from '../../models/attachment.model';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { toDate } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
-import { BlurEvent } from '@ckeditor/ckeditor5-angular';
+import { BlurEvent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatDialogClose } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { ActivitiesComponent } from '../activities/activities.component';
+import { CommentsComponent } from '../comments/comments.component';
+import { AttachmentsComponent } from '../attachments/attachments.component';
+import { ChecklistComponent } from '../checklist/checklist.component';
+import { MatOption } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { NgClass, NgIf, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'todo-card-detail',
-  templateUrl: './card-detail.component.html',
-  styleUrl: './card-detail.component.scss'
+    selector: 'todo-card-detail',
+    templateUrl: './card-detail.component.html',
+    styleUrl: './card-detail.component.scss',
+    standalone: true,
+    imports: [NgClass, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, CKEditorModule, ChecklistComponent, AttachmentsComponent, NgIf, CommentsComponent, ActivitiesComponent, MatButton, MatDialogClose, DatePipe]
 })
 export class CardDetailComponent {
   #activityService = inject(ActivityService);

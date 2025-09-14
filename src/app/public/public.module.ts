@@ -19,23 +19,23 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { NgxMatInputTelComponent } from 'ngx-mat-input-tel';
 
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent],
-  imports: [
-    CommonModule,
-    PublicRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButton,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatCheckbox,
-    MatIcon,
-    MatSuffix,
-    MatIconButton,
-    MatDivider,
-    NgxMatInputTelComponent
-  ]
+    imports: [
+        CommonModule,
+        PublicRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButton,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatCheckbox,
+        MatIcon,
+        MatSuffix,
+        MatIconButton,
+        MatDivider,
+        NgxMatInputTelComponent,
+        SignInComponent, SignUpComponent
+    ]
 })
 export class PublicModule {}

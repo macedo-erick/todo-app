@@ -75,27 +75,6 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
 import { NewBoardComponent } from './components/new-board/new-board.component';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    BoardComponent,
-    BoardPage,
-    BoardCardComponent,
-    ListComponent,
-    CardComponent,
-    HeaderComponent,
-    CardDetailComponent,
-    ChecklistComponent,
-    TaskComponent,
-    SnackBarComponent,
-    UserInitialsComponent,
-    CommentsComponent,
-    CommentComponent,
-    ActivitiesComponent,
-    ActivityComponent,
-    AttachmentsComponent,
-    AttachmentComponent,
-    NewBoardComponent
-  ],
   imports: [
     CommonModule,
     PrivateRoutingModule,
@@ -141,7 +120,26 @@ import { NewBoardComponent } from './components/new-board/new-board.component';
     NgOptimizedImage,
     MatDialogTitle,
     MatDialogActions,
-    MatDialogContainer
+    MatDialogContainer,
+    HomeComponent,
+    BoardComponent,
+    BoardPage,
+    BoardCardComponent,
+    ListComponent,
+    CardComponent,
+    HeaderComponent,
+    CardDetailComponent,
+    ChecklistComponent,
+    TaskComponent,
+    SnackBarComponent,
+    UserInitialsComponent,
+    CommentsComponent,
+    CommentComponent,
+    ActivitiesComponent,
+    ActivityComponent,
+    AttachmentsComponent,
+    AttachmentComponent,
+    NewBoardComponent
   ],
   exports: [HeaderComponent],
   providers: [MatDatepickerModule]
