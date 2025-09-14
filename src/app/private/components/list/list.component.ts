@@ -1,20 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  model,
-  output,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, inject, model, output, ViewChild } from '@angular/core';
 import { List } from '../../models/list.model';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragHandle, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Card } from '../../models/card.model';
 import { timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
@@ -25,12 +11,7 @@ import { CardComponent } from '../card/card.component';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { NgIf } from '@angular/common';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardTitle
-} from '@angular/material/card';
+import { MatCard, MatCardActions, MatCardContent, MatCardTitle } from '@angular/material/card';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -40,7 +21,7 @@ type SortDirection = 'asc' | 'desc';
   styleUrl: './list.component.scss',
   standalone: true,
   imports: [
-    CdkDrag,
+    DragDropModule,
     MatCard,
     MatCardTitle,
     CdkDragHandle,
@@ -48,7 +29,6 @@ type SortDirection = 'asc' | 'desc';
     MatIconButton,
     MatMenuTrigger,
     MatCardContent,
-    CdkDropList,
     CardComponent,
     MatCardActions,
     MatButton,

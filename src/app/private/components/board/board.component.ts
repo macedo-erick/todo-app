@@ -10,8 +10,7 @@ import {
 } from '@angular/core';
 import {
   CdkDragDrop,
-  CdkDropList,
-  CdkDropListGroup,
+  DragDropModule,
   moveItemInArray
 } from '@angular/cdk/drag-drop';
 import { List } from '../../models/list.model';
@@ -28,7 +27,7 @@ import { NgClass } from '@angular/common';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   standalone: true,
-  imports: [NgClass, CdkDropListGroup, CdkDropList, ListComponent, MatButton]
+  imports: [NgClass, DragDropModule, ListComponent, MatButton]
 })
 export class BoardComponent implements OnDestroy {
   titleService = inject(Title);
