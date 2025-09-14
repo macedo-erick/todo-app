@@ -10,6 +10,11 @@
     >
       <mat-card-title>
         <h3 class="font__sm select__none m-0 fw-medium">
+
+          <strong>
+            [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]
+          </strong>
+
           {{ card.name }}
         </h3>
       </mat-card-title>

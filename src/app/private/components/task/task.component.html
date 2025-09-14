@@ -1,9 +1,11 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events -->
+
 @if (task(); as task) {
   <li
     class="draggable__item task__container d-flex align-items-center gap-2"
     cdkDrag
     cdkDragLockAxis="y"
-    [cdkDragDisabled]="!boardService.isSprintModifiable()"
+    [cdkDragDisabled]="!boardService.isSprintModifiable() || isEditing"
   >
     <input
       type="checkbox"
@@ -14,22 +16,15 @@
     />
 
     <div
-      class="input__container border__rounded d-flex flex-grow-1 px-1"
-      [class.readonly]="!boardService.isSprintModifiable()"
-      [class.ms-4]="!boardService.isSprintModifiable()"
+      class="input__container border__rounded d-flex flex-grow-1 px-1 gap-2"
       #inputContainer
       cdkDragHandle
     >
-      <input
-        class="font__sm select__none border-0 flex-grow-1 fw-medium"
-        name="name"
-        #nameInput
-        [ngModel]="task.name"
-        [readonly]="evaluateReadOnlyState()"
-        (click)="toggleChangeName()"
-        (blur)="onNameChange($event)"
-      />
-
+      <p class="m-0 content__editable d-flex align-items-center flex-grow-1" style="overflow-wrap: anywhere"
+         [title]="task.name"
+         #taskName (click)="toggleChangeName()" (blur)="onNameChange()"
+         (keydown.enter)="$event.preventDefault(); taskName.blur();"
+         (keydown.shift.enter)="$event.preventDefault(); taskName.blur();"> {{ task.name }}</p>
       <button
         mat-icon-button
         (mousedown)="taskDeleted.emit()"

@@ -33,13 +33,14 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 })
 export class CardComponent {
   boardService = inject(BoardService);
-  dialogService = inject(MatDialog);
+  #dialogService = inject(MatDialog);
 
   card = model.required<Card>();
 
   deletedCard = output();
 
   dialogRef!: MatDialogRef<CardDetailComponent>;
+
   @ViewChild('cardDetail') cardDetail!: TemplateRef<CardDetailComponent>;
 
   evaluateFooterVisibility = computed(() => {
@@ -110,7 +111,7 @@ export class CardComponent {
   });
 
   showCardDetails(): void {
-    this.dialogRef = this.dialogService.open(this.cardDetail, {
+    this.dialogRef = this.#dialogService.open(this.cardDetail, {
       width: '55rem',
       height: '50rem',
       autoFocus: 'dialog',

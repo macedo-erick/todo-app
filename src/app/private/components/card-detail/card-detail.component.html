@@ -2,13 +2,18 @@
 @if (card(); as card) {
   <div class="d-flex px-4 py-3 gap-4">
     <div class="wrapper d-flex flex-column gap-4">
-      <div class="d-flex align-items-center gap-1">
+      <div class="d-flex align-items-center gap-3">
         <i class="fa-regular fa-credit-card-blank fs-5"></i>
+
+        <strong class="flex-shrink-0">
+          [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]
+        </strong>
+
         <h2
           [ngClass]="{
             'has__hover content__editable': boardService.isSprintModifiable()
           }"
-          class="border__rounded flex-grow-1 m-0 fw-semibold p-2"
+          class="border__rounded flex-grow-1 m-0 fw-semibold py-2"
           #cardName
           (blur)="onNameChange()"
           (click)="toggleChangeName()"

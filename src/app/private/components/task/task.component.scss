@@ -15,36 +15,13 @@
       display: none;
     }
 
-    input {
-      outline: none;
-      background-color: transparent;
-    }
-
     &:not(.readonly) {
-      input {
-        cursor: pointer;
-      }
-
       &:hover:not(:focus-within) {
         cursor: pointer;
         background-color: var(--soft-azure);
 
         button {
           display: block;
-        }
-      }
-
-      &:focus-within:not(.focused) {
-        cursor: pointer !important;
-        background-color: var(--soft-azure);
-      }
-
-      &.focused {
-        outline: 2px solid var(--sky-blue);
-        border-radius: 4px;
-
-        input {
-          cursor: text;
         }
       }
     }

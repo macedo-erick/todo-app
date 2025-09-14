@@ -69,6 +69,7 @@ export class ListComponent {
 
   addCard(): void {
     const card = {
+      id: this.boardService.maxId() + 1,
       name: 'New Card',
       description: '',
       createdDate: new Date(),
@@ -116,11 +117,11 @@ export class ListComponent {
     const { innerText } = this.listName.nativeElement;
     const name = innerText.trim();
 
-    this.isEditing = false;
-
     if (name) {
       this.list.update((list) => ({ ...list, name: innerText.trim() }));
     }
+
+    this.isEditing = false;
 
     this.listName.nativeElement.contentEditable = 'false';
     this.listName.nativeElement.innerText = this.list().name;
