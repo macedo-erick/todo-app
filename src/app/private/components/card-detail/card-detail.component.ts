@@ -29,7 +29,6 @@ import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { DatePipe, NgClass, NgIf } from '@angular/common';
-import { ca } from 'date-fns/locale';
 
 @Component({
   selector: 'todo-card-detail',

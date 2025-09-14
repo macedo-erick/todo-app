@@ -41,7 +41,7 @@ export class AttachmentsComponent {
   }
 
   onDownloadAttachment(key: string, fileName: string): void {
-    this.#attachmentService.downloadFile(key, fileName).subscribe();
+    this.#attachmentService.downloadFile(key, fileName, true).subscribe();
   }
 
   onDeletedAttachment(key: string): void {

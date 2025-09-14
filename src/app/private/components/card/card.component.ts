@@ -16,7 +16,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgClass } from '@angular/common';
 import { MatCard, MatCardFooter, MatCardTitle } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { ca } from 'date-fns/locale';
 
 @Component({
   selector: 'todo-card',
@@ -34,7 +33,6 @@ import { ca } from 'date-fns/locale';
 })
 export class CardComponent {
   boardService = inject(BoardService);
-  #dialogService = inject(MatDialog);
 
   card = model.required<Card>();
 
