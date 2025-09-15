@@ -1,0 +1,19 @@
+.board__container {
+  .board__header {
+    padding-inline: 1.25rem;
+
+    height: 4rem;
+
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  ol {
+    overflow-x: visible;
+
+    .list__item {
+      flex-basis: 20rem;
+      flex-shrink: 0;
+    }
+  }
+}
