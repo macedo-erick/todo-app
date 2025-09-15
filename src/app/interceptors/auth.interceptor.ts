@@ -8,7 +8,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (!jwtService.isTokenExpired()) {
     req = req.clone({
-      headers: req.headers.set('Authorization', tokenGetter() as string)
+      headers: req.headers.set(
+        'Authorization',
+        `Bearer ${tokenGetter() as string}`
+      )
     });
   }
 

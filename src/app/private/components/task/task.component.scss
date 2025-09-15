@@ -9,7 +9,12 @@
   }
 
   .input__container {
-    height: 3rem;
+    min-height: 3rem;
+    align-items: center;
+
+    p {
+      width: 90%;
+    }
 
     button {
       display: none;

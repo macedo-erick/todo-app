@@ -20,7 +20,7 @@
       #inputContainer
       cdkDragHandle
     >
-      <p class="m-0 content__editable d-flex align-items-center flex-grow-1" style="overflow-wrap: anywhere"
+      <p class="m-0 content__editable d-flex align-items-center" style="overflow-wrap: anywhere"
          [title]="task.name"
          #taskName (click)="toggleChangeName()" (blur)="onNameChange()"
          (keydown.enter)="$event.preventDefault(); taskName.blur();"
