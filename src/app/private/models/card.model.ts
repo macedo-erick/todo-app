@@ -1,22 +1,36 @@
-import { Checklist } from './checklist.model';
-import { Comment } from './comment.model';
-import { Activity } from './activity.model';
-import { Attachment } from './attachment.model';
-import { Priority } from '../enums/priority.enum';
-import { CardType } from '../enums/card-type.enum';
+import { Board } from './board.model';
+import { BoardList } from './board-list.model';
+import { Sprint } from './sprint.model';
+import { User } from './user.model';
 
 export interface Card {
   id: number;
+  board: Board;
+  list: BoardList;
+  sprint: Sprint;
   name: string;
   description: string;
-  createdDate: Date;
-  checklist: Checklist | undefined;
-  comments: Comment[];
-  activities: Activity[];
-  attachments: Attachment[] | undefined;
-  priority: Priority;
+  position: number;
+  priority: CardPriority;
+  assignee: User;
   storyPoints: number;
   timeSpent: number;
-  type: CardType;
-  sprintId: string;
+  archived: boolean;
+  key: string;
+  archivedAt: Date;
+  archivedBy: User;
+  cardType: CardType;
+}
+
+export enum CardPriority {
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW'
+}
+
+export enum CardType {
+  STORY = 'STORY',
+  TASK = 'TASK',
+  BUG = 'BUG',
+  SPIKE = 'SPIKE'
 }

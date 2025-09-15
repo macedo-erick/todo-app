@@ -1,34 +1,34 @@
-@if (comment(); as comment) {
-  <li class="d-flex align-items-center gap-2">
-    <todo-user-initials
-      [initials]="initials()"
-      [hasHover]="false"
-      size="md"
-    ></todo-user-initials>
+<!--@if (comment(); as comment) {-->
+<!--  <li class="d-flex align-items-center gap-2">-->
+<!--    <todo-user-initials-->
+<!--      [initials]="initials()"-->
+<!--      [hasHover]="false"-->
+<!--      size="md"-->
+<!--    ></todo-user-initials>-->
 
-    <div class="d-grid flex-grow-1 gap-1">
-      <div class="d-flex align-items-center gap-2">
-        <h4 class="font__sm m-0 fw-bolder">
-          {{ comment.author }}
-        </h4>
-        <span class="font__xm text-black-50 m-0 fw-medium">{{
-            comment.createdDate | date: "MMMM d, y 'at' h:mm:ss a"
-          }}</span>
-      </div>
+<!--    <div class="d-grid flex-grow-1 gap-1">-->
+<!--      <div class="d-flex align-items-center gap-2">-->
+<!--        <h4 class="font__sm m-0 fw-bolder">-->
+<!--          {{ comment.author }}-->
+<!--        </h4>-->
+<!--        <span class="font__xm text-black-50 m-0 fw-medium">{{-->
+<!--            comment.createdDate | date: "MMMM d, y 'at' h:mm:ss a"-->
+<!--          }}</span>-->
+<!--      </div>-->
 
-      <div
-        class="bg__pale__blue border__rounded font__sm m-0 fw-medium flex-grow-1 p-3 justify-content-start"
-        [innerHTML]="comment.description"
-      ></div>
+<!--      <div-->
+<!--        class="bg__pale__blue border__rounded font__sm m-0 fw-medium flex-grow-1 p-3 justify-content-start"-->
+<!--        [innerHTML]="comment.description"-->
+<!--      ></div>-->
 
-      <button
-        mat-button
-        class="font__xm fw-medium has__hover"
-        (click)="deletedComment.emit()"
-        *ngIf="boardService.isSprintModifiable()"
-      >
-        Delete
-      </button>
-    </div>
-  </li>
-}
+<!--      <button-->
+<!--        mat-button-->
+<!--        class="font__xm fw-medium has__hover"-->
+<!--        (click)="deletedComment.emit()"-->
+<!--        *ngIf="boardService.isSprintModifiable()"-->
+<!--      >-->
+<!--        Delete-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--}-->

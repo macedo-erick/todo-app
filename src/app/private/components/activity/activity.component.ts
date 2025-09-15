@@ -14,9 +14,10 @@ export class ActivityComponent {
   activity = model.required<Activity>();
 
   evaluateAuthorInitials = computed(() => {
-    const author = this.activity().author;
-    const [firstName, lastName] = author.split(/\s+/g);
-
-    return firstName.charAt(0).concat(lastName.charAt(0)).toUpperCase();
+    return '';
+    // const author = this.activity().author;
+    // const [firstName, lastName] = author.split(/\s+/g);
+    //
+    // return firstName.charAt(0).concat(lastName.charAt(0)).toUpperCase();
   });
 }

@@ -1,38 +1,38 @@
-<div class="card__wrapper p-4 d-grid gap-3">
-  <div class="boards__header d-flex justify-content-between align-items-center">
-    <h2 class="m-0">Your Workspace</h2>
+<!--<div class="card__wrapper p-4 d-grid gap-3">-->
+<!--  <div class="boards__header d-flex justify-content-between align-items-center">-->
+<!--    <h2 class="m-0">Your Workspace</h2>-->
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label>Search Boards</mat-label>
-      <input
-        matInput
-        type="text"
-        class="font__sm"
-        [formControl]="searchInput"
-      />
-    </mat-form-field>
-  </div>
+<!--    <mat-form-field appearance="outline" floatLabel="always">-->
+<!--      <mat-label>Search Boards</mat-label>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        class="font__sm"-->
+<!--        [formControl]="searchInput"-->
+<!--      />-->
+<!--    </mat-form-field>-->
+<!--  </div>-->
 
-  @if (boards(); as boards) {
-    <ul class="boards__container p-0 ls__none">
-      @for (board of boards; track board.boardId) {
-        <li>
-          <todo-board-card [board]="board" />
-        </li>
-      }
+<!--  @if (boards(); as boards) {-->
+<!--    <ul class="boards__container p-0 ls__none">-->
+<!--      @for (board of boards; track board.boardId) {-->
+<!--        <li>-->
+<!--          <todo-board-card [board]="board" />-->
+<!--        </li>-->
+<!--      }-->
 
-      @if (loaded()) {
-        <li>
-          <button
-            mat-button
-            class="bg-white shadow-sm border__rounded w-100 h-100 fw-bolder fs-6"
-            (click)="newBoard()"
-          >
-            <i class="fa-regular fa-plus fa-sm"></i>
-            New board
-          </button>
-        </li>
-      }
-    </ul>
-  }
-</div>
+<!--      @if (loaded()) {-->
+<!--        <li>-->
+<!--          <button-->
+<!--            mat-button-->
+<!--            class="bg-white shadow-sm border__rounded w-100 h-100 fw-bolder fs-6"-->
+<!--            (click)="newBoard()"-->
+<!--          >-->
+<!--            <i class="fa-regular fa-plus fa-sm"></i>-->
+<!--            New board-->
+<!--          </button>-->
+<!--        </li>-->
+<!--      }-->
+<!--    </ul>-->
+<!--  }-->
+<!--</div>-->

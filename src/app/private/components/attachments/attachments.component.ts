@@ -1,5 +1,5 @@
 import { Component, inject, model } from '@angular/core';
-import { Attachment } from '../../models/attachment.model';
+import { CardAttachment } from '../../models/card-attachment.model';
 import { AttachmentService } from '../../services/attachment/attachment.service';
 import { tap } from 'rxjs';
 import { BoardService } from '../../services/board/board.service';
@@ -18,7 +18,7 @@ export class AttachmentsComponent {
   #attachmentService = inject(AttachmentService);
   boardService = inject(BoardService);
 
-  attachments = model.required<Attachment[]>();
+  attachments = model.required<CardAttachment[]>();
 
   onFileInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;

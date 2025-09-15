@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
   #boardService = inject(BoardService);
   loaded = signal(() => this.boards());
 
-  boards = toSignal(this.#boardService.onFindAll(), { initialValue: [] });
+  // boards = toSignal(this.#boardService.onFindAll(), { initialValue: [] });
+  boards = signal([]);
   #dialogService = inject(MatDialog);
 
   ngOnInit(): void {
@@ -42,7 +43,7 @@ export class HomeComponent implements OnInit {
     this.searchInput.valueChanges
       .pipe(distinctUntilChanged(), debounceTime(200))
       .subscribe((q) => {
-        this.#boardService.findByName(String(q));
+        // this.#boardService.findByName(String(q));
       });
   }
 
@@ -51,17 +52,17 @@ export class HomeComponent implements OnInit {
       disableClose: true
     });
 
-    dialog
-      .afterClosed()
-      .pipe(
-        tap(({ prefix, ...res }: Board) => {
-          if (res)
-            this.#boardService.create({
-              ...res,
-              prefix: prefix.toUpperCase()
-            });
-        })
-      )
-      .subscribe();
+    // dialog
+    //   .afterClosed()
+    //   .pipe(
+    //     tap(({ prefix, ...res }: Board) => {
+    //       if (res)
+    //         this.#boardService.create({
+    //           ...res,
+    //           prefix: prefix.toUpperCase()
+    //         });
+    //     })
+    //   )
+    //   .subscribe();
   }
 }

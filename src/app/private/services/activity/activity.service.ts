@@ -8,11 +8,11 @@ import { Activity } from '../../models/activity.model';
 export class ActivityService {
   userService = inject(UserService);
 
-  create(description: string): Activity {
-    return {
-      author: this.userService.getLoggedUser(),
-      createdDate: new Date(),
-      description: description
-    };
-  }
+  // create(description: string): Activity {
+  //   return {
+  //     author: this.userService.getLoggedUser(),
+  //     createdDate: new Date(),
+  //     description: description
+  //   };
+  // }
 }

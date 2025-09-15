@@ -43,8 +43,8 @@ import {
 } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { addDays } from 'date-fns';
-import { SprintStatus } from '../../enums/sprint-status';
 import { v4 as uuidv4 } from 'uuid';
+import { SprintStatus } from '../../models/sprint.model';
 
 @Component({
   selector: 'todo-new-board',
@@ -135,7 +135,7 @@ export class NewBoardComponent {
       id: new FormControl(uuidv4()),
       startDate: new FormControl(startDate, [Validators.required]),
       endDate: new FormControl(endDate, [Validators.required]),
-      status: new FormControl(SprintStatus.PENDING)
+      status: new FormControl(SprintStatus.PLANNED)
     });
   }
 

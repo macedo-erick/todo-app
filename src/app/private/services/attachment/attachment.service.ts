@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Attachment } from '../../models/attachment.model';
+import { CardAttachment } from '../../models/card-attachment.model';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class AttachmentService {
   #http = inject(HttpClient);
   #BASE_URL = environment.apiBasePath.concat('/attachments');
 
-  uploadFile(formData: FormData): Observable<Attachment> {
-    return this.#http.post<Attachment>(this.#BASE_URL, formData);
+  uploadFile(formData: FormData): Observable<CardAttachment> {
+    return this.#http.post<CardAttachment>(this.#BASE_URL, formData);
   }
 
   downloadFile(

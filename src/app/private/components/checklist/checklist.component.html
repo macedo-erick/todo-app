@@ -1,37 +1,37 @@
-@if (checklist(); as checklist) {
-  <div class="d-grid gap-3">
-    <div class="d-flex align-items-center gap-2">
-      <span class="font__sm">{{ progress() }}%</span>
-      <mat-progress-bar
-        mode="determinate"
-        class="progress__bar border__rounded"
-        [value]="progress()"
-      ></mat-progress-bar>
-    </div>
+<!--@if (checklist(); as checklist) {-->
+<!--  <div class="d-grid gap-3">-->
+<!--    <div class="d-flex align-items-center gap-2">-->
+<!--      <span class="font__sm">{{ progress() }}%</span>-->
+<!--      <mat-progress-bar-->
+<!--        mode="determinate"-->
+<!--        class="progress__bar border__rounded"-->
+<!--        [value]="progress()"-->
+<!--      ></mat-progress-bar>-->
+<!--    </div>-->
 
-    <ol
-      class="draggable__container ls__none d-grid gap-1 p-0 m-0"
-      cdkDropList
-      cdkDropListGroup
-      cdkDropListOrientation="vertical"
-      (cdkDropListDropped)="drop($event)"
-    >
-      @for (task of checklist.tasks; let index = $index; track index) {
-        <todo-task
-          [task]="task"
-          (taskChange)="onTaskChange(index, $event)"
-          (taskDeleted)="onTaskDeleted(index)"
-        />
-      }
+<!--    <ol-->
+<!--      class="draggable__container ls__none d-grid gap-1 p-0 m-0"-->
+<!--      cdkDropList-->
+<!--      cdkDropListGroup-->
+<!--      cdkDropListOrientation="vertical"-->
+<!--      (cdkDropListDropped)="drop($event)"-->
+<!--    >-->
+<!--      @for (task of checklist.tasks; let index = $index; track index) {-->
+<!--        <todo-task-->
+<!--          [task]="task"-->
+<!--          (taskChange)="onTaskChange(index, $event)"-->
+<!--          (taskDeleted)="onTaskDeleted(index)"-->
+<!--        />-->
+<!--      }-->
 
-      <button
-        mat-button
-        class="new__task__btn bg__pale__blue has__hover font__sm fw-medium mt-2"
-        (click)="addTask()"
-        *ngIf="boardService.isSprintModifiable()"
-      >
-        Add item
-      </button>
-    </ol>
-  </div>
-}
+<!--      <button-->
+<!--        mat-button-->
+<!--        class="new__task__btn bg__pale__blue has__hover font__sm fw-medium mt-2"-->
+<!--        (click)="addTask()"-->
+<!--        *ngIf="boardService.isSprintModifiable()"-->
+<!--      >-->
+<!--        Add item-->
+<!--      </button>-->
+<!--    </ol>-->
+<!--  </div>-->
+<!--}-->

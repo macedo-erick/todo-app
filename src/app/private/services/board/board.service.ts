@@ -1,78 +1,15 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { Config } from '../../sockets/socket';
-import { Observable, tap } from 'rxjs';
-import { Board } from '../../models/board.model';
-import { BoardsResponseDto } from '../../dtos/board.dto';
-import { environment } from '../../../../environments/environment';
-import { SprintStatus } from '../../enums/sprint-status';
+import { environment } from '../../../../environments/environment.development';
+import { Injectable, signal } from '@angular/core';
 import { Sprint } from '../../models/sprint.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BoardService extends Socket {
-  activeSprint = signal<Sprint>({} as Sprint);
-  sprints = signal<Sprint[]>([]);
-  prefix = signal('');
-  maxId = signal(0);
+export class BoardService {
+  #BASE_URL = `${environment.apiBasePath}/boards`;
 
-  isSprintModifiable = computed(() => {
-    return [SprintStatus.ACTIVE, SprintStatus.PENDING].includes(
-      this.activeSprint().status
-    );
-  });
+  isSprintModifiable = signal(true);
+  activeSprint = signal({} as Sprint);
 
-  constructor() {
-    super(Config(environment.wsUrl, environment.wsBasePath, 'boards'));
-  }
-
-  create(board: Board) {
-    this.emit('create', board);
-  }
-
-  update(board: Board) {
-    this.emit('update', board);
-  }
-
-  findAll() {
-    this.emit('findAll');
-  }
-
-  findOne(_id: string) {
-    this.emit('findOne', { _id });
-  }
-
-  findByName(name: string) {
-    this.emit('findByName', { name });
-  }
-
-  onFindAll(): Observable<BoardsResponseDto[]> {
-    return this.fromEvent('onFindAll');
-  }
-
-  onFindOne(): Observable<Board> {
-    return this.fromEvent<Board>('onFindOne').pipe(
-      tap((res) => {
-        this.sprints.update(() => res.sprints);
-        this.prefix.update(() => res.prefix);
-        this.activeSprint.update(
-          () =>
-            res.sprints.find(
-              (sprint) => sprint.status === SprintStatus.ACTIVE
-            ) as Sprint
-        );
-
-        this.maxId.update(() =>
-          Math.max(
-            ...res.lists
-              .map((l) => l.cards)
-              .flat()
-              .map((c) => c.id),
-            0
-          )
-        );
-      })
-    );
-  }
+  findAll() {}
 }

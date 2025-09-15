@@ -1,10 +1,26 @@
-import { List } from './list.model';
-import { Sprint } from './sprint.model';
+import { User } from './user.model';
 
 export interface Board {
-  _id?: string;
+  id: number;
   name: string;
   prefix: string;
-  lists: List[];
-  sprints: Sprint[];
+  archived: boolean;
+  archivedAt: Date;
+  archivedBy: User;
+  lastCardNumber: number;
+}
+
+export interface BoardMember {
+  boardId: number;
+  userId: number;
+  board: Board;
+  user: User;
+  role: BoardRole;
+}
+
+export enum BoardRole {
+  OWNER = 'OWNER',
+  ADMIN = 'ADMIN',
+  MEMBER = 'MEMBER',
+  VIEWER = 'VIEWER'
 }

@@ -1,79 +1,79 @@
-@if (card(); as card) {
-  <li
-    class="draggable__item"
-    cdkDrag
-    [cdkDragDisabled]="!boardService.isSprintModifiable()"
-  >
-    <mat-card
-      class="card__container border__rounded shadow-sm w-100 py-2 px-3"
-    >
-      <mat-card-title>
-        <h3 class="font__sm select__none m-0 fw-medium">
+<!--@if (card(); as card) {-->
+<!--  <li-->
+<!--    class="draggable__item"-->
+<!--    cdkDrag-->
+<!--    [cdkDragDisabled]="!boardService.isSprintModifiable()"-->
+<!--  >-->
+<!--    <mat-card-->
+<!--      class="card__container border__rounded shadow-sm w-100 py-2 px-3"-->
+<!--    >-->
+<!--      <mat-card-title>-->
+<!--        <h3 class="font__sm select__none m-0 fw-medium">-->
 
-          <strong>
-            [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]
-          </strong>
+<!--          <strong>-->
+<!--            [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]-->
+<!--          </strong>-->
 
-          {{ card.name }}
-        </h3>
-      </mat-card-title>
+<!--          {{ card.name }}-->
+<!--        </h3>-->
+<!--      </mat-card-title>-->
 
-      @if (evaluateFooterVisibility()) {
-        <mat-card-footer
-          class="card__footer font__sm d-flex align-items-center fw-medium"
-        >
-          @if (card.type) {
-            <i
-              [ngClass]="[evaluateType(), evaluateTypeIcon()]"
-              class="fa-solid fa-lg type"
-            ></i>
-          }
+<!--      @if (evaluateFooterVisibility()) {-->
+<!--        <mat-card-footer-->
+<!--          class="card__footer font__sm d-flex align-items-center fw-medium"-->
+<!--        >-->
+<!--          @if (card.type) {-->
+<!--            <i-->
+<!--              [ngClass]="[evaluateType(), evaluateTypeIcon()]"-->
+<!--              class="fa-solid fa-lg type"-->
+<!--            ></i>-->
+<!--          }-->
 
-          @if (card.priority) {
-            <i
-              [ngClass]="[evaluatePriority(), evaluatePriorityIcon()]"
-              class="fa-solid fa-lg priority"
-            ></i>
-          }
+<!--          @if (card.priority) {-->
+<!--            <i-->
+<!--              [ngClass]="[evaluatePriority(), evaluatePriorityIcon()]"-->
+<!--              class="fa-solid fa-lg priority"-->
+<!--            ></i>-->
+<!--          }-->
 
-          @if (card.description) {
-            <i class="fa-regular fa-align-left fa-lg"></i>
-          }
+<!--          @if (card.description) {-->
+<!--            <i class="fa-regular fa-align-left fa-lg"></i>-->
+<!--          }-->
 
-          @if (card.comments && card.comments.length) {
-            <i class="fa-regular fa-comment-lines fa-lg"></i>
-          }
+<!--          @if (card.comments && card.comments.length) {-->
+<!--            <i class="fa-regular fa-comment-lines fa-lg"></i>-->
+<!--          }-->
 
-          @if (card.checklist && card.checklist.tasks.length) {
-            <span class="d-flex align-items-center gap-1 fw-medium">
-              <i class="fa-regular fa-square-check fa-lg"></i>
-              {{ evaluateCheckListStatus() }}
-            </span>
-          }
+<!--          @if (card.checklist && card.checklist.tasks.length) {-->
+<!--            <span class="d-flex align-items-center gap-1 fw-medium">-->
+<!--              <i class="fa-regular fa-square-check fa-lg"></i>-->
+<!--              {{ evaluateCheckListStatus() }}-->
+<!--            </span>-->
+<!--          }-->
 
-          @if (card.timeSpent) {
-            <span class="bg__sky__blue rounded-5 px-2 fw-medium text-black"
-            >{{ card.timeSpent }}h</span
-            >
-          }
+<!--          @if (card.timeSpent) {-->
+<!--            <span class="bg__sky__blue rounded-5 px-2 fw-medium text-black"-->
+<!--            >{{ card.timeSpent }}h</span-->
+<!--            >-->
+<!--          }-->
 
-          @if (card.attachments && card.attachments.length) {
-            <span class="d-flex align-items-center gap-1 fw-medium">
-              <i class="fa-regular fa-paperclip fa-lg"></i>
-              {{ card.attachments.length }}
-            </span>
-          }
-        </mat-card-footer>
-      }
-    </mat-card>
+<!--          @if (card.attachments && card.attachments.length) {-->
+<!--            <span class="d-flex align-items-center gap-1 fw-medium">-->
+<!--              <i class="fa-regular fa-paperclip fa-lg"></i>-->
+<!--              {{ card.attachments.length }}-->
+<!--            </span>-->
+<!--          }-->
+<!--        </mat-card-footer>-->
+<!--      }-->
+<!--    </mat-card>-->
 
-    <ng-template #cardDetail>
-      <todo-card-detail
-        [card]="card"
-        (cardChange)="onCardChange($event)"
-        (deletedCard)="deletedCard.emit()"
-        (closeModal)="dialogRef.close()"
-      ></todo-card-detail>
-    </ng-template>
-  </li>
-}
+<!--    <ng-template #cardDetail>-->
+<!--      <todo-card-detail-->
+<!--        [card]="card"-->
+<!--        (cardChange)="onCardChange($event)"-->
+<!--        (deletedCard)="deletedCard.emit()"-->
+<!--        (closeModal)="dialogRef.close()"-->
+<!--      ></todo-card-detail>-->
+<!--    </ng-template>-->
+<!--  </li>-->
+<!--}-->

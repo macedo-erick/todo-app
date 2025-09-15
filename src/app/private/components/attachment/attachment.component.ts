@@ -1,5 +1,5 @@
 import { Component, inject, model, output } from '@angular/core';
-import { Attachment } from '../../models/attachment.model';
+import { CardAttachment } from '../../models/card-attachment.model';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
 import { DatePipe, NgIf } from '@angular/common';
@@ -14,7 +14,7 @@ import { DatePipe, NgIf } from '@angular/common';
 export class AttachmentComponent {
   boardService = inject(BoardService);
 
-  attachment = model.required<Attachment>();
+  attachment = model.required<CardAttachment>();
 
   deletedAttachment = output();
   downloadAttachment = output();

@@ -7,7 +7,7 @@ import {
   signal,
   ViewChild
 } from '@angular/core';
-import { Task } from '../../models/task.model';
+import { CardChecklistItem } from '../../models/card-checklist-item.model';
 import { BoardService } from '../../services/board/board.service';
 import { MatIconButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,7 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 export class TaskComponent {
   boardService = inject(BoardService);
 
-  task = model.required<Task>();
+  task = model.required<CardChecklistItem>();
   evaluateReadOnlyState = signal(true);
   isEditing = false;
 
