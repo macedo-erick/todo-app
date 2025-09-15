@@ -1,4 +1,5 @@
-import { User } from '../models/user.model';
+import { CardResponseDto } from './card.dto';
+import { UserResponseDto } from './user.dto';
 
 export interface CreateBoardListRequestDto {
   boardId: number;
@@ -8,8 +9,9 @@ export interface CreateBoardListRequestDto {
 export interface BoardListResponseDto {
   archived: boolean;
   archivedAt: Date;
-  archivedBy: User;
+  archivedBy: UserResponseDto;
   name: string;
   id: number;
   position: number;
+  cards: CardResponseDto[];
 }

@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { CardPriority, CardType } from '../models/card.model';
 import { CardAttachment } from '../models/card-attachment.model';
 import { CardChecklist } from '../models/card-checklist.model';
+import { UserResponseDto } from './user.dto';
 
 export interface CreateCardRequestDto {
   name: string;
@@ -16,7 +17,7 @@ export interface CardResponseDto {
   archived: boolean;
   archivedAt: Date;
   sprint: Sprint;
-  assignee: User;
+  assignee: UserResponseDto;
   storyPoints: number;
   timeSpent: number;
   cardType: CardType;
@@ -26,6 +27,20 @@ export interface CardResponseDto {
   id: number;
   position: number;
   description: string;
-  attachments: CardAttachment[];
-  checklists: CardChecklist[];
+  attachments: CardAttachmentDto[];
+  checklists: CardChecklistDto[];
+}
+
+interface CardAttachmentDto {
+  createdAt: Date;
+  updatedAt: Date;
+  id: number;
+  fileName: string;
+  key: string;
+  url: string;
+}
+
+interface CardChecklistDto {
+  id: number;
+  name: string;
 }

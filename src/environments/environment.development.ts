@@ -1,5 +1,5 @@
 export const environment = {
-  apiBasePath: 'http://localhost:8080/dev',
+  apiBasePath: 'http://localhost:8080/v1/dev',
   wsUrl: 'http://localhost:8080',
-  wsBasePath: '/dev/ws/'
+  wsBasePath: '/prod/ws/'
 };

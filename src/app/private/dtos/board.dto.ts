@@ -1,5 +1,5 @@
 import { CreateSprintRequestDto } from './sprint.dto';
-import { User } from '../models/user.model';
+import { UserResponseDto } from './user.dto';
 
 export interface CreateBoardRequestDto {
   name: string;
@@ -12,7 +12,7 @@ export interface BoardResponseDto {
   createdAt: Date;
   updatedAt: Date;
   archivedAt: Date;
-  archivedBy: User;
+  archivedBy: UserResponseDto;
   name: string;
   id: number;
   prefix: string;

@@ -37,7 +37,7 @@
           (cdkDropListDropped)="onDrop($event)"
           #cardsList
         >
-          @for (card of cards(); track card.id) {
+          @for (card of list.cards; track card.id) {
             <todo-card
               [card]="card"
               (deletedCard)="getCards()"

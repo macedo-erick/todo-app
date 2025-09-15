@@ -4,7 +4,6 @@ import {
   inject,
   input,
   model,
-  OnInit,
   output,
   signal,
   ViewChild
@@ -14,7 +13,6 @@ import {
   CdkDragHandle,
   DragDropModule
 } from '@angular/cdk/drag-drop';
-import { Card } from '../../models/card.model';
 import { tap, timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
@@ -52,7 +50,7 @@ type SortDirection = 'asc' | 'desc';
     CardComponent
   ]
 })
-export class BoardListComponent implements OnInit {
+export class BoardListComponent {
   #activityService = inject(ActivityService);
   #dialogService = inject(MatDialog);
   #boardListService = inject(BoardListService);
@@ -68,10 +66,6 @@ export class BoardListComponent implements OnInit {
 
   @ViewChild('listName') listName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
-
-  ngOnInit(): void {
-    this.getCards();
-  }
 
   addCard(): void {
     this.#cardService
@@ -116,7 +110,7 @@ export class BoardListComponent implements OnInit {
   getCards() {
     return this.#boardListService
       .getCards(this.list().id)
-      .pipe(tap((res) => this.cards.set(res)))
+      .pipe(tap((res) => this.list.update((list) => ({ ...list, cards: res }))))
       .subscribe();
   }
 
