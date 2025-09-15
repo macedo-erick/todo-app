@@ -1,32 +1,13 @@
-import { Component, computed, inject, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
 import { CardChecklist } from '../../models/card-checklist.model';
-import { CardChecklistItem } from '../../models/card-checklist-item.model';
-import {
-  CdkDragDrop,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray
-} from '@angular/cdk/drag-drop';
-import { BoardList } from '../../models/board-list.model';
 import { BoardService } from '../../services/board/board.service';
-import { MatButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
-import { TaskComponent } from '../task/task.component';
-import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'todo-checklist',
   templateUrl: './checklist.component.html',
   styleUrl: './checklist.component.scss',
   standalone: true,
-  imports: [
-    MatProgressBar,
-    CdkDropList,
-    CdkDropListGroup,
-    TaskComponent,
-    NgIf,
-    MatButton
-  ]
+  imports: []
 })
 export class ChecklistComponent {
   boardService = inject(BoardService);

@@ -3,10 +3,10 @@
 
   <span matSnackBarActions>
     <button
+      (click)="snackBarRef.dismissWithAction()"
+      class="text-white"
       mat-button
       matSnackBarAction
-      class="text-white"
-      (click)="snackBarRef.dismissWithAction()"
     >
       x
     </button>

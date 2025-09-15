@@ -10,48 +10,48 @@
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>First name</mat-label>
         <input
-          matInput
-          type="email"
-          formControlName="firstName"
           autocomplete="given-name"
-          placeholder="Type your first name"
           class="font__sm"
+          formControlName="firstName"
+          matInput
+          placeholder="Type your first name"
+          type="email"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Last name</mat-label>
         <input
-          matInput
-          type="email"
-          formControlName="lastName"
           autocomplete="family-name"
-          placeholder="Type your last name"
           class="font__sm"
+          formControlName="lastName"
+          matInput
+          placeholder="Type your last name"
+          type="email"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Phone</mat-label>
         <ngx-mat-input-tel
-          [preferredCountries]="['us', 'br']"
           [enablePlaceholder]="true"
-          formControlName="phone"
-          inputPlaceholder="Type your phone"
-          format="international"
+          [preferredCountries]="['us', 'br']"
           class="font__sm"
+          formControlName="phone"
+          format="international"
+          inputPlaceholder="Type your phone"
         ></ngx-mat-input-tel>
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Email</mat-label>
         <input
-          matInput
-          type="email"
           autocomplete="email"
-          formControlName="email"
-          placeholder="Type your email"
           class="font__sm"
+          formControlName="email"
+          matInput
+          placeholder="Type your email"
+          type="email"
         />
       </mat-form-field>
 
@@ -59,18 +59,18 @@
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Password</mat-label>
           <input
-            matInput
-            formControlName="password"
-            autocomplete="current-password"
             [type]="evaluateType()"
-            placeholder="Type your password"
+            autocomplete="current-password"
             class="font__sm"
+            formControlName="password"
+            matInput
+            placeholder="Type your password"
           />
           <button
-            type="button"
-            matIconSuffix
-            mat-icon-button
             (click)="onShowPasswordChange()"
+            mat-icon-button
+            matIconSuffix
+            type="button"
           >
             <i [ngClass]="evaluateSuffixIcon()" class="fa-regular fa-2xs"></i>
           </button>
@@ -94,21 +94,21 @@
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Confirm password</mat-label>
         <input
-          matInput
-          formControlName="confirmPassword"
-          autocomplete="current-password"
-          [type]="evaluateType()"
-          placeholder="Type your password"
-          class="font__sm"
           [errorStateMatcher]="passwordMatcher"
+          [type]="evaluateType()"
+          autocomplete="current-password"
+          class="font__sm"
+          formControlName="confirmPassword"
+          matInput
+          placeholder="Type your password"
         />
       </mat-form-field>
 
       <button
-        type="submit"
-        mat-raised-button
-        color="primary"
         [disabled]="formGroup.invalid"
+        color="primary"
+        mat-raised-button
+        type="submit"
       >
         Sign up
       </button>
@@ -118,8 +118,8 @@
       <p class="font__sm text-black m-0 text-center">
         Already have an account?
         <a
-          routerLink="/p/sign-in"
           class="select__none text-black fw-semibold text-decoration-none"
+          routerLink="/p/sign-in"
         >Sign in</a
         >
       </p>

@@ -6,7 +6,6 @@ import {
   model,
   OnInit,
   output,
-  signal,
   ViewChild
 } from '@angular/core';
 import {

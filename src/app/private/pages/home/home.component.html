@@ -5,10 +5,10 @@
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Search Boards</mat-label>
       <input
+        [formControl]="searchInput"
+        class="font__sm"
         matInput
         type="text"
-        class="font__sm"
-        [formControl]="searchInput"
       />
     </mat-form-field>
   </div>

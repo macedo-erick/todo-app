@@ -1,33 +1,15 @@
-import { Component, computed, inject, model, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { editorConfig } from '../../../util/util';
-import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-import { CardComment } from '../../models/card-comment.model';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardService } from '../../services/board/board.service';
-import { CommentComponent } from '../comment/comment.component';
-import { MatButton } from '@angular/material/button';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { UserInitialsComponent } from '../user-initials/user-initials.component';
 
 @Component({
   selector: 'todo-comments',
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.scss',
   standalone: true,
-  imports: [
-    UserInitialsComponent,
-    CKEditorModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButton,
-    CommentComponent
-  ]
+  imports: [CKEditorModule, FormsModule, ReactiveFormsModule]
 })
 export class CommentsComponent {
   #userService = inject(UserService);

@@ -1,8 +1,5 @@
 import { Sprint } from '../models/sprint.model';
-import { User } from '../models/user.model';
 import { CardPriority, CardType } from '../models/card.model';
-import { CardAttachment } from '../models/card-attachment.model';
-import { CardChecklist } from '../models/card-checklist.model';
 import { UserResponseDto } from './user.dto';
 
 export interface CreateCardRequestDto {

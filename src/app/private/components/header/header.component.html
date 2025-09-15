@@ -6,7 +6,7 @@
   <div class="app__title d-flex gap-2 align-items-center">
     <i class="fa-regular fa-square-kanban fs-5"></i>
 
-    <a routerLink="/p/home" class="text-decoration-none">
+    <a class="text-decoration-none" routerLink="/p/home">
       <h1 class="text-black fw-bolder m-0">Kivo</h1>
     </a>
   </div>
@@ -18,5 +18,5 @@
 </header>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="signOut()" class="has__hover">Sign Out</button>
+  <button (click)="signOut()" class="has__hover" mat-menu-item>Sign Out</button>
 </mat-menu>

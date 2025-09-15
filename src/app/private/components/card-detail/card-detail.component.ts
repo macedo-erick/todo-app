@@ -1,17 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  inject,
-  Injectable,
-  model,
-  OnInit,
-  output,
-  signal,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, inject, OnInit, output, signal, ViewChild } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Card, CardPriority, CardType } from '../../models/card.model';
+import { CardPriority, CardType } from '../../models/card.model';
 import { CardChecklist } from '../../models/card-checklist.model';
 import { editorConfig } from '../../../util/util';
 import { CardComment } from '../../models/card-comment.model';
@@ -19,20 +8,12 @@ import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { CardAttachment } from '../../models/card-attachment.model';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { toDate } from 'date-fns';
-import { formatInTimeZone } from 'date-fns-tz';
-import { Sprint } from '../../models/sprint.model';
 import { BlurEvent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { ActivitiesComponent } from '../activities/activities.component';
-import { CommentsComponent } from '../comments/comments.component';
-import { AttachmentsComponent } from '../attachments/attachments.component';
-import { ChecklistComponent } from '../checklist/checklist.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { CardService } from '../../services/card/card.service';
 import { tap } from 'rxjs';
 import { CardResponseDto } from '../../dtos/card.dto';
@@ -50,16 +31,7 @@ import { CardResponseDto } from '../../dtos/card.dto';
     FormsModule,
     MatOption,
     MatInput,
-    CKEditorModule,
-    ChecklistComponent,
-    AttachmentsComponent,
-    NgIf,
-    CommentsComponent,
-    ActivitiesComponent,
-    MatButton,
-    MatDialogClose,
-    DatePipe,
-    MatIconButton
+    CKEditorModule
   ]
 })
 export class CardDetailComponent implements OnInit {

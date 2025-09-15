@@ -3,7 +3,6 @@ import {
   effect,
   ElementRef,
   inject,
-  model,
   OnDestroy,
   OnInit,
   signal,

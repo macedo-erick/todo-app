@@ -75,10 +75,10 @@
           <td *matCellDef="let _; let i = index" mat-cell>
             <button
               (click)="removeSprint(i)"
+              [disabled]="sprints().controls.length === 1"
               class="font__sm"
               mat-button
               type="button"
-              [disabled]="sprints().controls.length === 1"
             >
               Remove
             </button>

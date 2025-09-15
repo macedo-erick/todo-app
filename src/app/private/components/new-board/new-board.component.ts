@@ -43,7 +43,6 @@ import {
 } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { addDays } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
 import { SprintStatus } from '../../models/sprint.model';
 
 @Component({
@@ -81,6 +80,8 @@ import { SprintStatus } from '../../models/sprint.model';
   providers: [provideNgxMask(), provideNativeDateAdapter()]
 })
 export class NewBoardComponent {
+  #dialogRef = inject(MatDialogRef<NewBoardComponent>);
+
   formGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     prefix: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -98,7 +99,6 @@ export class NewBoardComponent {
       this.#minLengthArray(1)
     )
   });
-  #dialogRef = inject(MatDialogRef<NewBoardComponent>);
 
   displayedColumns = ['startDate', 'endDate', 'actions'];
 

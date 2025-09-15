@@ -1,14 +1,12 @@
 import { Component, computed, model } from '@angular/core';
 import { Activity } from '../../models/activity.model';
-import { DatePipe } from '@angular/common';
-import { UserInitialsComponent } from '../user-initials/user-initials.component';
 
 @Component({
   selector: 'todo-activity',
   templateUrl: './activity.component.html',
   styleUrl: './activity.component.scss',
   standalone: true,
-  imports: [UserInitialsComponent, DatePipe]
+  imports: []
 })
 export class ActivityComponent {
   activity = model.required<Activity>();
