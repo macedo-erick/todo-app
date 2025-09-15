@@ -1,13 +1,17 @@
 import {
   Component,
   ElementRef,
+  Inject,
   inject,
+  Injectable,
   model,
+  OnInit,
   output,
+  signal,
   ViewChild
 } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Card } from '../../models/card.model';
+import { Card, CardPriority, CardType } from '../../models/card.model';
 import { CardChecklist } from '../../models/card-checklist.model';
 import { editorConfig } from '../../../util/util';
 import { CardComment } from '../../models/card-comment.model';
@@ -19,7 +23,7 @@ import { toDate } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import { Sprint } from '../../models/sprint.model';
 import { BlurEvent, CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { MatDialogClose } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { ActivitiesComponent } from '../activities/activities.component';
 import { CommentsComponent } from '../comments/comments.component';
@@ -29,6 +33,9 @@ import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { CardService } from '../../services/card/card.service';
+import { tap } from 'rxjs';
+import { CardResponseDto } from '../../dtos/card.dto';
 
 @Component({
   selector: 'todo-card-detail',
@@ -55,25 +62,21 @@ import { DatePipe, NgClass, NgIf } from '@angular/common';
     MatIconButton
   ]
 })
-export class CardDetailComponent {
-  boardService = inject(BoardService);
+export class CardDetailComponent implements OnInit {
   #activityService = inject(ActivityService);
+  #cardService = inject(CardService);
 
-  card = model.required<Card>();
+  boardService = inject(BoardService);
+
+  data: { cardId: string } = inject(MAT_DIALOG_DATA);
+
+  card = signal<CardResponseDto>({} as CardResponseDto);
 
   deletedCard = output();
   closeModal = output();
 
-  types = [
-    { value: 1, label: 'Story' },
-    { value: 2, label: 'Task' },
-    { value: 3, label: 'Bug' }
-  ];
-  priorities = [
-    { value: 1, label: 'Low' },
-    { value: 2, label: 'Medium' },
-    { value: 3, label: 'High' }
-  ];
+  types = Object.values(CardType);
+  priorities = Object.values(CardPriority);
 
   @ViewChild('cardName') cardName!: ElementRef<HTMLHeadingElement>;
 
@@ -256,5 +259,12 @@ export class CardDetailComponent {
 
   deleteAttachments() {
     // this.card.update((card) => ({ ...card, attachments: undefined }));
+  }
+
+  ngOnInit(): void {
+    this.#cardService
+      .findById(Number(this.data.cardId))
+      .pipe(tap((res) => this.card.set(res)))
+      .subscribe();
   }
 }

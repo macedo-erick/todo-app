@@ -16,6 +16,7 @@ import { CardResponseDto } from '../../dtos/card.dto';
 })
 export class CardComponent {
   card = model.required<CardResponseDto>();
+  boardId = model.required<number>();
 
   deletedCard = output();
 

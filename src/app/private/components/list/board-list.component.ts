@@ -30,6 +30,7 @@ import { BoardListService } from '../../services/board-list/board-list.service';
 import { CardService } from '../../services/card/card.service';
 import { CardComponent } from '../card/card.component';
 import { CardResponseDto } from '../../dtos/card.dto';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -47,7 +48,9 @@ type SortDirection = 'asc' | 'desc';
     MatCardContent,
     MatCardActions,
     MatButton,
-    CardComponent
+    CardComponent,
+    RouterLink,
+    RouterOutlet
   ]
 })
 export class BoardListComponent {

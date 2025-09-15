@@ -1,257 +1,257 @@
-<!--&lt;!&ndash; eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events &ndash;&gt;-->
-<!--@if (card(); as card) {-->
-<!--  <div class="d-flex px-4 py-3 gap-4">-->
-<!--    <div class="wrapper d-flex flex-column gap-4">-->
-<!--      <div class="d-flex align-items-center gap-2">-->
-<!--        <i class="fa-regular fa-credit-card-blank fs-5"></i>-->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events -->
+@if (card(); as card) {
+  <div class="d-flex px-4 py-3 gap-4">
+    <div class="wrapper d-flex flex-column gap-4">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-regular fa-credit-card-blank fs-5"></i>
 
-<!--        <strong class="flex-shrink-0">-->
-<!--          [{{ boardService.prefix() }} - {{ card.id.toString().padStart(4, '0') }}]-->
-<!--        </strong>-->
+        <strong class="flex-shrink-0">
+          [{{ card.key }}]
+        </strong>
 
-<!--        <h2-->
-<!--          [ngClass]="{-->
-<!--            'has__hover content__editable': boardService.isSprintModifiable()-->
-<!--          }"-->
-<!--          class="border__rounded flex-grow-1 m-0 fw-semibold py-2"-->
-<!--          #cardName-->
-<!--          (blur)="onNameChange()"-->
-<!--          (click)="toggleChangeName()"-->
-<!--          (keydown.enter)="$event.preventDefault(); cardName.blur();"-->
-<!--          (keydown.shift.enter)="$event.preventDefault(); cardName.blur();"-->
-<!--        >-->
-<!--          {{ card.name }}-->
-<!--        </h2>-->
-<!--      </div>-->
+        <h2
+          [ngClass]="{
+                  'has__hover content__editable': boardService.isSprintModifiable()
+                }"
+          class="border__rounded flex-grow-1 m-0 fw-semibold py-2"
+          #cardName
+          (blur)="onNameChange()"
+          (click)="toggleChangeName()"
+          (keydown.enter)="$event.preventDefault(); cardName.blur();"
+          (keydown.shift.enter)="$event.preventDefault(); cardName.blur();"
+        >
+          {{ card.name }}
+        </h2>
+      </div>
 
-<!--      <div class="d-flex flex-column gap-3">-->
-<!--        <div class="default__gap d-flex align-items-center">-->
-<!--          <i class="fa-regular fa-circle-info fs-5"></i>-->
-<!--          <h3 class="m-0 fw-semibold">Details</h3>-->
-<!--        </div>-->
+      <div class="d-flex flex-column gap-3">
+        <div class="default__gap d-flex align-items-center">
+          <i class="fa-regular fa-circle-info fs-5"></i>
+          <h3 class="m-0 fw-semibold">Details</h3>
+        </div>
 
-<!--        <div class="details__container default__margin d-flex flex-wrap">-->
-<!--          <mat-form-field-->
-<!--            appearance="outline"-->
-<!--            class="form__field"-->
-<!--            floatLabel="always"-->
-<!--          >-->
-<!--            <mat-label>Sprint</mat-label>-->
-<!--            <mat-select-->
-<!--              [ngModel]="card.sprintId"-->
-<!--              panelWidth="17rem"-->
-<!--              (selectionChange)="onSprintChange($event)"-->
-<!--              [disabled]="!boardService.isSprintModifiable()"-->
-<!--            >-->
-<!--              @for (sprint of boardService.sprints();-->
-<!--                let index = $index;-->
-<!--                track index) {-->
-<!--                <mat-option [value]="sprint.id" class="font__sm"-->
-<!--                >[Sprint {{ index + 1 }}]-->
-<!--                  {{ sprint.startDate | date: 'dd/MM/yyyy' }} - -->
-<!--                  {{ sprint.endDate | date: 'dd/MM/yyyy' }}-->
-<!--                </mat-option>-->
-<!--              }-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
+        <div class="details__container default__margin d-flex flex-wrap">
+          <!--          <mat-form-field-->
+          <!--            appearance="outline"-->
+          <!--            class="form__field"-->
+          <!--            floatLabel="always"-->
+          <!--          >-->
+          <!--            <mat-label>Sprint</mat-label>-->
+          <!--            <mat-select-->
+          <!--              [(ngModel)]="card.sprintId"-->
+          <!--              panelWidth="17rem"-->
+          <!--              (selectionChange)="onSprintChange($event)"-->
+          <!--              [disabled]="!boardService.isSprintModifiable()"-->
+          <!--            >-->
+          <!--              @for (sprint of boardService.sprints();-->
+          <!--                let index = $index;-->
+          <!--                track index) {-->
+          <!--                <mat-option [value]="sprint.id" class="font__sm"-->
+          <!--                >[Sprint {{ index + 1 }}]-->
+          <!--                  {{ sprint.startDate | date: 'dd/MM/yyyy' }} - -->
+          <!--                  {{ sprint.endDate | date: 'dd/MM/yyyy' }}-->
+          <!--                </mat-option>-->
+          <!--              }-->
+          <!--            </mat-select>-->
+          <!--          </mat-form-field>-->
 
-<!--          <mat-form-field-->
-<!--            appearance="outline"-->
-<!--            class="form__field"-->
-<!--            floatLabel="always"-->
-<!--          >-->
-<!--            <mat-label>Type</mat-label>-->
-<!--            <mat-select-->
-<!--              [ngModel]="card.type"-->
-<!--              (selectionChange)="onTypeChange($event)"-->
-<!--              [disabled]="!boardService.isSprintModifiable()"-->
-<!--            >-->
-<!--              @for (type of types; let index = $index; track index) {-->
-<!--                <mat-option [value]="type.value" class="font__sm"-->
-<!--                >{{ type.label }}-->
-<!--                </mat-option>-->
-<!--              }-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
+          <mat-form-field
+            appearance="outline"
+            class="form__field"
+            floatLabel="always"
+          >
+            <mat-label>Type</mat-label>
+            <mat-select
+              [(ngModel)]="card.cardType"
+              (selectionChange)="onTypeChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            >
+              @for (type of types; let index = $index; track index) {
+                <mat-option [value]="type" class="font__sm"
+                >{{ type }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-<!--          <mat-form-field-->
-<!--            appearance="outline"-->
-<!--            class="form__field"-->
-<!--            floatLabel="always"-->
-<!--          >-->
-<!--            <mat-label>Priority</mat-label>-->
-<!--            <mat-select-->
-<!--              [ngModel]="card.priority"-->
-<!--              (selectionChange)="onPriorityChange($event)"-->
-<!--              [disabled]="!boardService.isSprintModifiable()"-->
-<!--            >-->
-<!--              @for (priority of priorities; let index = $index; track index) {-->
-<!--                <mat-option [value]="priority.value" class="font__sm"-->
-<!--                >{{ priority.label }}-->
-<!--                </mat-option>-->
-<!--              }-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
+          <mat-form-field
+            appearance="outline"
+            class="form__field"
+            floatLabel="always"
+          >
+            <mat-label>Priority</mat-label>
+            <mat-select
+              [(ngModel)]="card.priority"
+              (selectionChange)="onPriorityChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            >
+              @for (priority of priorities; let index = $index; track index) {
+                <mat-option [value]="priority" class="font__sm"
+                >{{ priority }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-<!--          <mat-form-field-->
-<!--            appearance="outline"-->
-<!--            floatLabel="always"-->
-<!--            class="form__field"-->
-<!--          >-->
-<!--            <mat-label>Story points (d)</mat-label>-->
-<!--            <input-->
-<!--              matInput-->
-<!--              type="number"-->
-<!--              [ngModel]="card.storyPoints"-->
-<!--              (change)="onStoryPointsChange($event)"-->
-<!--              [disabled]="!boardService.isSprintModifiable()"-->
-<!--            />-->
-<!--          </mat-form-field>-->
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            class="form__field"
+          >
+            <mat-label>Story points (d)</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="card.storyPoints"
+              (change)="onStoryPointsChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            />
+          </mat-form-field>
 
-<!--          <mat-form-field-->
-<!--            appearance="outline"-->
-<!--            floatLabel="always"-->
-<!--            class="form__field"-->
-<!--          >-->
-<!--            <mat-label>Time spent (h)</mat-label>-->
-<!--            <input-->
-<!--              matInput-->
-<!--              type="number"-->
-<!--              [ngModel]="card.timeSpent"-->
-<!--              (change)="onTimeSpentChange($event)"-->
-<!--              [disabled]="!boardService.isSprintModifiable()"-->
-<!--            />-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
+          <mat-form-field
+            appearance="outline"
+            floatLabel="always"
+            class="form__field"
+          >
+            <mat-label>Time spent (h)</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="card.timeSpent"
+              (change)="onTimeSpentChange($event)"
+              [disabled]="!boardService.isSprintModifiable()"
+            />
+          </mat-form-field>
+          <!--        </div>-->
+        </div>
 
-<!--      <div class="d-flex flex-column gap-3">-->
-<!--        <div class="d-flex align-items-center default__gap">-->
-<!--          <i class="fa-regular fa-align-left fs-5"></i>-->
-<!--          <h3 class="m-0 fw-semibold">Description</h3>-->
-<!--        </div>-->
-<!--        <ckeditor-->
-<!--          [editor]="editor"-->
-<!--          [config]="config"-->
-<!--          [ngModel]="card.description"-->
-<!--          (blur)="onDescriptionChange($event)"-->
-<!--          class="default__margin"-->
-<!--          [disabled]="!boardService.isSprintModifiable()"-->
-<!--        ></ckeditor>-->
-<!--      </div>-->
+        <div class="d-flex flex-column gap-3">
+          <div class="d-flex align-items-center default__gap">
+            <i class="fa-regular fa-align-left fs-5"></i>
+            <h3 class="m-0 fw-semibold">Description</h3>
+          </div>
+          <ckeditor
+            [editor]="editor"
+            [config]="config"
+            [(ngModel)]="card.description"
+            (blur)="onDescriptionChange($event)"
+            class="default__margin"
+            [disabled]="!boardService.isSprintModifiable()"
+          ></ckeditor>
+        </div>
 
-<!--      @if (card.checklist) {-->
-<!--        <div class="d-grid gap-3">-->
-<!--          <div class="d-flex align-items-center default__gap">-->
-<!--            <i class="fa-regular fa-square-check fs-5"></i>-->
-<!--            <h3 class="m-0 fw-semibold flex-grow-1">Checklist</h3>-->
-<!--            <button-->
-<!--              mat-icon-button-->
-<!--              class="has__hover"-->
-<!--              (click)="deleteChecklist()"-->
-<!--            >-->
-<!--              <i class="fa-regular fa-trash fa-2xs"></i>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <todo-checklist-->
-<!--            [checklist]="card.checklist"-->
-<!--            (checklistChange)="onChecklistChange($event)"-->
-<!--          />-->
-<!--        </div>-->
-<!--      }-->
+        <!--      @if (card.checklist) {-->
+        <!--        <div class="d-grid gap-3">-->
+        <!--          <div class="d-flex align-items-center default__gap">-->
+        <!--            <i class="fa-regular fa-square-check fs-5"></i>-->
+        <!--            <h3 class="m-0 fw-semibold flex-grow-1">Checklist</h3>-->
+        <!--            <button-->
+        <!--              mat-icon-button-->
+        <!--              class="has__hover"-->
+        <!--              (click)="deleteChecklist()"-->
+        <!--            >-->
+        <!--              <i class="fa-regular fa-trash fa-2xs"></i>-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--          <todo-checklist-->
+        <!--            [checklist]="card.checklist"-->
+        <!--            (checklistChange)="onChecklistChange($event)"-->
+        <!--          />-->
+        <!--        </div>-->
+        <!--      }-->
 
-<!--      @if (card.attachments) {-->
-<!--        <div class="d-grid gap-3">-->
-<!--          <div class="d-flex align-items-center default__gap">-->
-<!--            <i class="fa-regular fa-paperclip fs-5"></i>-->
-<!--            <h3 class="m-0 fw-semibold flex-grow-1">Attachments</h3>-->
-<!--            <button-->
-<!--              mat-icon-button-->
-<!--              class="has__hover"-->
-<!--              (click)="deleteAttachments()"-->
-<!--            >-->
-<!--              <i class="fa-regular fa-trash fa-2xs"></i>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <todo-attachments-->
-<!--            [attachments]="card.attachments"-->
-<!--            (attachmentsChange)="onAttachmentsChange($event)"-->
-<!--          />-->
-<!--        </div>-->
-<!--      }-->
+        <!--      @if (card.attachments) {-->
+        <!--        <div class="d-grid gap-3">-->
+        <!--          <div class="d-flex align-items-center default__gap">-->
+        <!--            <i class="fa-regular fa-paperclip fs-5"></i>-->
+        <!--            <h3 class="m-0 fw-semibold flex-grow-1">Attachments</h3>-->
+        <!--            <button-->
+        <!--              mat-icon-button-->
+        <!--              class="has__hover"-->
+        <!--              (click)="deleteAttachments()"-->
+        <!--            >-->
+        <!--              <i class="fa-regular fa-trash fa-2xs"></i>-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--          <todo-attachments-->
+        <!--            [attachments]="card.attachments"-->
+        <!--            (attachmentsChange)="onAttachmentsChange($event)"-->
+        <!--          />-->
+        <!--        </div>-->
+        <!--      }-->
 
-<!--      <div-->
-<!--        class="d-grid gap-3"-->
-<!--        *ngIf="card.comments?.length || boardService.isSprintModifiable()"-->
-<!--      >-->
-<!--        <div class="d-flex align-items-center default__gap">-->
-<!--          <i class="fa-regular fa-comment-lines fs-5"></i>-->
-<!--          <h3 class="m-0 fw-semibold">Comments</h3>-->
-<!--        </div>-->
+        <!--      <div-->
+        <!--        class="d-grid gap-3"-->
+        <!--        *ngIf="card.comments?.length || boardService.isSprintModifiable()"-->
+        <!--      >-->
+        <!--        <div class="d-flex align-items-center default__gap">-->
+        <!--          <i class="fa-regular fa-comment-lines fs-5"></i>-->
+        <!--          <h3 class="m-0 fw-semibold">Comments</h3>-->
+        <!--        </div>-->
 
-<!--        <todo-comments-->
-<!--          [comments]="card.comments"-->
-<!--          (commentsChange)="onCommentsChange($event)"-->
-<!--        ></todo-comments>-->
-<!--      </div>-->
+        <!--        <todo-comments-->
+        <!--          [comments]="card.comments"-->
+        <!--          (commentsChange)="onCommentsChange($event)"-->
+        <!--        ></todo-comments>-->
+        <!--      </div>-->
 
-<!--      @if (card.activities.length) {-->
-<!--        <div class="d-grid gap-3">-->
-<!--          <div class="d-flex align-items-center default__gap">-->
-<!--            <i class="fa-solid fa-chart-line fs-5"></i>-->
-<!--            <h3 class="m-0 fw-semibold">Activities</h3>-->
-<!--          </div>-->
+        <!--      @if (card.activities.length) {-->
+        <!--        <div class="d-grid gap-3">-->
+        <!--          <div class="d-flex align-items-center default__gap">-->
+        <!--            <i class="fa-solid fa-chart-line fs-5"></i>-->
+        <!--            <h3 class="m-0 fw-semibold">Activities</h3>-->
+        <!--          </div>-->
 
-<!--          <todo-activities [activities]="card.activities"></todo-activities>-->
-<!--        </div>-->
-<!--      }-->
-<!--    </div>-->
+        <!--          <todo-activities [activities]="card.activities"></todo-activities>-->
+        <!--        </div>-->
+        <!--      }-->
+        <!--    </div>-->
 
-<!--    <div-->
-<!--      class="actions__container d-flex flex-column gap-3"-->
-<!--      *ngIf="boardService.isSprintModifiable()"-->
-<!--    >-->
-<!--      <div class="d-flex flex-column gap-2">-->
-<!--        <p class="font__sm m-0 fw-medium">Actions</p>-->
+        <!--    <div-->
+        <!--      class="actions__container d-flex flex-column gap-3"-->
+        <!--      *ngIf="boardService.isSprintModifiable()"-->
+        <!--    >-->
+        <!--      <div class="d-flex flex-column gap-2">-->
+        <!--        <p class="font__sm m-0 fw-medium">Actions</p>-->
 
-<!--        <button-->
-<!--          mat-button-->
-<!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
-<!--          (click)="deletedCard.emit()"-->
-<!--          mat-dialog-close-->
-<!--        >-->
-<!--          <span class="d-flex align-items-center gap-2">-->
-<!--            <i class="fa-regular fa-trash fa-lg"></i>-->
-<!--            Delete-->
-<!--          </span>-->
-<!--        </button>-->
-<!--      </div>-->
+        <!--        <button-->
+        <!--          mat-button-->
+        <!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
+        <!--          (click)="deletedCard.emit()"-->
+        <!--          mat-dialog-close-->
+        <!--        >-->
+        <!--          <span class="d-flex align-items-center gap-2">-->
+        <!--            <i class="fa-regular fa-trash fa-lg"></i>-->
+        <!--            Delete-->
+        <!--          </span>-->
+        <!--        </button>-->
+        <!--      </div>-->
 
-<!--      <div class="d-flex flex-column gap-2">-->
-<!--        <p class="font__sm m-0 fw-medium">Add to card</p>-->
+        <!--      <div class="d-flex flex-column gap-2">-->
+        <!--        <p class="font__sm m-0 fw-medium">Add to card</p>-->
 
-<!--        <button-->
-<!--          mat-button-->
-<!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
-<!--          (click)="addChecklist()"-->
-<!--        >-->
-<!--          <span class="d-flex align-items-center gap-2">-->
-<!--            <i class="fa-regular fa-square-check fa-lg"></i>-->
-<!--            Checklist-->
-<!--          </span>-->
-<!--        </button>-->
+        <!--        <button-->
+        <!--          mat-button-->
+        <!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
+        <!--          (click)="addChecklist()"-->
+        <!--        >-->
+        <!--          <span class="d-flex align-items-center gap-2">-->
+        <!--            <i class="fa-regular fa-square-check fa-lg"></i>-->
+        <!--            Checklist-->
+        <!--          </span>-->
+        <!--        </button>-->
 
-<!--        <button-->
-<!--          mat-button-->
-<!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
-<!--          (click)="addAttachments()"-->
-<!--        >-->
-<!--          <span class="d-flex align-items-center gap-2">-->
-<!--            <i class="fa-regular fa-paperclip fa-lg"></i>-->
-<!--            Attachments-->
-<!--          </span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--}-->
+        <!--        <button-->
+        <!--          mat-button-->
+        <!--          class="bg__pale__blue has__hover font__sm justify-content-start"-->
+        <!--          (click)="addAttachments()"-->
+        <!--        >-->
+        <!--          <span class="d-flex align-items-center gap-2">-->
+        <!--            <i class="fa-regular fa-paperclip fa-lg"></i>-->
+        <!--            Attachments-->
+        <!--          </span>-->
+        <!--        </button>-->
+      </div>
+    </div>
+  </div>
+}

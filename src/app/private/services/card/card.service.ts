@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
-import { CreateCardRequestDto } from '../../dtos/card.dto';
+import { CardResponseDto, CreateCardRequestDto } from '../../dtos/card.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,9 @@ export class CardService {
 
   save(dto: CreateCardRequestDto) {
     return this.#http.post(this.#BASE_URL, dto);
+  }
+
+  findById(id: number) {
+    return this.#http.get<CardResponseDto>(`${this.#BASE_URL}/${id}`);
   }
 }

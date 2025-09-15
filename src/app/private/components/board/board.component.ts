@@ -49,7 +49,7 @@ export class BoardComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.boardId = parseInt(String(this.#route.snapshot.paramMap.get('id')));
+    this.boardId = Number(this.#route.snapshot.paramMap.get('boardId'));
     this.getBoard();
     this.getLists();
   }

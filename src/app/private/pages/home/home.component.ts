@@ -59,11 +59,11 @@ export class HomeComponent implements OnInit {
     dialog
       .afterClosed()
       .pipe(
-        switchMap(({ prefix, ...req }: CreateBoardRequestDto) => {
+        switchMap((req: CreateBoardRequestDto) => {
           if (req) {
             return this.#boardService.save({
               ...req,
-              prefix: prefix.toUpperCase()
+              prefix: req.prefix.toUpperCase()
             });
           }
 

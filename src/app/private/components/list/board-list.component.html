@@ -1,11 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events -->
 
 @if (list(); as list) {
-  <li
-    class="draggable__item"
-    cdkDrag
-    [cdkDragDisabled]="isEditing"
-  >
+  <li class="draggable__item" cdkDrag [cdkDragDisabled]="isEditing">
     <mat-card class="border__rounded bg__pale__blue shadow-sm">
       <mat-card-title class="d-flex py-2 px-2" cdkDragHandle>
         <h2
@@ -13,8 +9,8 @@
           #listName
           (blur)="onNameChange()"
           (click)="toggleChangeListName()"
-          (keydown.enter)="$event.preventDefault(); listName.blur();"
-          (keydown.shift.enter)="$event.preventDefault(); listName.blur();"
+          (keydown.enter)="$event.preventDefault(); listName.blur()"
+          (keydown.shift.enter)="$event.preventDefault(); listName.blur()"
         >
           {{ list.name }}
         </h2>
@@ -39,6 +35,8 @@
         >
           @for (card of list.cards; track card.id) {
             <todo-card
+              [boardId]="boardId()"
+              [routerLink]="['card', card.id]"
               [card]="card"
               (deletedCard)="getCards()"
             />
@@ -55,10 +53,10 @@
           class="border__rounded has__hover font__sm flex-grow-1 justify-content-start fw-medium"
           (click)="addCard()"
         >
-                <span class="d-flex gap-2 align-items-center">
-                  <i class="fa-regular fa-plus"></i>
-                  Add card
-                </span>
+          <span class="d-flex gap-2 align-items-center">
+            <i class="fa-regular fa-plus"></i>
+            Add card
+          </span>
         </button>
       </mat-card-actions>
     </mat-card>
@@ -109,3 +107,5 @@
 <!--    (closeModal)="dialogRef.close()"-->
 <!--  ></todo-card-detail>-->
 <!--</ng-template>-->
+
+<router-outlet></router-outlet>
