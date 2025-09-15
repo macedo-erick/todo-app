@@ -29,14 +29,15 @@
         <ol
           class="draggable__container ls__none d-flex flex-column p-1 gap-2"
           cdkDropList
-          [cdkDropListData]="cards()"
+          [cdkDropListData]="list.cards"
           (cdkDropListDropped)="onDrop($event)"
           #cardsList
         >
           @for (card of list.cards; track card.id) {
             <todo-card
               [boardId]="boardId()"
-              [routerLink]="['card', card.id]"
+              [routerLink]="[]"
+              [queryParams]="{ card: card.id }"
               [card]="card"
               (deletedCard)="getCards()"
             />
@@ -107,5 +108,3 @@
 <!--    (closeModal)="dialogRef.close()"-->
 <!--  ></todo-card-detail>-->
 <!--</ng-template>-->
-
-<router-outlet></router-outlet>

@@ -4,6 +4,7 @@ import {
   inject,
   input,
   model,
+  OnInit,
   output,
   signal,
   ViewChild
@@ -13,7 +14,7 @@ import {
   CdkDragHandle,
   DragDropModule
 } from '@angular/cdk/drag-drop';
-import { tap, timer } from 'rxjs';
+import { distinctUntilChanged, filter, map, tap, timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
@@ -30,7 +31,8 @@ import { BoardListService } from '../../services/board-list/board-list.service';
 import { CardService } from '../../services/card/card.service';
 import { CardComponent } from '../card/card.component';
 import { CardResponseDto } from '../../dtos/card.dto';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CardDetailComponent } from '../card-detail/card-detail.component';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -49,20 +51,21 @@ type SortDirection = 'asc' | 'desc';
     MatCardActions,
     MatButton,
     CardComponent,
-    RouterLink,
-    RouterOutlet
+    RouterLink
   ]
 })
-export class BoardListComponent {
+export class BoardListComponent implements OnInit {
   #activityService = inject(ActivityService);
   #dialogService = inject(MatDialog);
   #boardListService = inject(BoardListService);
   #cardService = inject(CardService);
+  #route = inject(ActivatedRoute);
+  #router = inject(Router);
+
   boardService = inject(BoardService);
 
   boardId = input.required<number>();
   list = model.required<BoardListResponseDto>();
-  cards = signal<CardResponseDto[]>([]);
 
   removedList = output();
   isEditing = false;
@@ -142,110 +145,43 @@ export class BoardListComponent {
     }
   }
 
-  onDeletedCard(id: number): void {
-    //   this.list.update(({ cards, ...list }) => ({
-    //     ...list,
-    //     cards: cards.filter((c) => c.id !== id)
-    //   }));
-    // }
-    //
-    // sortByCreationDate(sortDirection: SortDirection = 'asc'): void {
-    //   if (sortDirection == 'asc') {
-    //     this.list.update(({ cards, ...list }) => ({
-    //       ...list,
-    //       cards: cards.sort(
-    //         (a, b) =>
-    //           new Date(a.createdDate).getTime() -
-    //           new Date(b.createdDate).getTime()
-    //       )
-    //     }));
+  onDeletedCard(id: number): void {}
+
+  #openCard(card: number): void {
+    if (this.#dialogService.openDialogs.length) return;
+
+    const dialogRef = this.#dialogService.open(CardDetailComponent, {
+      data: { cardId: card },
+      width: '55rem',
+      height: '50rem',
+      autoFocus: 'dialog',
+      panelClass: 'bg__slate__gray'
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        tap(() => {
+          void this.#router.navigate([], {
+            queryParams: { card: null }
+          });
+        })
+      )
+      .subscribe();
   }
-  //
-  //   if (sortDirection == 'desc') {
-  //     this.list.update(({ cards, ...list }) => ({
-  //       ...list,
-  //       cards: cards.sort(
-  //         (a, b) =>
-  //           new Date(b.createdDate).getTime() -
-  //           new Date(a.createdDate).getTime()
-  //       )
-  //     }));
-  //   }
-  // }
-  //
-  // sortByName(sortDirection: SortDirection = 'asc'): void {
-  //   if (sortDirection == 'asc') {
-  //     this.list.update(({ cards, ...list }) => ({
-  //       ...list,
-  //       cards: cards.sort((a, b) => a.name.localeCompare(b.name))
-  //     }));
-  //   }
-  //
-  //   if (sortDirection == 'desc') {
-  //     this.list.update(({ cards, ...list }) => ({
-  //       ...list,
-  //       cards: cards.sort((a, b) => b.name.localeCompare(a.name))
-  //     }));
-  //   }
-  // }
-  //
-  // sortByPriority(sortDirection: SortDirection = 'asc'): void {
-  //   if (sortDirection == 'asc') {
-  //     this.list.update(({ cards, ...list }) => ({
-  //       ...list,
-  //       cards: cards.sort((a, b) => a.priority - b.priority)
-  //     }));
-  //   }
-  //
-  //   if (sortDirection == 'desc') {
-  //     this.list.update(({ cards, ...list }) => ({
-  //       ...list,
-  //       cards: cards.sort((a, b) => b.priority - a.priority)
-  //     }));
-  //   }
-  // }
-  //
-  // private generateActivity(event: CdkDragDrop<Card[]>): void {
-  //   const previousList = document.getElementById(event.previousContainer.id)
-  //     ?.parentElement?.parentElement as HTMLElement;
-  //
-  //   const previousListName = (
-  //     previousList.querySelector('h2') as HTMLHeadingElement
-  //   ).innerText;
-  //
-  //   const currentListName = this.list().name;
-  //
-  //   const card = this.list().cards[event.currentIndex];
-  //
-  //   card.activities = [
-  //     ...card.activities,
-  //     this.#activityService.create(
-  //       `moved the card from ${previousListName} to ${currentListName}`
-  //     )
-  //   ];
-  // }
-  //
-  // openCardDetail(card: Card): void {
-  //   this.card = card;
-  //
-  //   this.dialogRef = this.#dialogService.open(this.cardDetail, {
-  //     width: '55rem',
-  //     height: '50rem',
-  //     autoFocus: 'dialog',
-  //     panelClass: 'bg__slate__gray'
-  //   });
-  // }
-  //
-  // onCardChange(card: Card) {
-  //   const cards = this.list().cards;
-  //
-  //   const index = cards.indexOf(
-  //     this.list().cards.find((c) => c.id == card.id) as Card
-  //   );
-  //
-  //   this.list.update(({ cards, ...list }) => {
-  //     cards[index] = card;
-  //     return { ...list, cards };
-  //   });
-  // }
+
+  #openCardDetailsFromQueryParams(): void {
+    this.#route.queryParams
+      .pipe(
+        map(({ card }) => card),
+        distinctUntilChanged(),
+        filter(Boolean),
+        tap((card) => this.#openCard(card))
+      )
+      .subscribe();
+  }
+
+  ngOnInit(): void {
+    this.#openCardDetailsFromQueryParams();
+  }
 }
