@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { BoardComponent } from './components/board/board.component';
+import { BoardComponent } from './pages/board/board.component';
 
 export const privateRoutes: Routes = [
   { path: 'home', component: HomeComponent },

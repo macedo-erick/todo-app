@@ -12,7 +12,9 @@ import {
 import {
   CdkDragDrop,
   CdkDragHandle,
-  DragDropModule
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { distinctUntilChanged, filter, map, tap, timer } from 'rxjs';
 import { ActivityService } from '../../services/activity/activity.service';
@@ -33,8 +35,8 @@ import { CardComponent } from '../card/card.component';
 import { CardResponseDto } from '../../dtos/card.dto';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
-
-type SortDirection = 'asc' | 'desc';
+import { BoardList } from '../../models/board-list.model';
+import { computePosition } from '../../../util/util';
 
 @Component({
   selector: 'todo-list',
@@ -89,28 +91,28 @@ export class BoardListComponent implements OnInit {
     });
   }
 
-  onDrop(event: CdkDragDrop<CardResponseDto[]>): void {
-    //   if (event.previousContainer === event.container) {
-    //     moveItemInArray(
-    //       event.container.data,
-    //       event.previousIndex,
-    //       event.currentIndex
-    //     );
-    //   } else {
-    //     transferArrayItem(
-    //       event.previousContainer.data,
-    //       event.container.data,
-    //       event.previousIndex,
-    //       event.currentIndex
-    //     );
-    //
-    //     this.generateActivity(event);
-    //   }
-    //
-    //   this.list.update(({ ...list }) => ({
-    //     ...list,
-    //     cards: this.list().cards
-    //   }));
+  onDrop(
+    event: CdkDragDrop<CardResponseDto[]>,
+    targetList: BoardListResponseDto
+  ): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
+    const newPos = computePosition(targetList.cards, event.currentIndex);
+    const movedCard = targetList.cards[event.currentIndex];
+    console.log(movedCard, targetList, newPos);
   }
 
   getCards() {
