@@ -1,58 +1,54 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus, @angular-eslint/template/click-events-have-key-events -->
 
-<!--@if (board(); as board) {-->
-<!--  <div class="board__container bg__light__blue d-flex flex-column w-100 h-100">-->
-<!--    <div class="board__header d-flex align-items-center gap-1">-->
-<!--      <h1-->
-<!--        [ngClass]="{-->
-<!--          'has__hover content__editable': boardService.isSprintModifiable()-->
-<!--        }"-->
-<!--        class="border__rounded select__none m-0 px-2 fs-5 fw-bolder"-->
-<!--        #boardName-->
-<!--        (blur)="onNameChange()"-->
-<!--        (click)="toggleChangeName()"-->
-<!--        (keydown.enter)="$event.preventDefault(); boardName.blur();"-->
-<!--        (keydown.shift.enter)="$event.preventDefault(); boardName.blur();"-->
-<!--      >-->
-<!--        {{ board.name }}-->
-<!--      </h1>-->
+@if (board(); as board) {
+  <div class="board__container bg__light__blue d-flex flex-column w-100 h-100">
+    <div class="board__header d-flex align-items-center gap-1">
+      <h1
+        class="has__hover content__editable border__rounded select__none m-0 px-2 fs-5 fw-bolder"
+        #boardName
+        (blur)="onNameChange()"
+        (click)="toggleChangeName()"
+        (keydown.enter)="$event.preventDefault(); boardName.blur()"
+        (keydown.shift.enter)="$event.preventDefault(); boardName.blur()"
+      >
+        {{ board.name }}
+      </h1>
 
-<!--      @if (boardService.activeSprint(); as activeSprint) {-->
-<!--        <i class="fa-regular fa-calendar-days pe-1"></i>-->
-<!--        <h2 class="m-0">{{ activeSprint.startDate | date }} - {{ activeSprint.endDate | date }}</h2>-->
-<!--      }-->
+      <!--      @if (boardService.activeSprint(); as activeSprint) {-->
+      <!--        <i class="fa-regular fa-calendar-days pe-1"></i>-->
+      <!--        <h2 class="m-0">{{ activeSprint.startDate | date }} - {{ activeSprint.endDate | date }}</h2>-->
+      <!--      }-->
+    </div>
 
-<!--    </div>-->
+    <ol
+      class="draggable__container ls__none d-flex flex-grow-1 mb-0 p-4 gap-3"
+      cdkDropListGroup
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="onDrop($event)"
+      #boardLists
+    >
+      @for (list of lists(); let index = $index; track index) {
+        <todo-list
+          class="list__item"
+          [boardId]="boardId"
+          [list]="list"
+          (removedList)="onRemovedList(index)"
+        />
+      }
 
-<!--    <ol-->
-<!--      class="draggable__container ls__none d-flex flex-grow-1 mb-0 p-4 gap-3"-->
-<!--      cdkDropListGroup-->
-<!--      cdkDropList-->
-<!--      cdkDropListOrientation="horizontal"-->
-<!--      (cdkDropListDropped)="onDrop($event)"-->
-<!--      #boardLists-->
-<!--    >-->
-<!--      @for (list of board.lists; let index = $index; track index) {-->
-<!--        <todo-list-->
-<!--          class="list__item"-->
-<!--          [list]="list"-->
-<!--          (listChange)="onListChange(index, $event)"-->
-<!--          (removedList)="onRemovedList(index)"-->
-<!--        />-->
-<!--      }-->
-
-<!--      @if (loaded() && boardService.isSprintModifiable()) {-->
-<!--        <button-->
-<!--          mat-button-->
-<!--          class="list__item border__rounded has__hover font__sm d-flex justify-content-start py-4 fw-medium"-->
-<!--          (click)="addList()"-->
-<!--        >-->
-<!--          <span class="d-flex gap-2 align-items-center">-->
-<!--            <i class="fa-regular fa-plus"></i>-->
-<!--            Add list-->
-<!--          </span>-->
-<!--        </button>-->
-<!--      }-->
-<!--    </ol>-->
-<!--  </div>-->
-<!--}-->
+      @if (boardService.isSprintModifiable()) {
+        <button
+          mat-button
+          class="list__item border__rounded has__hover font__sm d-flex justify-content-start py-4 fw-medium"
+          (click)="addList()"
+        >
+          <span class="d-flex gap-2 align-items-center">
+            <i class="fa-regular fa-plus"></i>
+            Add list
+          </span>
+        </button>
+      }
+    </ol>
+  </div>
+}

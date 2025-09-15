@@ -87,7 +87,7 @@ export class NewBoardComponent {
     sprints: new FormArray(
       [
         new FormGroup({
-          id: new FormControl(uuidv4()),
+          name: new FormControl('Test'),
           startDate: new FormControl(new Date(), [Validators.required]),
           endDate: new FormControl(addDays(new Date(), 15), [
             Validators.required
@@ -132,7 +132,6 @@ export class NewBoardComponent {
 
   private createSprint(startDate: Date, endDate: Date): FormGroup {
     return new FormGroup({
-      id: new FormControl(uuidv4()),
       startDate: new FormControl(startDate, [Validators.required]),
       endDate: new FormControl(endDate, [Validators.required]),
       status: new FormControl(SprintStatus.PLANNED)

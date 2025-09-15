@@ -1,87 +1,93 @@
 import {
   Component,
-  computed,
   effect,
   ElementRef,
   inject,
   model,
   OnDestroy,
+  OnInit,
+  signal,
   ViewChild
 } from '@angular/core';
-import {
-  CdkDragDrop,
-  DragDropModule,
-  moveItemInArray
-} from '@angular/cdk/drag-drop';
-import { BoardList } from '../../models/board-list.model';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Board } from '../../models/board.model';
-import { timer } from 'rxjs';
+import { tap, timer } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { BoardService } from '../../services/board/board.service';
+import { ActivatedRoute } from '@angular/router';
+import { BoardList } from '../../models/board-list.model';
 import { MatButton } from '@angular/material/button';
-import { ListComponent } from '../list/list.component';
-import { DatePipe, NgClass } from '@angular/common';
+import { BoardListService } from '../../services/board-list/board-list.service';
+import { BoardListResponseDto } from '../../dtos/board-list.dto';
+import { BoardListComponent } from '../list/board-list.component';
 
 @Component({
   selector: 'todo-board',
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   standalone: true,
-  imports: [NgClass, DragDropModule, ListComponent, MatButton, DatePipe]
+  imports: [DragDropModule, MatButton, BoardListComponent]
 })
-export class BoardComponent implements OnDestroy {
-  titleService = inject(Title);
-  // boardService = inject(BoardService);
-  //
-  // board = model.required<Board>();
-  // loaded = computed(() => !!this.board());
-  //
-  // @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
-  // @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
-  //
-  // constructor() {
-  //   effect(() => {
-  //     this.titleService.setTitle(this.board().name);
-  //   });
-  // }
-  //
-  ngOnDestroy(): void {
-    this.titleService.setTitle('Kivo');
+export class BoardComponent implements OnDestroy, OnInit {
+  #titleService = inject(Title);
+  #route = inject(ActivatedRoute);
+  #boardListService = inject(BoardListService);
+  boardService = inject(BoardService);
+
+  boardId = 0;
+
+  board = signal<Board>({} as Board);
+  lists = signal<BoardListResponseDto[]>([]);
+
+  @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
+  @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
+
+  constructor() {
+    effect(() => {
+      this.#titleService.setTitle(this.board().name);
+    });
   }
-  //
-  // toggleChangeName(): void {
-  //   if (this.boardService.isSprintModifiable()) {
-  //     this.boardName.nativeElement.contentEditable = 'true';
-  //     this.boardName.nativeElement.focus();
-  //   }
-  // }
-  //
-  // onNameChange(): void {
-  //   const { innerText } = this.boardName.nativeElement;
-  //   const name = innerText.trim();
-  //
-  //   if (name) {
-  //     this.board.update((board) => ({ ...board, name }));
-  //   }
-  //
-  //   this.boardName.nativeElement.innerText = this.board().name;
-  // }
-  //
-  // onEnter(event: Event) {
-  //   event.preventDefault();
-  // }
-  //
-  // addList(): void {
-  //   this.board.update(({ lists, ...board }) => ({
-  //     ...board,
-  //     lists: lists.concat({ name: 'New list', cards: [] })
-  //   }));
-  //
-  //   timer(100).subscribe(() => {
-  //     const list = this.boardLists.nativeElement;
-  //     list.scrollLeft = list.scrollWidth;
-  //   });
-  // }
+
+  ngOnInit(): void {
+    this.boardId = parseInt(String(this.#route.snapshot.paramMap.get('id')));
+    this.getBoard();
+    this.getLists();
+  }
+
+  ngOnDestroy(): void {
+    this.#titleService.setTitle('Kivo');
+  }
+
+  toggleChangeName(): void {
+    if (this.boardService.isSprintModifiable()) {
+      this.boardName.nativeElement.contentEditable = 'true';
+      this.boardName.nativeElement.focus();
+    }
+  }
+
+  onNameChange(): void {
+    const { innerText } = this.boardName.nativeElement;
+    const name = innerText.trim();
+
+    if (name) {
+      this.board.update((board) => ({ ...board, name }));
+      this.boardService.update(this.board()).subscribe();
+    }
+
+    this.boardName.nativeElement.innerText = this.board().name;
+  }
+
+  addList(): void {
+    this.#boardListService
+      .save({ boardId: this.boardId, name: 'New List' })
+      .pipe(tap(() => this.getLists()))
+      .subscribe();
+
+    timer(100).subscribe(() => {
+      const list = this.boardLists.nativeElement;
+      list.scrollLeft = list.scrollWidth;
+    });
+  }
   //
   // onListChange(index: number, list: BoardList): void {
   //   this.board.update(({ lists, ...board }) => {
@@ -90,23 +96,37 @@ export class BoardComponent implements OnDestroy {
   //   });
   // }
   //
-  // onRemovedList(index: number): void {
-  //   this.board.update(({ lists, ...board }) => ({
-  //     ...board,
-  //     lists: lists.filter((_, i) => i !== index)
-  //   }));
-  // }
+  onRemovedList(index: number): void {
+    // this.board.update(({ lists, ...board }) => ({
+    //   ...board,
+    //   lists: lists.filter((_, i) => i !== index)
+    // }));
+  }
   //
-  // onDrop(event: CdkDragDrop<BoardList>): void {
-  //   moveItemInArray(
-  //     this.board().lists,
-  //     event.previousIndex,
-  //     event.currentIndex
-  //   );
-  //
-  //   this.board.update(({ ...board }) => ({
-  //     ...board,
-  //     lists: this.board().lists
-  //   }));
-  // }
+  onDrop(event: CdkDragDrop<BoardList>): void {
+    // moveItemInArray(
+    //   this.board().lists,
+    //   event.previousIndex,
+    //   event.currentIndex
+    // );
+    //
+    // this.board.update(({ ...board }) => ({
+    //   ...board,
+    //   lists: this.board().lists
+    // }));
+  }
+
+  private getBoard() {
+    this.boardService
+      .find(this.boardId)
+      .pipe(tap((res) => this.board.set(res)))
+      .subscribe();
+  }
+
+  private getLists() {
+    this.boardService
+      .getLists(this.boardId)
+      .pipe(tap((res) => this.lists.set(res)))
+      .subscribe();
+  }
 }

@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
-import { BoardsResponseDto } from '../../dtos/board.dto';
 import { MatRipple } from '@angular/material/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
+import { BoardResponseDto } from '../../dtos/board.dto';
 
 @Component({
   selector: 'todo-board-card',
@@ -12,5 +12,5 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, MatCard, MatRipple, MatCardContent]
 })
 export class BoardCardComponent {
-  board = input<BoardsResponseDto>();
+  board = input<BoardResponseDto>();
 }
