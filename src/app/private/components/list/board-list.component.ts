@@ -35,7 +35,6 @@ import { CardComponent } from '../card/card.component';
 import { CardResponseDto } from '../../dtos/card.dto';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
-import { BoardList } from '../../models/board-list.model';
 import { computePosition } from '../../../util/util';
 
 @Component({

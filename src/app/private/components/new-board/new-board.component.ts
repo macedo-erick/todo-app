@@ -95,7 +95,7 @@ export class NewBoardComponent {
           status: new FormControl(SprintStatus.ACTIVE)
         })
       ],
-      this.minLengthArray(1)
+      this.#minLengthArray(1)
     )
   });
   #dialogRef = inject(MatDialogRef<NewBoardComponent>);
@@ -106,11 +106,11 @@ export class NewBoardComponent {
     () => this.formGroup.get('sprints') as FormArray<FormGroup>
   );
 
-  @ViewChild(MatTable) private table?: MatTable<FormGroup>;
+  @ViewChild(MatTable) table!: MatTable<FormGroup>;
 
   removeSprint(index: number): void {
     this.sprints().removeAt(index);
-    this.table?.renderRows();
+    this.table.renderRows();
   }
 
   saveBoard() {
@@ -124,13 +124,13 @@ export class NewBoardComponent {
     const endDate = lastSprint?.endDate || new Date();
 
     this.sprints().push(
-      this.createSprint(addDays(endDate, 1), addDays(endDate, 15))
+      this.#createSprint(addDays(endDate, 1), addDays(endDate, 15))
     );
 
     this.table?.renderRows();
   }
 
-  private createSprint(startDate: Date, endDate: Date): FormGroup {
+  #createSprint(startDate: Date, endDate: Date): FormGroup {
     return new FormGroup({
       startDate: new FormControl(startDate, [Validators.required]),
       endDate: new FormControl(endDate, [Validators.required]),
@@ -138,7 +138,7 @@ export class NewBoardComponent {
     });
   }
 
-  private minLengthArray(min: number) {
+  #minLengthArray(min: number) {
     return (c: AbstractControl): ValidationErrors | null => {
       if (c instanceof FormArray) {
         return c.length >= min

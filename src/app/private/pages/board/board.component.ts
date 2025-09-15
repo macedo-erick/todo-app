@@ -50,8 +50,9 @@ export class BoardComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.boardId = Number(this.#route.snapshot.paramMap.get('boardId'));
-    this.getBoard();
-    this.getLists();
+
+    this.#getBoard();
+    this.#getLists();
   }
 
   ngOnDestroy(): void {
@@ -80,7 +81,7 @@ export class BoardComponent implements OnDestroy, OnInit {
   addList(): void {
     this.#boardListService
       .save({ boardId: this.boardId, name: 'New List' })
-      .pipe(tap(() => this.getLists()))
+      .pipe(tap(() => this.#getLists()))
       .subscribe();
 
     timer(100).subscribe(() => {
@@ -116,14 +117,14 @@ export class BoardComponent implements OnDestroy, OnInit {
     // }));
   }
 
-  private getBoard() {
+  #getBoard() {
     this.boardService
       .find(this.boardId)
       .pipe(tap((res) => this.board.set(res)))
       .subscribe();
   }
 
-  private getLists() {
+  #getLists() {
     this.boardService
       .getLists(this.boardId)
       .pipe(tap((res) => this.lists.set(res)))
