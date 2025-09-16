@@ -1,20 +1,18 @@
 import { Sprint } from '../models/sprint.model';
 import { CardPriority, CardType } from '../models/card.model';
-import { UserResponseDto } from './user.dto';
+import { UserResponse } from './user.dto';
 
-export interface CreateCardRequestDto {
+export interface CardCreateRequest {
   name: string;
-  boardId: number;
-  listId: number;
 }
 
-export interface CardResponseDto {
+export interface CardResponse {
   createdAt: Date;
   updatedAt: Date;
   archived: boolean;
   archivedAt: Date;
   sprint: Sprint;
-  assignee: UserResponseDto;
+  assignee: UserResponse;
   storyPoints: number;
   timeSpent: number;
   cardType: CardType;
@@ -24,11 +22,11 @@ export interface CardResponseDto {
   id: number;
   position: number;
   description: string;
-  attachments: CardAttachmentDto[];
-  checklists: CardChecklistDto[];
+  attachments: CardAttachment[];
+  checklists: CardChecklist[];
 }
 
-interface CardAttachmentDto {
+interface CardAttachment {
   createdAt: Date;
   updatedAt: Date;
   id: number;
@@ -37,7 +35,7 @@ interface CardAttachmentDto {
   url: string;
 }
 
-interface CardChecklistDto {
+interface CardChecklist {
   id: number;
   name: string;
 }

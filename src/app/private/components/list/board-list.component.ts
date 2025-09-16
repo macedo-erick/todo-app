@@ -6,6 +6,7 @@ import {
   model,
   OnInit,
   output,
+  signal,
   ViewChild
 } from '@angular/core';
 import {
@@ -16,7 +17,6 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { distinctUntilChanged, filter, map, tap, timer } from 'rxjs';
-import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { MatButton } from '@angular/material/button';
 import { NgIf } from '@angular/common';
@@ -27,14 +27,12 @@ import {
   MatCardTitle
 } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardListResponseDto } from '../../dtos/board-list.dto';
-import { BoardListService } from '../../services/board-list/board-list.service';
-import { CardService } from '../../services/card/card.service';
+import { BoardListResponse } from '../../dtos/board-list.dto';
 import { CardComponent } from '../card/card.component';
-import { CardResponseDto } from '../../dtos/card.dto';
+import { CardResponse } from '../../dtos/card.dto';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CardDetailComponent } from '../card-detail/card-detail.component';
-import { computePosition } from '../../../util/util';
+import { BoardListService } from '../../services/board-list/board-list.service';
 
 @Component({
   selector: 'todo-list',
@@ -55,17 +53,16 @@ import { computePosition } from '../../../util/util';
   ]
 })
 export class BoardListComponent implements OnInit {
-  #activityService = inject(ActivityService);
   #dialogService = inject(MatDialog);
   #boardListService = inject(BoardListService);
-  #cardService = inject(CardService);
   #route = inject(ActivatedRoute);
   #router = inject(Router);
 
   boardService = inject(BoardService);
 
   boardId = input.required<number>();
-  list = model.required<BoardListResponseDto>();
+  list = model.required<BoardListResponse>();
+  cards = signal<CardResponse[]>([]);
 
   removedList = output();
   isEditing = false;
@@ -74,10 +71,8 @@ export class BoardListComponent implements OnInit {
   @ViewChild('cardsList') cardsList!: ElementRef<HTMLOListElement>;
 
   addCard(): void {
-    this.#cardService
-      .save({
-        boardId: this.boardId(),
-        listId: this.list().id,
+    this.#boardListService
+      .saveCard(this.list().id, {
         name: 'New Card'
       })
       .pipe(tap(() => this.getCards()))
@@ -90,8 +85,8 @@ export class BoardListComponent implements OnInit {
   }
 
   onDrop(
-    event: CdkDragDrop<CardResponseDto[]>,
-    targetList: BoardListResponseDto
+    event: CdkDragDrop<CardResponse[]>,
+    targetList: BoardListResponse
   ): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -108,15 +103,17 @@ export class BoardListComponent implements OnInit {
       );
     }
 
-    const newPos = computePosition(targetList.cards, event.currentIndex);
-    const movedCard = targetList.cards[event.currentIndex];
-    console.log(movedCard, targetList, newPos);
+    console.log(targetList);
+
+    // const newPos = computePosition(targetList.cards, event.currentIndex);
+    // const movedCard = targetList.cards[event.currentIndex];
+    // console.log(movedCard, targetList, newPos);
   }
 
   getCards() {
     return this.#boardListService
       .getCards(this.list().id)
-      .pipe(tap((res) => this.list.update((list) => ({ ...list, cards: res }))))
+      .pipe(tap(this.cards.set))
       .subscribe();
   }
 
@@ -127,7 +124,7 @@ export class BoardListComponent implements OnInit {
     if (name) {
       this.list.update((list) => ({ ...list, name: innerText.trim() }));
       this.#boardListService
-        .update({ name: this.list().name, boardId: this.list().id })
+        .update(this.list().id, { name: this.list().name })
         .subscribe();
     }
 
@@ -145,7 +142,9 @@ export class BoardListComponent implements OnInit {
     }
   }
 
-  onDeletedCard(id: number): void {}
+  onDeletedCard(id: number): void {
+    console.log(id);
+  }
 
   #openCard(card: number): void {
     if (this.#dialogService.openDialogs.length) return;
@@ -183,5 +182,6 @@ export class BoardListComponent implements OnInit {
 
   ngOnInit(): void {
     this.#openCardDetailsFromQueryParams();
+    this.getCards();
   }
 }

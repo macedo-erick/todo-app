@@ -1,5 +1,5 @@
 import { EditorConfig } from '@ckeditor/ckeditor5-core';
-import { CardResponseDto } from '../private/dtos/card.dto';
+import { CardResponse } from '../private/dtos/card.dto';
 
 const editorConfig: EditorConfig = {
   typing: {
@@ -45,7 +45,7 @@ function round6(n: number) {
   return Math.round(n * 1e6) / 1e6;
 }
 
-function computePosition(arr: CardResponseDto[], index: number): number {
+function computePosition(arr: CardResponse[], index: number): number {
   const GAP = 100;
   const prev = index > 0 ? arr[index - 1].position : undefined;
   const next = index < arr.length - 1 ? arr[index + 1].position : undefined;

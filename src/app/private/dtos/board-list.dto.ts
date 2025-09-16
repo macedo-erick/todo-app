@@ -1,17 +1,14 @@
-import { CardResponseDto } from './card.dto';
-import { UserResponseDto } from './user.dto';
+import { UserResponse } from './user.dto';
 
-export interface CreateBoardListRequestDto {
-  boardId: number;
+export interface BoardListCreateRequest {
   name: string;
 }
 
-export interface BoardListResponseDto {
+export interface BoardListResponse {
   archived: boolean;
   archivedAt: Date;
-  archivedBy: UserResponseDto;
+  archivedBy: UserResponse;
   name: string;
   id: number;
   position: number;
-  cards: CardResponseDto[];
 }

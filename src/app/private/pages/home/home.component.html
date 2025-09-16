@@ -15,7 +15,7 @@
 
   @if (boards(); as boards) {
     <ul class="boards__container p-0 ls__none">
-      @for (board of boards.content; track board.id) {
+      @for (board of boards; track board.id) {
         <li>
           <todo-board-card [board]="board" />
         </li>

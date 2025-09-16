@@ -1,6 +1,6 @@
 import { SprintStatus } from '../models/sprint.model';
 
-export interface CreateSprintRequestDto {
+export interface SprintCreateRequest {
   boardId?: number;
   name: string;
   startDate: Date;

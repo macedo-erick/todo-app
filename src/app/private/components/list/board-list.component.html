@@ -29,11 +29,11 @@
         <ol
           class="draggable__container ls__none d-flex flex-column p-1 gap-2"
           cdkDropList
-          [cdkDropListData]="list.cards"
+          [cdkDropListData]="cards()"
           (cdkDropListDropped)="onDrop($event, list)"
           #cardsList
         >
-          @for (card of list.cards; track card.id) {
+          @for (card of cards(); track card.id) {
             <todo-card
               [boardId]="boardId()"
               [routerLink]="[]"

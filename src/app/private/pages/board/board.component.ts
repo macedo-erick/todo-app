@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BoardList } from '../../models/board-list.model';
 import { MatButton } from '@angular/material/button';
 import { BoardListService } from '../../services/board-list/board-list.service';
-import { BoardListResponseDto } from '../../dtos/board-list.dto';
+import { BoardListResponse } from '../../dtos/board-list.dto';
 import { BoardListComponent } from '../../components/list/board-list.component';
 
 @Component({
@@ -36,7 +36,7 @@ export class BoardComponent implements OnDestroy, OnInit {
   boardId = 0;
 
   board = signal<Board>({} as Board);
-  lists = signal<BoardListResponseDto[]>([]);
+  lists = signal<BoardListResponse[]>([]);
 
   @ViewChild('boardName') boardName!: ElementRef<HTMLHeadingElement>;
   @ViewChild('boardLists') boardLists!: ElementRef<HTMLOListElement>;
@@ -78,8 +78,8 @@ export class BoardComponent implements OnDestroy, OnInit {
   }
 
   addList(): void {
-    this.#boardListService
-      .save({ boardId: this.boardId, name: 'New List' })
+    this.boardService
+      .saveList(this.boardId, { name: 'New List' })
       .pipe(tap(() => this.#getLists()))
       .subscribe();
 
@@ -125,7 +125,7 @@ export class BoardComponent implements OnDestroy, OnInit {
 
   #getLists() {
     this.boardService
-      .getLists(this.boardId)
+      .findLists(this.boardId)
       .pipe(tap((res) => this.lists.set(res)))
       .subscribe();
   }

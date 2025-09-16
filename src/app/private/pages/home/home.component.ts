@@ -9,8 +9,7 @@ import { MatButton } from '@angular/material/button';
 import { BoardCardComponent } from '../../components/board-card/board-card.component';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { UserService } from '../../services/user/user.service';
-import { Page } from '../../dtos/page.dto';
-import { BoardResponseDto, CreateBoardRequestDto } from '../../dtos/board.dto';
+import { BoardCreateRequest } from '../../dtos/board.dto';
 
 @Component({
   templateUrl: './home.component.html',
@@ -35,7 +34,7 @@ export class HomeComponent implements OnInit {
   loaded = signal(() => this.boards());
 
   boards = toSignal(this.#userService.findAllBoards(), {
-    initialValue: new Page<BoardResponseDto>()
+    initialValue: []
   });
   #dialogService = inject(MatDialog);
 
@@ -59,7 +58,7 @@ export class HomeComponent implements OnInit {
     dialog
       .afterClosed()
       .pipe(
-        switchMap((req: CreateBoardRequestDto) => {
+        switchMap((req: BoardCreateRequest) => {
           if (req) {
             return this.#boardService.save({
               ...req,

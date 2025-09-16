@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { BoardList } from '../../models/board-list.model';
-import { CreateBoardListRequestDto } from '../../dtos/board-list.dto';
-import { CardResponseDto } from '../../dtos/card.dto';
+import { BoardListCreateRequest } from '../../dtos/board-list.dto';
+import { CardCreateRequest, CardResponse } from '../../dtos/card.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,25 @@ export class BoardListService {
   #http = inject(HttpClient);
   #BASE_URL = `${environment.apiBasePath}/board-lists`;
 
-  save(boardList: CreateBoardListRequestDto): Observable<BoardList> {
+  save(boardList: BoardListCreateRequest): Observable<BoardList> {
     return this.#http.post<BoardList>(this.#BASE_URL, boardList);
   }
 
-  update(boardList: CreateBoardListRequestDto): Observable<BoardList> {
-    return this.#http.patch<BoardList>(this.#BASE_URL, boardList);
+  update(id: number, boardList: BoardListCreateRequest): Observable<BoardList> {
+    return this.#http.patch<BoardList>(`${this.#BASE_URL}/${id}`, boardList);
   }
 
-  getCards(id: number): Observable<CardResponseDto[]> {
-    return this.#http.get<CardResponseDto[]>(`${this.#BASE_URL}/${id}/cards`);
+  saveCard(boardListId: number, request: CardCreateRequest) {
+    return this.#http.post(`${this.#BASE_URL}/${boardListId}/cards`, request);
+  }
+
+  getCards(id: number): Observable<CardResponse[]> {
+    let params = new HttpParams();
+
+    params = params.set('sort', 'position,asc');
+
+    return this.#http.get<CardResponse[]>(`${this.#BASE_URL}/${id}/cards`, {
+      params
+    });
   }
 }

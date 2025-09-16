@@ -1,10 +1,17 @@
-import { Component, ElementRef, inject, OnInit, output, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  output,
+  signal,
+  ViewChild
+} from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CardPriority, CardType } from '../../models/card.model';
 import { CardChecklist } from '../../models/card-checklist.model';
 import { editorConfig } from '../../../util/util';
 import { CardComment } from '../../models/card-comment.model';
-import { ActivityService } from '../../services/activity/activity.service';
 import { BoardService } from '../../services/board/board.service';
 import { CardAttachment } from '../../models/card-attachment.model';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
@@ -16,7 +23,7 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { NgClass } from '@angular/common';
 import { CardService } from '../../services/card/card.service';
 import { tap } from 'rxjs';
-import { CardResponseDto } from '../../dtos/card.dto';
+import { CardResponse } from '../../dtos/card.dto';
 
 @Component({
   selector: 'todo-card-detail',
@@ -35,14 +42,13 @@ import { CardResponseDto } from '../../dtos/card.dto';
   ]
 })
 export class CardDetailComponent implements OnInit {
-  #activityService = inject(ActivityService);
   #cardService = inject(CardService);
 
   boardService = inject(BoardService);
 
   data: { cardId: string } = inject(MAT_DIALOG_DATA);
 
-  card = signal<CardResponseDto>({} as CardResponseDto);
+  card = signal<CardResponse>({} as CardResponse);
 
   deletedCard = output();
   closeModal = output();

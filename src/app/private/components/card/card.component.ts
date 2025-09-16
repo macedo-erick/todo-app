@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NgClass } from '@angular/common';
 import { MatCard, MatCardFooter, MatCardTitle } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { CardResponseDto } from '../../dtos/card.dto';
+import { CardResponse } from '../../dtos/card.dto';
 
 @Component({
   selector: 'todo-card',
@@ -15,7 +15,7 @@ import { CardResponseDto } from '../../dtos/card.dto';
   imports: [CdkDrag, MatCard, MatCardTitle, MatCardFooter, NgClass]
 })
 export class CardComponent {
-  card = model.required<CardResponseDto>();
+  card = model.required<CardResponse>();
   boardId = model.required<number>();
 
   deletedCard = output();
@@ -72,7 +72,7 @@ export class CardComponent {
   //   return;
   // });
 
-  onCardChange(card: CardResponseDto): void {
+  onCardChange(card: CardResponse): void {
     this.card.update(() => card);
   }
 }

@@ -1,18 +1,18 @@
-import { CreateSprintRequestDto } from './sprint.dto';
-import { UserResponseDto } from './user.dto';
+import { SprintCreateRequest } from './sprint.dto';
+import { UserResponse } from './user.dto';
 
-export interface CreateBoardRequestDto {
+export interface BoardCreateRequest {
   name: string;
   prefix: string;
-  sprints: CreateSprintRequestDto[];
+  sprints: SprintCreateRequest[];
 }
 
-export interface BoardResponseDto {
+export interface BoardResponse {
   archived: boolean;
   createdAt: Date;
   updatedAt: Date;
   archivedAt: Date;
-  archivedBy: UserResponseDto;
+  archivedBy: UserResponse;
   name: string;
   id: number;
   prefix: string;
